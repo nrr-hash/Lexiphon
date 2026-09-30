@@ -758,6 +758,31 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
 .d-add{background:rgba(64,190,120,.26);color:inherit;border-radius:2px;padding:0 .08em;box-shadow:inset 0 -2px 0 rgba(42,111,86,.55)}
 .d-del{color:#ad3e27;text-decoration:line-through;text-decoration-thickness:1.5px;opacity:.8;font-size:.9em}
 .sy-tape-empty{color:#6a7771}
+/* Lexiphon voices: word lists per archetype, marks in the colour of the voice that chose them */
+.sy-arch button::after{content:"";position:absolute;left:16%;right:16%;bottom:2px;height:3px;border-radius:2px;background:var(--ac,transparent);box-shadow:0 0 0 1px rgba(255,255,255,.4)}
+.d-add[data-a]{background:color-mix(in srgb,var(--ac) 20%,transparent);box-shadow:inset 0 -3px 0 var(--ac)}
+.sy-key{display:inline-flex;flex-wrap:wrap;gap:.2rem .7rem;margin-left:.5rem;vertical-align:middle}
+.sy-keyi{display:inline-flex;align-items:center;gap:.3rem;font-size:.7rem;font-weight:700;letter-spacing:.04em;color:#3b4641}
+.sy-keyi i{width:.9rem;height:.3rem;border-radius:2px;background:var(--ac)}
+.sy-lex{margin-top:1.1rem}
+.sy-lex-h{margin:0 0 .5rem;color:var(--slate)}
+.sy-cards{display:grid;grid-template-columns:minmax(0,1fr);gap:.8rem}
+@media (min-width:860px){.sy-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.sy-card{background:var(--paper-2);border:1px solid var(--rule);border-left:5px solid var(--ac);border-radius:10px 2px 10px 2px;padding:.8rem .9rem .9rem;font-size:.86rem;line-height:1.45;color:var(--ink);min-width:0}
+.sy-card.off{opacity:.6}
+.sy-card header{display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .55rem;margin-bottom:.35rem}
+.sy-card header b{font-size:.98rem}
+.sy-sw{display:inline-flex;gap:2px}.sy-sw i{width:.7rem;height:.7rem;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.22)}
+.sy-reg{margin-left:auto;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+.sy-tone,.sy-snd,.sy-cnt{margin:.15rem 0}
+.sy-snd em{font-style:normal;font-weight:700}
+.sy-cnt{font-weight:700}
+.sy-words{list-style:none;margin:.4rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.25rem}
+.sy-words li{border:1px solid var(--rule);border-radius:3px;padding:.08rem .4rem;font-size:.78rem;color:var(--slate);background:var(--paper)}
+.sy-words li b{font-weight:700;color:var(--ink)}
+.sy-words li.on{background:color-mix(in srgb,var(--ac) 18%,var(--paper));border-color:var(--ac);color:var(--ink)}
+.sy-card details{margin-top:.4rem}.sy-card summary{cursor:pointer;font-size:.78rem;font-weight:700;color:var(--slate)}
+
 .sy-tape-b{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem .8rem;margin-top:.5rem}
 .sy-legend{font-size:.74rem;color:#4d5a53}
 .sy-legend mark,.sy-legend del{font-size:1em}
@@ -1119,7 +1144,7 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
     <div class="st-head">
       <p class="test-label"><span class="test-n">Studio</span> All three tests, on your own text</p>
       <h3>Lexiphon</h3>
-      <p class="lead-in">Patch in any text and turn the dials. The output rewrites itself as you go, splitting and joining sentences and swapping words to meet each target, with every change marked. It all runs on this page, and the words are a machine’s until you check them.</p>
+      <p class="lead-in">Patch in any text and turn the dials. The output rewrites itself as you go: it splits and joins sentences, swaps words, and marks every change. Each archetype keeps its own word list, so Sage and Jester choose different words for the same job, and each mark takes the colour of the voice that chose it. It all runs on this page, and the words are a machine’s until you check them.</p>
     </div>
     <div class="synth" role="group" aria-label="Lexiphon panel">
       <div class="sy-cheek" aria-hidden="true"></div>
@@ -1128,12 +1153,13 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
         <div class="sy-patch">
           <label class="sy-cap" for="stText">Patch in your text</label>
           <div class="sy-bay"><textarea id="stText" spellcheck="false" aria-label="Text for Lexiphon" maxlength="7000" placeholder="Paste or type here, up to about 1,000 words. Nothing you enter leaves your browser."></textarea><div class="sy-scope" aria-hidden="true"><span class="sy-scope-tag">SCOPE · SENTENCE LENGTHS</span><canvas id="syScope"></canvas><div class="sy-scope-read" id="syScopeRead"></div></div></div>
-          <div class="sy-chips" role="group" aria-label="Sample text"><button type="button" class="sy-chip" data-src="baText">Product page</button><button type="button" class="sy-chip" data-src="slopText">Machine draft</button><button type="button" class="sy-chip" data-src="cleanText">Edited pitch</button><button type="button" class="sy-chip" data-src="clear">Clear</button></div>
+          <div class="sy-chips" role="group" aria-label="Sample text"><button type="button" class="sy-chip" data-src="voiceText" title="Invented copy, written to give every word list something to work on">Voice sample (invented)</button><button type="button" class="sy-chip" data-src="baText">Product page</button><button type="button" class="sy-chip" data-src="slopText">Machine draft</button><button type="button" class="sy-chip" data-src="cleanText">Edited pitch</button><button type="button" class="sy-chip" data-src="clear">Clear</button></div>
+          <script type="text/plain" id="voiceText">We help customers with big problems using a simple plan. Our team uses good tools, and we check every result. The new process is quick, and it keeps the cost low. We explain each step, so people understand what happens next. Many clients find it easy to start. It is a great way to get the results, and we are very happy to show the method. It is not a secret, and we do not hide it.</script>
         </div>
         <div class="sy-tape-wrap">
           <div class="sy-tape-h"><span class="sy-cap">Output · the text as the dials set it</span><span class="sy-tape-sum" id="syTapeSum"></span></div>
           <div class="sy-tape" id="syPreview"></div>
-          <div class="sy-tape-b"><span class="sy-legend"><mark class="d-add">changed or added</mark> <del class="d-del">removed</del></span><button type="button" class="sy-chip" id="syUseOut">Use as input</button></div>
+          <div class="sy-tape-b"><span class="sy-legend"><mark class="d-add">changed or added</mark> <del class="d-del">removed</del> <span class="sy-key" id="syKey"></span></span><button type="button" class="sy-chip" id="syUseOut">Use as input</button></div>
         </div>
         <div class="sy-row">
           <div class="sy-sec" id="syRhythm">
@@ -1168,9 +1194,10 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
       </div>
       <div class="sy-cheek" aria-hidden="true"></div>
     </div>
+    <div class="sy-lex" id="syLex"></div>
     <div class="sy-report" aria-live="polite">
       <div class="sy-lines" id="syLines"></div>
-      <p class="sy-note"><b>How to read it.</b> Rhythm uses the same maths as How a sentence lands. End weight counts sentences that close on a content word rather than a function word such as “it” or “of”, a simple test of end focus. Voice is a vocabulary heuristic: the word palettes are my own, after the twelve archetypes in Margaret Mark and Carol S. Pearson, <i>The Hero and the Outlaw</i> (2001). It reads word choice, not meaning, and no dial here settles who or what wrote a text. The live output is rule-based: it splits and joins sentences at natural joints and swaps words from a fixed table, so it keeps your facts but writes like a machine, because it is one. Everything runs in your browser, and nothing you enter leaves it.</p>
+      <p class="sy-note"><b>How to read it.</b> Rhythm uses the same maths as How a sentence lands. End weight counts sentences that close on a content word rather than a function word such as “it” or “of”, a simple test of end focus. Voice is a vocabulary heuristic: the word lists are my own, after the twelve archetypes in Margaret Mark and Carol S. Pearson, <i>The Hero and the Outlaw</i> (2001). Each archetype keeps its own list of everyday words, screened against my banned-word lists, and the colour, sound, and tone cues beside them are working notes, not measurements. The output is rule-based: it splits and joins sentences at natural joints, swaps words from the chosen lists, and contracts or expands a few phrases, with a handful of grammar checks to keep each swap in its sense. A rule cannot read meaning, so check every marked change before you trust it. Voice reads word choice, not meaning, and no dial here settles who or what wrote a text. Everything runs in your browser, and nothing you enter leaves it.</p>
     </div>
   </div>
 </section>
@@ -2301,7 +2328,7 @@ var FUNC = {}; ("a an the this that these those it its they them their theirs he
   "though although while whereas because until unless").split(" ").forEach(function(w){ FUNC[w] = 1; });
 /* voice palettes: my own, after the twelve archetypes in Mark and Pearson (2001) */
 var ARCH = [
-  ["Innocent","simple pure honest clean fresh natural trust safe good gentle easy bright calm wholesome clear"],
+  ["Innocent","simple pure honest clean fresh natural trust safe good gentle easy bright calm wholesome clear authentic candid cheerful decent earnest genuine happy harmony"],
   ["Explorer","discover explore wander travel frontier open free road path horizon beyond route wild roam trail escape"],
   ["Sage","know truth evidence research understand learn study reason fact source analysis data measure prove method expert wisdom rigour clarity"],
   ["Hero","win strong courage challenge fight master champion beat overcome push goal perform achieve tough grit victory"],
@@ -2314,8 +2341,28 @@ var ARCH = [
   ["Creator","create make build design invent original idea compose shape draft prototype author studio sketch form"],
   ["Ruler","lead leader control order standard rule command govern authority stable secure manage system policy power responsible"]
 ].map(function(a){ return {name:a[0], stems:a[1].split(" ")}; });
+/* cues per archetype: a mark colour for the tape, swatches, a register, a sound and a tone note (working notes, not measurements) */
+var CUES = {
+  "Innocent":{col:"#3f93cf", sw:["#ffffff","#6ab7e8","#f7e38a","#a8e6cf"], reg:"Plain", sound:"Light bells and glockenspiel, bright major chords", tone:"Optimistic, simple, transparent. Short sentences, gentle directness, plain honesty."},
+  "Explorer":{col:"#c25400", sw:["#8a6a4a","#355e3b","#cc5500","#5f6b73"], reg:"Vivid", sound:"Driving percussion, raw acoustic strings, wind and gravel", tone:"Restless, daring, energetic. Verbs of motion and discovery, open space, a push past the comfort zone."},
+  "Sage":{col:"#1f3a5f", sw:["#b8bec4","#8a95a0","#1f3a5f","#5d6b7a"], reg:"Formal", sound:"Minimalist electronics, precise Bach, crisp narration, no heavy percussion", tone:"Knowledgeable, objective, articulate. Data, insight and proof over emotion, in the voice of a trusted expert."},
+  "Hero":{col:"#c62828", sw:["#d62828","#111111","#aab2b8","#2a4bb5"], reg:"Bold", sound:"Driving guitars, fast percussion, soaring brass, heartbeat tempos", tone:"Motivating, bold, direct. Action verbs, grit, and the overcoming of obstacles."},
+  "Outlaw":{col:"#6d9a00", sw:["#1a1a1a","#a4d600","#ff2e93","#c1121f"], reg:"Bold", sound:"Heavy metal, distorted bass, industrial noise, sudden beat drops", tone:"Disruptive, provocative, unapologetic. Blunt, forceful phrasing aimed at broken or boring systems."},
+  "Magician":{col:"#6a3fb5", sw:["#4b1f7a","#3f3d99","#141b4d","#c8ccd6"], reg:"Vivid", sound:"Ethereal synths, reverse delays, chimes, low vibrating hums", tone:"Charismatic and mystical. Expansive language, the turn from a pain point to a suddenly right answer."},
+  "Regular Guy/Gal":{col:"#3b5b8c", sw:["#3b5b8c","#8b5e3c","#d9a520","#2f5d3a"], reg:"Plain", sound:"Folk and upbeat acoustic indie, unpolished voiceovers, everyday ambience", tone:"Friendly, pragmatic, unpretentious. Talks like a peer, in conversational rhythm, without jargon or airs."},
+  "Lover":{col:"#9b111e", sw:["#9b111e","#6d1a2e","#b76e79","#f2c6c2"], reg:"Vivid", sound:"Smooth R&B, slow jazz, solo cello, close-mic’d breath", tone:"Intimate, sensual, passionate. A hushed, exclusive tone with evocative adjectives and slow pacing."},
+  "Jester":{col:"#e0246f", sw:["#f5d90a","#8fd000","#ff3d8b","#ff6a00"], reg:"Plain", sound:"Upbeat pop, boings and whistles, record scratches, bouncy rhythms", tone:"Playful, punchy, irreverent. Unexpected contrasts, self-mockery, humour aimed at the industry’s own absurdity."},
+  "Caregiver":{col:"#2f8f7c", sw:["#8fb8de","#6cc4b0","#f5efe6","#f4b6c2"], reg:"Plain", sound:"Soft acoustic guitar, gentle piano, warm ambient tones, unhurried tempos", tone:"Warm, reassuring, gentle. Leans on “you” and “we”, with soft words that imply safety and steady support."},
+  "Creator":{col:"#e8702a", sw:["#f0712a","#c2185b","#00a8c6","#7b3fe4"], reg:"Vivid", sound:"Synth mixed with acoustic, building rhythms, textured soundscapes", tone:"Visionary, expressive, inspiring. Active verbs and sensory language, with the focus on making something new."},
+  "Ruler":{col:"#9a7400", sw:["#14213d","#c9a227","#c9ccd1","#0b0b0b"], reg:"Formal", sound:"Orchestral brass, classical strings, deep voiceover, steady percussion", tone:"Authoritative, refined, definitive. No slang and no casual contractions. Imperatives, and facts stated without over-explaining."}
+};
+/* timbre per archetype for Play: oscillator shape and filter cutoff */
+var AUD = {"Innocent":{w:"sine",c:3000},"Explorer":{w:"triangle",c:1800},"Sage":{w:"sine",c:2400},"Hero":{w:"sawtooth",c:3200},"Outlaw":{w:"square",c:1300},"Magician":{w:"sine",c:2000},
+  "Regular Guy/Gal":{w:"triangle",c:1600},"Lover":{w:"triangle",c:700},"Jester":{w:"square",c:2800},"Caregiver":{w:"sine",c:1100},"Creator":{w:"sawtooth",c:2200},"Ruler":{w:"sawtooth",c:900}};
+var NAMEIX = {}; ARCH.forEach(function(a, i){ NAMEIX[a.name] = i; });
 function archOf(word){ var w = word.toLowerCase(), hit = [];
   ARCH.forEach(function(a,i){ for(var k=0;k<a.stems.length;k++){ var st = a.stems[k]; if(st.length < 4 ? w === st : w.indexOf(st) === 0){ hit.push(i); break; } } });
+  var lf = typeof LEXFORMS !== "undefined" && LEXFORMS[w]; if(lf) Object.keys(lf).forEach(function(nm){ var ix = NAMEIX[nm]; if(ix != null && hit.indexOf(ix) < 0) hit.push(ix); });
   return hit; }
 /* ---------- knobs: knurled skirt, machined cap, printed scale; a ghost pointer shows where the text sits ---------- */
 var svgDefs = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>' +
@@ -2384,7 +2431,7 @@ function makeKnob(el, onChange){
     el.classList.add("turning"); e.preventDefault(); el.focus({preventScroll:true}); });
   el.addEventListener("pointermove", function(e){ if(!drag) return;
     var dx = e.clientX - sx, dy = sy - e.clientY; moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
-    var px = e.shiftKey ? 900 : (e.pointerType === "touch" ? 260 : 240);
+    var px = e.shiftKey ? 900 : (e.pointerType === "touch" ? 200 : 170);
     k.set(sv + (dx + dy) / px * (k.max - k.min)); });
   function end(e){ if(!drag) return; drag = false; el.classList.remove("turning");
     if(e && e.pointerType === "touch" && moved < 6){ var now = Date.now(); if(now - lastTap < 320){ k.set(k.def); lastTap = 0; } else lastTap = now; } }
@@ -2429,7 +2476,7 @@ var mix = {};
 function drawArch(){
   archBox.innerHTML = "";
   ARCH.forEach(function(a, i){ var b = document.createElement("button"); b.type = "button"; b.textContent = a.name;
-    var on = sel.indexOf(i) >= 0; b.setAttribute("aria-pressed", on ? "true" : "false");
+    var on = sel.indexOf(i) >= 0; b.setAttribute("aria-pressed", on ? "true" : "false"); b.style.setProperty("--ac", CUES[a.name].col); b.title = CUES[a.name].reg + " register. " + (LEXLIST[a.name] ? LEXLIST[a.name].length : 0) + " words of its own.";
     if(!on && sel.length >= 3) b.disabled = true;
     b.addEventListener("click", function(){ var p = sel.indexOf(i); if(p >= 0) sel.splice(p,1); else if(sel.length < 3) sel.push(i); drawArch(); drawMix(); run(); });
     archBox.appendChild(b); });
@@ -2438,49 +2485,230 @@ function drawMix(){
   mixBox.innerHTML = "";
   sel.forEach(function(i, n){ var d = document.createElement("div"); d.className = "knob"; d.dataset.k = "mix" + i; d.dataset.mix = "1";
     d.dataset.label = ARCH[i].name; d.dataset.min = 0; d.dataset.max = 10; d.dataset.step = 1; d.dataset.val = mix[i] != null ? mix[i] : (n === 0 ? 6 : 4); d.dataset.dp = 0;
-    mixBox.appendChild(d); makeKnob(d, function(){ mix[i] = knobs["mix"+i].val; run(); }); mix[i] = knobs["mix"+i].val; });
+    mixBox.appendChild(d); makeKnob(d, function(){ mix[i] = knobs["mix"+i].val; schedule(); }); mix[i] = knobs["mix"+i].val; });
   if(!sel.length){ var p = document.createElement("p"); p.className = "sy-mixnote"; p.textContent = "Choose up to three archetypes, then blend them."; mixBox.appendChild(p); }
 }
 /* ---------- analysis ---------- */
 /* ---------- the engine: the dials rewrite the text by rule, live, for every visitor ---------- */
-/* voice: register swaps, base form then -s, -ed, -ing; each archetype offers a plainer or stronger word in its own key */
-var SWAPS = [
-  [["use","uses","used","using"], {"Sage":["apply","applies","applied","applying"], "Ruler":["deploy","deploys","deployed","deploying"]}],
-  [["help","helps","helped","helping"], {"Caregiver":["support","supports","supported","supporting"], "Hero":["equip","equips","equipped","equipping"]}],
-  [["make","makes","made","making"], {"Creator":["build","builds","built","building"]}],
-  [["get","gets","got","getting"], {"Hero":["win","wins","won","winning"], "Explorer":["reach","reaches","reached","reaching"], "Ruler":["secure","secures","secured","securing"]}],
-  [["show","shows","showed","showing"], {"Sage":["demonstrate","demonstrates","demonstrated","demonstrating"], "Magician":["reveal","reveals","revealed","revealing"]}],
-  [["change","changes","changed","changing"], {"Sage":["revise","revises","revised","revising"], "Outlaw":["overturn","overturns","overturned","overturning"], "Magician":["shift","shifts","shifted","shifting"]}],
-  [["improve","improves","improved","improving"], {"Sage":["refine","refines","refined","refining"], "Hero":["strengthen","strengthens","strengthened","strengthening"], "Creator":["rework","reworks","reworked","reworking"]}],
-  [["check","checks","checked","checking"], {"Sage":["verify","verifies","verified","verifying"], "Ruler":["audit","audits","audited","auditing"]}],
-  [["choose","chooses","chose","choosing"], {"Ruler":["select","selects","selected","selecting"], "Explorer":["pick","picks","picked","picking"]}],
-  [["deliver","delivers","delivered","delivering"], {"Creator":["produce","produces","produced","producing"], "Caregiver":["provide","provides","provided","providing"]}],
-  [["keep","keeps","kept","keeping"], {"Caregiver":["protect","protects","protected","protecting"], "Ruler":["hold","holds","held","holding"]}],
-  [["start","starts","started","starting"], {"Explorer":["launch","launches","launched","launching"], "Creator":["found","founds","founded","founding"]}],
-  [["new"], {"Innocent":["fresh"], "Creator":["original"]}],
-  [["big"], {"Ruler":["major"], "Jester":["huge"]}],
-  [["good"], {"Hero":["strong"], "Sage":["sound"], "Ruler":["solid"]}],
-  [["fast","quick"], {"Explorer":["swift","swift"], "Hero":["rapid","rapid"]}],
-  [["simple"], {"Sage":["clear"], "Regular Guy/Gal":["plain"]}],
-  [["great"], {"Jester":["brilliant"], "Lover":["wonderful"], "Hero":["outstanding"]}],
-  [["problem","problems"], {"Hero":["challenge","challenges"], "Sage":["question","questions"]}],
-  [["idea","ideas"], {"Magician":["vision","visions"], "Creator":["concept","concepts"]}],
-  [["goal","goals"], {"Ruler":["objective","objectives"], "Explorer":["destination","destinations"]}],
-  [["team","teams"], {"Regular Guy/Gal":["crew","crews"], "Hero":["squad","squads"]}],
-  [["customers","customer"], {"Caregiver":["people you serve","person you serve"], "Regular Guy/Gal":["folks","folk"]}]
+/* ---------- the lexicons: every archetype chooses its own words for the same slot ---------- */
+/* Each row is one slot of ordinary copy. "src" are the words it reads; each archetype then offers its own word for that slot,
+   or none. Verbs are written as a base form and inflected by rule ("equip:equipped:equipping" marks an irregular),
+   nouns as a singular. A "!" as the word means: drop the word. Guards keep a swap to the sense it was written for. */
+var LEX = [
+  /* verbs */
+  {p:"v", src:["use"], skip:["to"], alt:{Sage:"apply", Ruler:"deploy", Hero:"wield", "Regular Guy/Gal":"lean on"}},
+  {p:"v", src:["help"], g:"hw", alt:{Caregiver:"support", Sage:"assist", Hero:"back"}},
+  {p:"v", src:["make:makes:made:making"], g:"np", alt:{Creator:"build:builds:built:building", Magician:"conjure"}},
+  {p:"v", src:["get:gets:got:getting"], g:"np", alt:{Hero:"win:wins:won:winning", Explorer:"reach", Ruler:"secure", "Regular Guy/Gal":"grab:grabs:grabbed:grabbing", Jester:"snag:snags:snagged:snagging", Outlaw:"seize"}},
+  {p:"v", src:["show:shows:showed:showing"], g:"np", alt:{Sage:"demonstrate", Magician:"reveal", Lover:"unveil", Creator:"present"}},
+  {p:"v", src:["change"], alt:{Sage:"revise", Outlaw:"upend", Magician:"transmute", "Regular Guy/Gal":"switch", Creator:"reshape"}},
+  {p:"v", src:["improve"], alt:{Sage:"refine", Hero:"strengthen", Creator:"rework", Lover:"perfect", Ruler:"upgrade", "Regular Guy/Gal":"polish"}},
+  {p:"v", src:["check"], alt:{Sage:"verify:verifies:verified:verifying", Ruler:"audit", "Regular Guy/Gal":"look over", Hero:"test"}},
+  {p:"v", src:["choose:chooses:chose:choosing"], alt:{Ruler:"select", Explorer:"pick", Jester:"cherry-pick"}},
+  {p:"v", src:["deliver"], alt:{Creator:"produce", Caregiver:"provide", Hero:"land", "Regular Guy/Gal":"hand over", Jester:"serve up"}},
+  {p:"v", src:["keep:keeps:kept:keeping"], g:"np", alt:{Sage:"retain", Ruler:"hold:holds:held:holding", "Regular Guy/Gal":"hang on to:hangs on to:hung on to:hanging on to", Lover:"treasure", Caregiver:"safeguard"}},
+  {p:"v", src:["start"], skip:["with"], alt:{Explorer:"launch", Hero:"kick off", Jester:"fire up", Ruler:"commence", Magician:"spark"}},
+  {p:"v", src:["find:finds:found:finding"], g:"np", skip:["out","that"], alt:{Sage:"identify:identifies:identified:identifying", Explorer:"discover", Outlaw:"dig up:digs up:dug up:digging up", "Regular Guy/Gal":"track down", Magician:"uncover"}},
+  {p:"v", src:["need"], skip:["to"], alt:{Ruler:"require", Hero:"demand"}},
+  {p:"v", src:["want"], skip:["to"], alt:{Lover:"desire", Explorer:"seek:seeks:sought:seeking"}},
+  {p:"v", src:["build:builds:built:building"], alt:{Sage:"develop", Ruler:"establish", Magician:"conjure", Lover:"cultivate", Outlaw:"hammer out"}},
+  {p:"v", src:["create"], alt:{Creator:"invent", Magician:"conjure", Sage:"devise", Ruler:"establish", "Regular Guy/Gal":"put together:puts together:put together:putting together"}},
+  {p:"v", src:["explain"], alt:{Creator:"illustrate", Sage:"clarify:clarifies:clarified:clarifying", Caregiver:"talk through", "Regular Guy/Gal":"spell out:spells out:spelled out:spelling out", Ruler:"set out:sets out:set out:setting out"}},
+  {p:"v", src:["explore"], alt:{Explorer:"scout", Sage:"examine"}},
+  {p:"v", src:["learn"], skip:["from","to","that"], alt:{Sage:"study:studies:studied:studying", Explorer:"discover", "Regular Guy/Gal":"pick up:picks up:picked up:picking up"}},
+  {p:"v", src:["understand:understands:understood:understanding"], alt:{Sage:"comprehend", Magician:"perceive", "Regular Guy/Gal":"get:gets:got:getting", Caregiver:"see:sees:saw:seeing"}},
+  {p:"v", src:["fix"], alt:{Sage:"resolve", "Regular Guy/Gal":"sort out", Ruler:"remedy:remedies:remedied:remedying", Caregiver:"mend"}},
+  {p:"v", src:["protect"], alt:{Caregiver:"shelter", Hero:"defend", Ruler:"safeguard", Sage:"preserve"}},
+  {p:"v", src:["love"], skip:["to"], alt:{Lover:"adore", Caregiver:"cherish"}},
+  {p:"v", src:["enjoy"], alt:{Lover:"savour", Innocent:"delight in", Jester:"lap up:laps up:lapped up:lapping up"}},
+  {p:"v", src:["write:writes:wrote:writing"], alt:{Creator:"compose", Sage:"document", Lover:"pen:pens:penned:penning"}},
+  {p:"v", src:["reduce"], alt:{"Regular Guy/Gal":"cut:cuts:cut:cutting", Ruler:"curtail", Sage:"lower"}},
+  {p:"v", src:["increase"], alt:{Hero:"boost", "Regular Guy/Gal":"bump up:bumps up:bumped up:bumping up", Sage:"raise"}},
+  {p:"v", src:["give:gives:gave:giving"], skip:["up","in","back","away"], g:"np", alt:{Ruler:"grant", Caregiver:"offer"}},
+  {p:"v", src:["see:sees:saw:seeing"], skip:["also","below","above"], g:"np", alt:{Sage:"observe", Explorer:"spot:spots:spotted:spotting"}},
+  {p:"v", src:["travel"], alt:{Explorer:"roam"}},
+  {p:"v", src:["run:runs:ran:running"], g:"np", alt:{Ruler:"operate"}},
+  {p:"v", src:["transform"], g:"np", alt:{Sage:"convert", Creator:"reshape", Magician:"transmute", Ruler:"overhaul", Hero:"remake:remakes:remade:remaking"}},
+  {p:"v", src:["solve"], g:"np", alt:{Sage:"resolve", Magician:"unravel", Hero:"crack", "Regular Guy/Gal":"sort out"}},
+  {p:"v", src:["stop"], g:"np", alt:{Outlaw:"kill", Hero:"halt", Ruler:"cease"}},
+  {p:"v", src:["ignore"], g:"np", alt:{Outlaw:"defy:defies:defied:defying", Sage:"disregard"}},
+  {p:"v", src:["replace"], g:"np", alt:{Outlaw:"rip out:rips out:ripped out:ripping out", Sage:"supersede", Ruler:"substitute", "Regular Guy/Gal":"swap:swaps:swapped:swapping"}},
+  /* adjectives */
+  {p:"a", src:["good"], skip:["morning","luck","evening","afternoon","night"], alt:{Innocent:"fine", Sage:"sound", Hero:"strong", Ruler:"sterling", "Regular Guy/Gal":"decent", Lover:"lovely", Jester:"ace", Outlaw:"sharp"}},
+  {p:"a", src:["great"], alt:{Jester:"brilliant", Lover:"wonderful", Hero:"outstanding", Innocent:"splendid"}},
+  {p:"a", src:["big"], alt:{Ruler:"major", Jester:"huge", Explorer:"vast", Outlaw:"massive", Sage:"substantial"}},
+  {p:"a", src:["small"], alt:{Sage:"modest", "Regular Guy/Gal":"little", Innocent:"tiny", Jester:"teeny", Ruler:"minor"}},
+  {p:"a", src:["new"], alt:{Innocent:"fresh", Creator:"original", Jester:"brand-new", Sage:"novel"}},
+  {p:"a", src:["simple"], alt:{Sage:"straightforward", Innocent:"plain", "Regular Guy/Gal":"no-nonsense", Ruler:"uncluttered", Outlaw:"stripped-back"}},
+  {p:"a", src:["difficult"], alt:{Sage:"demanding", Hero:"gruelling", "Regular Guy/Gal":"tough", Outlaw:"brutal", Explorer:"testing"}},
+  {p:"a", src:["quick"], alt:{Explorer:"swift", Hero:"rapid", Ruler:"prompt", Jester:"zippy", "Regular Guy/Gal":"speedy"}},
+  {p:"a", src:["important"], alt:{Sage:"central", Ruler:"paramount", Hero:"decisive", Caregiver:"precious"}},
+  {p:"a", src:["strong"], alt:{Hero:"formidable", Ruler:"commanding", Outlaw:"fierce", Caregiver:"steady", Explorer:"hardy"}},
+  {p:"a", src:["beautiful"], alt:{Lover:"exquisite", Creator:"striking", Magician:"luminous", Innocent:"lovely", Jester:"gorgeous", Explorer:"majestic"}},
+  {p:"a", src:["happy"], alt:{Innocent:"glad", Jester:"chuffed", Caregiver:"content", Lover:"delighted", "Regular Guy/Gal":"pleased"}},
+  {p:"a", src:["interesting"], alt:{Explorer:"intriguing", Magician:"curious", Sage:"telling"}},
+  {p:"a", src:["different"], skip:["from","to","than"], alt:{Sage:"distinct", Outlaw:"unorthodox", Magician:"uncommon", Jester:"offbeat"}},
+  {p:"a", src:["easy"], alt:{"Regular Guy/Gal":"painless", Innocent:"simple"}},
+  {p:"a", src:["safe"], skip:["to"], alt:{Ruler:"secure"}},
+  {p:"a", src:["honest"], skip:["mistake"], alt:{Innocent:"candid", Outlaw:"blunt", "Regular Guy/Gal":"straight-talking", Sage:"frank"}},
+  {p:"a", src:["smart"], alt:{Sage:"astute", "Regular Guy/Gal":"savvy", Creator:"ingenious"}},
+  {p:"a", src:["real"], skip:["estate","time","terms","world"], alt:{Innocent:"genuine", "Regular Guy/Gal":"proper", Sage:"actual"}},
+  {p:"a", src:["best"], g:"pre", alt:{Lover:"finest", Ruler:"supreme", Sage:"optimal", Jester:"tip-top"}},
+  {p:"a", src:["boring"], alt:{Outlaw:"stale", "Regular Guy/Gal":"dull", Sage:"tedious"}},
+  {p:"a", src:["many"], skip:["of"], alt:{Sage:"numerous", Ruler:"numerous", "Regular Guy/Gal":"loads of", Jester:"oodles of"}},
+  {p:"a", src:["friendly"], alt:{Innocent:"kind", Caregiver:"warm", "Regular Guy/Gal":"approachable", Lover:"inviting", Jester:"cheery"}},
+  {p:"a", src:["nice"], alt:{Innocent:"sweet", Lover:"lovely", "Regular Guy/Gal":"decent"}},
+  {p:"a", src:["normal"], alt:{Outlaw:"conventional", Sage:"standard", "Regular Guy/Gal":"everyday"}},
+  {p:"a", src:["attractive"], alt:{Lover:"alluring", Creator:"striking", Ruler:"refined"}},
+  {p:"a", src:["surprising"], alt:{Magician:"uncanny", Jester:"cheeky"}},
+  /* nouns */
+  {p:"n", src:["problem"], alt:{Hero:"challenge", Sage:"question", "Regular Guy/Gal":"snag", Caregiver:"worry:worries", Jester:"hiccup", Magician:"puzzle"}},
+  {p:"n", src:["idea"], alt:{Magician:"vision", Creator:"concept", Jester:"brainwave"}},
+  {p:"n", src:["goal"], alt:{Ruler:"objective", Explorer:"destination", Hero:"target", "Regular Guy/Gal":"aim"}},
+  {p:"n", src:["team"], alt:{"Regular Guy/Gal":"crew", Hero:"squad", Jester:"gang"}},
+  {p:"n", src:["customer","client"], alt:{Caregiver:"person you serve:people you serve", "Regular Guy/Gal":"folk:folks", Ruler:"client", Lover:"guest", Jester:"punter"}},
+  {p:"n", src:["company"], alt:{Ruler:"enterprise", "Regular Guy/Gal":"outfit", Hero:"firm", Sage:"organisation", Explorer:"venture:ventures"}},
+  {p:"n", src:["project"], alt:{Explorer:"expedition", Hero:"mission", Ruler:"programme"}},
+  {p:"n", src:["result"], alt:{Ruler:"outcome", Sage:"finding"}},
+  {p:"n", src:["story:stories"], alt:{Creator:"narrative", Jester:"yarn", Lover:"tale", Explorer:"saga"}},
+  {p:"n", src:["friend"], alt:{"Regular Guy/Gal":"mate", Caregiver:"companion", Jester:"pal"}},
+  {p:"n", src:["expert"], alt:{Sage:"specialist", Ruler:"authority:authorities"}},
+  {p:"n", src:["approach:approaches"], alt:{Sage:"method", "Regular Guy/Gal":"way", Creator:"technique"}},
+  {p:"n", src:["risk"], alt:{Outlaw:"gamble", Explorer:"hazard", Sage:"exposure"}},
+  {p:"n", src:["plan"], g:"nn", alt:{Creator:"blueprint", Ruler:"strategy:strategies", Explorer:"route"}},
+  {p:"n", src:["tool"], alt:{"Regular Guy/Gal":"kit", Creator:"instrument", Sage:"instrument", Jester:"gizmo"}},
+  {p:"n", src:["success:successes"], alt:{Hero:"victory:victories", Ruler:"mastery:masteries"}},
+  /* adverbs: intensity cluster, matched by lemma; the formal voices drop the word */
+  {p:"r", src:["very","really","extremely","truly"], skip:["the","this","that"], g:"adv", alt:{Sage:"!", Ruler:"!", Innocent:"truly", Explorer:"wildly", Hero:"absolutely", Outlaw:"downright", Magician:"uncannily", "Regular Guy/Gal":"pretty", Lover:"deeply", Jester:"ridiculously", Caregiver:"genuinely", Creator:"strikingly"}},
+  {p:"r", src:["quickly"], alt:{Explorer:"swiftly", Hero:"rapidly", Ruler:"promptly", Jester:"in a flash", Magician:"in an instant"}},
+  {p:"r", src:["about"], g:"num", alt:{Sage:"approximately", Ruler:"some", "Regular Guy/Gal":"roughly", Jester:"give or take"}}
 ];
-var SWAPIX = {}; SWAPS.forEach(function(e, n){ e[0].forEach(function(f, fi){ SWAPIX[f] = [n, fi]; }); });
-function caseLike(src, w){ if(src.toUpperCase() === src && src.length > 1) return w.toUpperCase(); if(src[0] === src[0].toUpperCase()) return w[0].toUpperCase() + w.slice(1); return w; }
-function voiceSwap(text){
-  var names = sel.filter(function(i){ return (mix[i] || 0) > 0; }).map(function(i){ return ARCH[i].name; });
-  if(!names.length) return {text:text, n:0};
-  var occ = []; text.replace(WORD, function(w, at){ var ix = SWAPIX[w.toLowerCase()]; if(ix){ var alts = SWAPS[ix[0]][1], can = names.filter(function(nm){ return alts[nm]; }); if(can.length) occ.push({at:at, w:w, ix:ix, can:can}); } return w; });
-  var quota = {}; names.forEach(function(nm){ var i = ARCH.map(function(a){ return a.name; }).indexOf(nm), eligible = occ.filter(function(o){ return o.can.indexOf(nm) >= 0; }).length; quota[nm] = Math.round((mix[i] || 0) / 10 * eligible); });
-  var out = "", last = 0, n = 0;
-  occ.forEach(function(o){ var pick = null; o.can.forEach(function(nm){ if(quota[nm] > 0 && (!pick || quota[nm] > quota[pick])) pick = nm; });
-    if(!pick) return; quota[pick]--; var rep = SWAPS[o.ix[0]][1][pick][o.ix[1]];
-    out += text.slice(last, o.at) + caseLike(o.w, rep); last = o.at + o.w.length; n++; });
-  return {text:out + text.slice(last), n:n};
+/* ---------- the engine: lexicon swaps first, then register habits, then the rhythm pass ---------- */
+function toSet(s){ var o = {}; s.split(" ").forEach(function(w){ o[w] = 1; }); return o; }
+/* words that tell a verb from a noun, read from the word just before */
+var NOUNPREV = toSet("a an the this that these those my your our their his her its whose some any no every each another such both all " +
+  "of in for with by from on at as about into over under between per via " +
+  "big small new good great major minor key main other several few many various recent latest first last next same own whole " +
+  "one two three four five six seven eight nine ten hundred thousand " +
+  "simple clear solid long short careful detailed single full fresh bold quick rapid slow easy hard");
+var NEXTDET = toSet("a an the your our their my his her its this that these those more all some every any each no fewer less better another such both several many");
+var SUBJAUX = toSet("is are was were has have had can will would could should may might must means matters comes remains");
+var NPEND = toSet("and or but for in on at of from to with by as so that which who where when because than into over under across through about");
+var NUMW = toSet("one two three four five six seven eight nine ten eleven twelve twenty thirty forty fifty sixty hundred thousand million half");
+var LEXNAMES = ["Innocent","Explorer","Sage","Hero","Outlaw","Magician","Regular Guy/Gal","Lover","Jester","Caregiver","Creator","Ruler"];
+/* inflection: "base", or "base:3sg:past:ing", or a phrase whose first word is inflected ("lean on") */
+function inflV(spec){
+  var parts = spec.split(":"); if(parts.length === 4) return parts;
+  var sp = spec.split(" "), b = sp[0], rest = sp.length > 1 ? " " + sp.slice(1).join(" ") : "", s, d, g;
+  s = /(s|x|z|ch|sh)$/.test(b) ? b + "es" : /[^aeiou]y$/.test(b) ? b.slice(0, -1) + "ies" : b + "s";
+  d = /e$/.test(b) ? b + "d" : /[^aeiou]y$/.test(b) ? b.slice(0, -1) + "ied" : b + "ed";
+  g = /[^e]e$/.test(b) ? b.slice(0, -1) + "ing" : b + "ing";
+  return [b + rest, s + rest, d + rest, g + rest];
+}
+function inflN(spec){
+  var parts = spec.split(":"); if(parts.length === 2) return parts;
+  var pl = /(s|x|z|ch|sh)$/.test(spec) ? spec + "es" : /[^aeiou]y$/.test(spec) ? spec.slice(0, -1) + "ies" : spec + "s";
+  return [spec, pl];
+}
+var SRCIX = {}, LEXFORMS = {}, LEXLIST = {};
+LEX.forEach(function(row, n){
+  row.forms = [];
+  row.src.forEach(function(s){ var f = row.p === "v" ? inflV(s) : row.p === "n" ? inflN(s) : [s.split(":")[0]]; row.forms.push(f);
+    f.forEach(function(w, fi){ var key = w.toLowerCase(); (SRCIX[key] = SRCIX[key] || []).push({n:n, fi:fi}); }); });
+  row.to = {};
+  Object.keys(row.alt).forEach(function(a){ var v = row.alt[a];
+    row.to[a] = v === "!" ? ["!"] : row.p === "v" ? inflV(v) : row.p === "n" ? inflN(v) : [v];
+    if(v !== "!"){ row.to[a].forEach(function(w){ w.toLowerCase().split(" ").forEach(function(x){ if(x.length >= 4 && !(typeof FUNC !== "undefined" && FUNC[x])) (LEXFORMS[x] = LEXFORMS[x] || {})[a] = 1; }); }); }
+    (LEXLIST[a] = LEXLIST[a] || []).push({from:row.forms[0][0], to:v === "!" ? "(drop)" : row.to[a][0], row:n}); });
+});
+function isPrevBreak(text, prev, t){ return !prev || /[.!?;:]/.test(text.slice(prev.end, t.at)); }
+function guardOK(row, toks, k, text, fi){
+  var t = toks[k], prev = k ? toks[k - 1] : null, next = toks[k + 1] || null, p = row.p;
+  if(t.w.length > 1 && t.w === t.w.toUpperCase()) return false;
+  var brk = isPrevBreak(text, prev, t);
+  if(/^[A-Z]/.test(t.w) && !brk && prev) return false;
+  if(/^[A-Z]/.test(t.w) && next && /^[A-Z]/.test(next.w) && /^\s+$/.test(text.slice(t.end, next.at))) return false;
+  if(next && row.skip && row.skip.indexOf(next.lw) >= 0) return false;
+  var gap = next ? text.slice(t.end, next.at) : "";
+  if(row.g === "det" && !(next && NEXTDET[next.lw])) return false;
+  if(row.g === "pre" && !(next && /^\s+$/.test(gap))) return false;
+  if(row.g === "num" && !(next && (/^\d/.test(next.w) || NUMW[next.lw]))) return false;
+  if(row.g === "adv" && !(next && /^\s+$/.test(gap))) return false;
+  if(row.g === "np"){ var n1 = toks[k + 1], n2 = toks[k + 2], n3 = toks[k + 3];
+    if(!(n1 && NEXTDET[n1.lw] && n2)) return false;
+    if(n3 && !(/[.,;:!?]/.test(text.slice(n2.end, n3.at)) || NPEND[n3.lw])) return false; }
+  if(row.g === "nn" && !(prev && !brk && NOUNPREV[prev.lw])) return false;
+  if(row.g === "hw"){ var seg = text.slice(t.end).split(/[.;:!?]/)[0]; if(!/\bwith\b/i.test(seg.slice(0, 60))) return false; }
+  if(p === "v"){
+    if(prev && !brk && NOUNPREV[prev.lw]) return false;
+    if(next && SUBJAUX[next.lw]) return false;
+    if(brk && fi === 1) return false;
+  }
+  return true;
+}
+function caseLike(src, w){ if(!w) return w; if(src.toUpperCase() === src && src.length > 1 && /[A-Z]/.test(src)) return w.toUpperCase(); if(src[0] === src[0].toUpperCase() && /[A-Za-z]/.test(src[0])) return w[0].toUpperCase() + w.slice(1); return w; }
+function articleFor(w){ w = w.toLowerCase(); if(/^(hour|honest|honou?r|heir)/.test(w)) return "an"; if(/^(uni([^n]|$)|use|usu|eu|one|once|ubi)/.test(w)) return "a"; return /^[aeiou]/.test(w) ? "an" : "a"; }
+function fixArticle(out, nextWord){
+  var m = /(^|[^A-Za-z])(An?|an?)(\s+)$/.exec(out); if(!m || !nextWord) return out;
+  var want = articleFor(nextWord); if(m[2][0] === "A") want = want[0].toUpperCase() + want.slice(1);
+  return out.slice(0, m.index + m[1].length) + want + m[3];
+}
+function tokenize(text){ var t = [], re = new RegExp(WORD.source, "g"), m; while((m = re.exec(text)) !== null) t.push({w:m[0], lw:m[0].toLowerCase(), at:m.index, end:m.index + m[0].length}); return t; }
+/* the twelve voices, each a name; weights come from the mix dials */
+function activeVoices(sel, mix){ return sel.filter(function(i){ return (mix[i] || 0) > 0; }).map(function(i){ return {name:LEXNAMES[i] || ARCH[i].name, w:mix[i]}; }); }
+function voiceSwap(text, sel, mix){
+  var V = activeVoices(sel, mix), none = {text:text, n:0, drops:0, eligible:0, log:[], by:{}};
+  if(!V.length) return none;
+  var sumW = V.reduce(function(a, v){ return a + v.w; }, 0), rate = Math.min(1, sumW / 10), acc = 1 - rate, credit = {};
+  var toks = tokenize(text), occ = [];
+  toks.forEach(function(t, k){ var hits = SRCIX[t.lw]; if(!hits) return;
+    for(var h = 0; h < hits.length; h++){ var row = LEX[hits[h].n], fi = hits[h].fi;
+      var can = V.filter(function(v){ var to = row.to[v.name]; return to && (to[0] === "!" || to[Math.min(fi, to.length - 1)].toLowerCase() !== t.lw); });
+      if(!can.length || !guardOK(row, toks, k, text, fi)) continue;
+      occ.push({k:k, t:t, row:row, n:hits[h].n, fi:fi, can:can}); break; } });
+  var out = "", last = 0, n = 0, drops = 0, log = [], by = {}, pendingCap = false;
+  function push(s){ if(!s) return; if(pendingCap && /[A-Za-z]/.test(s)){ s = s.replace(/^([^A-Za-z]*)([a-z])/, function(m, a, b){ return a + b.toUpperCase(); }); pendingCap = false; } out += s; }
+  occ.forEach(function(o){
+    acc += rate; if(acc < 1 - 1e-9) return; acc -= 1;
+    var tot = 0; o.can.forEach(function(v){ credit[v.name] = (credit[v.name] || 0) + v.w; tot += v.w; });
+    var pick = o.can[0]; o.can.forEach(function(v){ if(credit[v.name] > credit[pick.name]) pick = v; }); credit[pick.name] -= tot;
+    var to = o.row.to[pick.name], rep = to[Math.min(o.fi, to.length - 1)];
+    push(text.slice(last, o.t.at));
+    if(rep === "!"){
+      var nx = toks[o.k + 1], cap = /^[A-Z]/.test(o.t.w);
+      out = fixArticle(out, nx ? nx.w : ""); last = o.t.end + (text[o.t.end] === " " ? 1 : 0); if(cap) pendingCap = true; drops++;
+      log.push({arch:pick.name, from:o.t.w, to:"", drop:true, row:o.n}); by[pick.name] = (by[pick.name] || 0) + 1; n++; return; }
+    var word = caseLike(o.t.w, rep); out = fixArticle(out, word); push(word); last = o.t.end; n++;
+    log.push({arch:pick.name, from:o.t.w, to:word, row:o.n}); by[pick.name] = (by[pick.name] || 0) + 1; });
+  push(text.slice(last));
+  return {text:out, n:n, drops:drops, eligible:occ.length, log:log, by:by};
+}
+/* register habits: the plain voices contract, the formal voices expand */
+var CONTR = [["it is","it's"],["that is","that's"],["there is","there's"],["we are","we're"],["you are","you're"],["they are","they're"],["i am","i'm"],
+  ["do not","don't"],["does not","doesn't"],["did not","didn't"],["is not","isn't"],["are not","aren't"],["cannot","can't"],["will not","won't"],
+  ["we will","we'll"],["you will","you'll"],["they will","they'll"],["i will","i'll"]];
+var EXPAND = {"it's":"it is","that's":"that is","there's":"there is","what's":"what is","here's":"here is","we're":"we are","you're":"you are","they're":"they are","i'm":"i am",
+  "don't":"do not","doesn't":"does not","didn't":"did not","isn't":"is not","aren't":"are not","can't":"cannot","won't":"will not","wasn't":"was not","weren't":"were not",
+  "hasn't":"has not","haven't":"have not","wouldn't":"would not","couldn't":"could not","shouldn't":"should not","we'll":"we will","you'll":"you will","they'll":"they will","i'll":"i will"};
+var PLAIN = {"Innocent":1,"Regular Guy/Gal":1,"Caregiver":1,"Jester":1}, FORMAL = {"Sage":1,"Ruler":1};
+var CONTRMAP = {}; CONTR.forEach(function(c){ CONTRMAP[c[0]] = c[1]; });
+function registerPass(text, sel, mix){
+  var V = activeVoices(sel, mix), bias = V.reduce(function(a, v){ return a + (PLAIN[v.name] ? v.w : 0) - (FORMAL[v.name] ? v.w : 0); }, 0);
+  var res = {text:text, contracted:0, expanded:0, log:[]}; if(!bias) return res;
+  var s = Math.min(1, Math.abs(bias) / 10), acc = 1 - s, toks = tokenize(text), out = "", last = 0;
+  for(var k = 0; k < toks.length; k++){
+    var t = toks[k], rep = null, endAt = t.end, from = t.w, key = t.lw.replace(/’/g, "'");
+    if(bias > 0 && toks[k + 1] && /^ $/.test(text.slice(t.end, toks[k + 1].at))){
+      var pair = key + " " + toks[k + 1].lw, c = CONTRMAP[pair];
+      if(c){ var after = text.slice(toks[k + 1].end, toks[k + 1].end + 2), needsWord = /^(it is|that is|there is|we are|you are|they are|i am|we will|you will|they will|i will)$/.test(pair);
+        if(!needsWord || /^ [A-Za-z]/.test(after)){ rep = c.replace("'", "’"); endAt = toks[k + 1].end; from = t.w + " " + toks[k + 1].w; } } }
+    if(bias < 0 && EXPAND[key]){ rep = EXPAND[key]; }
+    if(!rep) continue;
+    acc += s; if(acc < 1 - 1e-9) { if(endAt !== t.end) k++; continue; } acc -= 1;
+    out += text.slice(last, t.at) + caseLike(t.w, rep); last = endAt; if(bias > 0) res.contracted++; else res.expanded++;
+    res.log.push({from:from, to:caseLike(t.w, rep)}); if(endAt !== t.end) k++;
+  }
+  res.text = out + text.slice(last); return res;
 }
 /* rhythm and stress: split long sentences at natural joints, merge short neighbours, and keep the version closest to every target */
 function properNouns(text){ var P = {}; splitSentences(text).forEach(function(s){ (s.match(WORD) || []).slice(1).forEach(function(w){ if(/^[A-Z]/.test(w)) P[w] = 1; }); }); return P; }
@@ -2529,8 +2757,8 @@ function reshape(text, T){
 }
 function transform(src){
   var T = {cv:knobs.cv.val, ac:knobs.ac.val, len:knobs.len.val, end:knobs.end.val};
-  var v = voiceSwap(src), r = reshape(v.text, T);
-  return {out:r.sents.join(" "), swaps:v.n, splits:r.ops.split, merges:r.ops.merge};
+  var v = voiceSwap(src, sel, mix), g = registerPass(v.text, sel, mix), r = reshape(g.text, T);
+  return {out:r.sents.join(" "), swaps:v.n, by:v.by, log:v.log, eligible:v.eligible, contracted:g.contracted, expanded:g.expanded, splits:r.ops.split, merges:r.ops.merge};
 }
 /* change marks: a word-and-punctuation diff between input and output */
 function tokens(s){ var out = [], re = /[A-Za-z0-9]+(?:['\u2019\-][A-Za-z0-9]+)*|[^\sA-Za-z0-9]/g, m; while((m = re.exec(s)) !== null) out.push({t:m[0], at:m.index}); return out; }
@@ -2545,8 +2773,9 @@ function diffMarks(a, b){
   while(i < n){ (del[m] = del[m] || []).push(A[i].t); i++; }
   return {B:B, del:del, add:add};
 }
-function renderTape(src, out, sents, weak){
-  var d = diffMarks(src, out), B = d.B, html = "", bounds = [], p = 0, changed = 0;
+function renderTape(src, out, sents, weak, log){
+  var d = diffMarks(src, out), B = d.B, html = "", bounds = [], p = 0, changed = 0, q = {};
+  (log || []).forEach(function(e){ if(e.drop) return; (e.to.match(WORD) || []).forEach(function(w){ (q[w.toLowerCase()] = q[w.toLowerCase()] || []).push(e); }); });
   sents.forEach(function(s){ var at = out.indexOf(s, p); bounds.push([at, at + s.length]); p = at + s.length; });
   var si = -1;
   function openTo(pos){ while(si + 1 < bounds.length && pos >= bounds[si + 1][0]){ if(si >= 0) html += "</span>"; si++; html += '<span class="s' + (weak[si] ? " weak" : "") + '" data-i="' + si + '">'; } }
@@ -2555,7 +2784,8 @@ function renderTape(src, out, sents, weak){
     openTo(tk.at);
     var gap = k === 0 ? "" : out.slice(B[k-1].at + B[k-1].t.length, tk.at);
     if(d.del[k]){ html += escHtml(gap) + delHTML(d.del[k]) + (/^[A-Za-z0-9]/.test(tk.t) ? " " : ""); } else html += escHtml(gap);
-    if(d.add[k]){ changed++; html += '<mark class="d-add">' + escHtml(tk.t) + '</mark>'; } else html += escHtml(tk.t);
+    if(d.add[k]){ changed++; var ent = q[tk.t.toLowerCase()] && q[tk.t.toLowerCase()].shift();
+      html += ent ? '<mark class="d-add" data-a="' + escHtml(ent.arch) + '" style="--ac:' + CUES[ent.arch].col + '" title="' + escHtml(ent.arch + ": " + ent.from + " to " + ent.to) + '">' + escHtml(tk.t) + '</mark>' : '<mark class="d-add">' + escHtml(tk.t) + '</mark>'; } else html += escHtml(tk.t);
   });
   if(d.del[B.length]) html += " " + delHTML(d.del[B.length]);
   if(si >= 0) html += "</span>";
@@ -2564,8 +2794,26 @@ function renderTape(src, out, sents, weak){
 var ta = document.getElementById("stText"), pre = document.getElementById("syPreview"), lines = document.getElementById("syLines");
 var last = {sentences:[], weak:[]};
 function line(on, head, body){ return '<p class="sy-line"><span class="sy-lamp' + (on ? " on" : "") + '" aria-hidden="true"></span><span><b>' + head + '.</b> ' + body + '</span></p>'; }
+/* ---------- lexicon cards: what each chosen archetype reaches for, and what it chose just now ---------- */
+var lexSig = "";
+function drawLex(tr){
+  var box = document.getElementById("syLex"); if(!box) return;
+  var used = {}; (tr.log || []).forEach(function(e){ used[e.arch + "|" + e.row] = 1; });
+  var sig = sel.map(function(i){ return i + ":" + (mix[i] || 0); }).join(",") + "|" + Object.keys(used).sort().join(","); if(sig === lexSig) return; lexSig = sig;
+  if(!sel.length){ box.innerHTML = ""; return; }
+  box.innerHTML = '<p class="sy-cap sy-lex-h">Lexicons in play</p><div class="sy-cards">' + sel.map(function(i){
+    var nm = ARCH[i].name, c = CUES[nm], list = (LEXLIST[nm] || []).slice(), w = mix[i] || 0, n = Object.keys(used).filter(function(k){ return k.indexOf(nm + "|") === 0; }).length;
+    list.sort(function(a, b){ return (used[nm + "|" + b.row] ? 1 : 0) - (used[nm + "|" + a.row] ? 1 : 0); });
+    var li = function(e){ return '<li' + (used[nm + "|" + e.row] ? ' class="on"' : '') + '><span>' + escHtml(e.from) + '</span> <b>' + escHtml(e.to) + '</b></li>'; };
+    var top = list.slice(0, 12).map(li).join(""), more = list.slice(12).map(li).join("");
+    return '<article class="sy-card' + (w ? '' : ' off') + '" style="--ac:' + c.col + '"><header><span class="sy-sw" aria-hidden="true">' + c.sw.map(function(x){ return '<i style="background:' + x + '"></i>'; }).join("") + '</span><b>' + escHtml(nm) + '</b><span class="sy-reg">' + c.reg + '</span></header>' +
+      '<p class="sy-tone">' + escHtml(c.tone) + '</p><p class="sy-snd"><em>Sounds like</em> ' + escHtml(c.sound) + '.</p>' +
+      '<p class="sy-cnt">' + (w ? n + (n === 1 ? " word" : " words") + ' chosen in this text. ' : 'Dial at 0, so it chooses nothing. ') + list.length + ' in its list.</p>' +
+      '<ul class="sy-words">' + top + '</ul>' + (more ? '<details><summary>' + (list.length - 12) + ' more</summary><ul class="sy-words">' + more + '</ul></details>' : '') + '</article>'; }).join("") + '</div>';
+}
+var raf = 0; function schedule(){ if(raf) return; raf = (window.requestAnimationFrame || function(f){ return setTimeout(f, 16); })(function(){ raf = 0; run(); }); }
 function run(){
-  var srcText = ta.value.replace(/\s+/g, " ").trim(), tr = srcText ? transform(srcText) : {out:"", swaps:0, splits:0, merges:0}, text = tr.out;
+  var srcText = ta.value.replace(/\s+/g, " ").trim(), tr = srcText ? transform(srcText) : {out:"", swaps:0, by:{}, log:[], eligible:0, contracted:0, expanded:0, splits:0, merges:0}, text = tr.out;
   var sents = text ? splitSentences(text) : [], lens = sents.map(function(s){ return wordsIn(s).length; });
   var st = stats(lens.filter(function(n){ return n > 0; }));
   var T = {cv:knobs.cv.val, ac:knobs.ac.val, len:knobs.len.val, end:knobs.end.val};
@@ -2610,16 +2858,21 @@ function run(){
   if(scopeRead || document.getElementById("syScopeRead")){ scopeRead = scopeRead || document.getElementById("syScopeRead");
     scopeRead.innerHTML = st ? "SPREAD <b>" + st.cv.toFixed(2) + "</b> INTERLEAVE <b>" + (st.ac == null ? "--" : st.ac.toFixed(2)) + "</b> LEN <b>" + st.mean.toFixed(0) + "</b> END <b>" + (sents.length ? Math.round(weak.filter(function(x){ return !x; }).length / sents.length * 100) + "%" : "--") + "</b> VOICE <b>" + (voiceScope == null ? "--" : voiceScope + "%") + "</b>" : "NO SIGNAL"; }
   /* the tape: the output, with every changed word and punctuation mark shown */
-  var tp = text ? renderTape(srcText, text, sents, weak) : {html:"", changed:0};
+  var tp = text ? renderTape(srcText, text, sents, weak, tr.log) : {html:"", changed:0};
   pre.innerHTML = tp.html || '<span class="sy-tape-empty">Patch in some text to see it here.</span>';
   var sum = document.getElementById("syTapeSum");
-  if(sum){ var bits = []; if(tr.splits) bits.push(tr.splits + (tr.splits === 1 ? " sentence split" : " sentences split")); if(tr.merges) bits.push(tr.merges + (tr.merges === 1 ? " pair joined" : " pairs joined")); if(tr.swaps) bits.push(tr.swaps + (tr.swaps === 1 ? " word swapped" : " words swapped"));
-    sum.textContent = !srcText ? "" : bits.length ? bits.join(", ") + "." : "No changes: the text already sits as close to these targets as the rules can take it."; }
+  if(sum){ var bits = []; if(tr.splits) bits.push(tr.splits + (tr.splits === 1 ? " sentence split" : " sentences split")); if(tr.merges) bits.push(tr.merges + (tr.merges === 1 ? " pair joined" : " pairs joined"));
+    if(tr.swaps){ var parts = Object.keys(tr.by).map(function(nm){ return tr.by[nm] + " " + nm; }); bits.push(tr.swaps + (tr.swaps === 1 ? " word chosen by the voices" : " words chosen by the voices") + " (" + parts.join(", ") + ")"); }
+    if(tr.contracted) bits.push(tr.contracted + (tr.contracted === 1 ? " contraction" : " contractions")); if(tr.expanded) bits.push(tr.expanded + " written out in full");
+    sum.textContent = !srcText ? "" : bits.length ? bits.join(", ") + "." : (activeVoices(sel, mix).length && !tr.eligible) ? "No word in this text has an entry in the chosen lexicons. Try the voice sample." : "No changes: the text already sits as close to these targets as the rules can take it."; }
+  sel.forEach(function(i){ var kb = knobs["mix" + i]; if(kb) kb.rt.textContent = srcText ? (tr.by[ARCH[i].name] || 0) + " chosen" : ""; });
+  var key = document.getElementById("syKey"); if(key) key.innerHTML = sel.map(function(i){ return '<span class="sy-keyi" style="--ac:' + CUES[ARCH[i].name].col + '"><i></i>' + escHtml(ARCH[i].name) + '</span>'; }).join("");
+  drawLex(tr);
   last = {sentences:sents, weak:weak, out:text};
 }
 var tmr = 0; ta.addEventListener("input", function(){ clearTimeout(tmr); tmr = setTimeout(run, 140); });
-root.querySelectorAll(".sy-chip").forEach(function(b){ b.addEventListener("click", function(){ var s = b.dataset.src;
-  if(s === "clear"){ ta.value = ""; } else { var src = document.getElementById(s); ta.value = src ? src.innerText.replace(/\s+/g, " ").trim() : ""; } stop(); run(); }); });
+root.querySelectorAll(".sy-chip[data-src]").forEach(function(b){ b.addEventListener("click", function(){ var s = b.dataset.src;
+  if(s === "clear"){ ta.value = ""; } else { var src = document.getElementById(s); ta.value = src ? (s === "voiceText" ? src.textContent : src.innerText).replace(/\s+/g, " ").trim() : ""; } stop(); run(); }); });
 /* ---------- output: the text played through the panel ---------- */
 var ctx = null, osc = null, timers = [], playing = false, btn = document.getElementById("syPlay");
 var SCALE = [0, 3, 5, 7, 10, 12, 15];
@@ -2631,7 +2884,9 @@ function play(){
   try{ ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); if(ctx.state === "suspended") ctx.resume(); }catch(e){ return; }
   var beat = 60 / knobs.tempo.val, rootHz = 130.81 * Math.pow(2, knobs.key.val / 12), glide = knobs.glide.val / 1000;
   var o = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain(), m = ctx.createGain();
-  o.type = "sawtooth"; f.type = "lowpass"; f.frequency.value = 1500; f.Q.value = 5; g.gain.value = 0; m.gain.value = .16;
+  var V = activeVoices(sel, mix), cut = 1500, wave = "sawtooth";
+  if(V.length){ var top = V.reduce(function(a, v){ return v.w > a.w ? v : a; }), sw = V.reduce(function(a, v){ return a + v.w; }, 0); wave = AUD[top.name].w; cut = V.reduce(function(a, v){ return a + AUD[v.name].c * v.w; }, 0) / sw; }
+  o.type = wave; f.type = "lowpass"; f.frequency.value = cut; f.Q.value = 5; g.gain.value = 0; m.gain.value = .16;
   o.connect(f); f.connect(g); g.connect(m); m.connect(ctx.destination);
   var t0 = ctx.currentTime + .06, t = t0;
   sents.forEach(function(s, n){ var w = wordsIn(s); if(!w.length) return; var start = t;
@@ -2650,9 +2905,9 @@ function play(){
 btn.addEventListener("click", function(){ if(playing) stop(); else play(); });
 document.getElementById("syUseOut").addEventListener("click", function(){ if(!last.out) return; ta.value = last.out; stop(); run(); var sm = document.getElementById("syTapeSum"); if(sm) sm.textContent = "Output moved into the patch. The dials now work from this version."; });
 /* ---------- start ---------- */
-root.querySelectorAll(".sy-row .knob[data-k]").forEach(function(el){ makeKnob(el, el.dataset.k === "tempo" || el.dataset.k === "key" || el.dataset.k === "glide" ? null : run); });
+root.querySelectorAll(".sy-row .knob[data-k]").forEach(function(el){ makeKnob(el, el.dataset.k === "tempo" || el.dataset.k === "key" || el.dataset.k === "glide" ? null : schedule); });
 drawArch(); drawMix();
-var seed = document.getElementById("baText"); ta.value = seed ? seed.innerText.replace(/\s+/g, " ").trim() : "";
+var seed = document.getElementById("voiceText"); ta.value = seed ? seed.textContent.replace(/\s+/g, " ").trim() : "";
 run();
 })();
 </script>
