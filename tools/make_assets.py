@@ -9,11 +9,17 @@ Writes:
   images/walnut.jpg            tileable walnut grain for the cabinet cheeks
   images/panel.png             tileable matte panel grain
   images/emblems/<name>.svg    one emblem per archetype, in that archetype's mark colour
-  audio/beds/<name>.wav        six-second loopable bed per archetype (16 kHz, mono)
+  audio/beds/<name>.mp3        loopable bed per archetype (16 kHz, mono, 48 kbit/s; needs ffmpeg, else .wav)
   audio/fx/rocker.wav, tick.wav  short switch sounds
+
+Each bed is one six-second period with 0.3 s of the same periodic audio added before and after. The player loops only
+the middle six seconds (loopStart 0.3, loopEnd 6.3), so any padding an MP3 decoder adds at either end stays outside
+the loop and the seam falls inside periodic audio.
 """
 import math
 import os
+import shutil
+import subprocess
 import wave
 
 import numpy as np
@@ -454,6 +460,18 @@ def write_wav(path, x, sr=SR):
         w.writeframes((x * 32767).astype("<i2").tobytes())
 
 
+def write_bed(path_noext, x):
+    """Normalise one period, pad it with 0.3 s of itself each side, and write MP3 (or WAV when ffmpeg is missing)."""
+    wav = path_noext + ".wav"
+    x = np.asarray(x, float) - np.mean(x)
+    m = int(0.3 * SR)
+    write_wav(wav, np.concatenate([x[-m:], x, x[:m]]))
+    if shutil.which("ffmpeg"):
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-ac", "1", "-ar", str(SR), "-b:a", "48k",
+                        path_noext + ".mp3"], check=True)
+        os.remove(wav)
+
+
 def fx():
     sr = 22050
     n = int(0.05 * sr)
@@ -473,7 +491,7 @@ def main():
         with open(out("images", "emblems", f"{name}.svg"), "w", encoding="utf-8") as f:
             f.write(emblem(name, col))
     for name, fn in BEDS.items():
-        write_wav(out("audio", "beds", f"{name}.wav"), fn())
+        write_bed(out("audio", "beds", name), fn())
     fx()
     print("done")
 

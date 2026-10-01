@@ -1,0 +1,98 @@
+# Nathaniel Robertson, content specialist
+
+> Content specialist for source-checked B2B, B2C, and B2G writing, AI editing and governance, and content audits. Every claim goes back to its source.
+
+Source: https://nrr-hash.github.io/Lexiphon/ (version 1.2, 30 September 2026). Generated from the page by tools/build_seo.py on 2026-09-30. The page is written in the first person by Nathaniel Robertson.
+
+Not included: the interface, the demonstration texts, and three exhibits that are not his writing (an AI-written bio, a quotation from Cambridge Audio's own product page, and the sample passages in Telltale and Lexiphon).
+
+## The position
+Anyone can generate content. Somebody has to answer for it.
+At heart, I’m a copywriter. In practice, I devise, produce, and scale digital content with frontier and open-weight models that I configure and check myself. The model learns your voice. I make sure it tells the truth.
+The problem, in 2026
+Anyone can generate content, you say. Correct. The problem is that too little of it is worth reading, because “universal output” comes out too smooth and too generic to stick.
+
+### How it sounds
+Sentences lack burst. The same words turn up everywhere. The tone is flat. “It’s not this, it’s that” is a construction LLMs lean on far too often.
+
+### Whether it is true
+Some models invent facts more than others, and your claims quietly stop being true.
+
+### Who it is for
+Pages swell into keyword nests built for ranking, read mostly by other machines scraping by. Lorem ipsum used to hold a page until the real words arrived. On too many pages now, the filler is the words. Look closer, and the same narrative patterns are everywhere.
+I was trained to check sources before I was trained to write. That order has never reversed.
+You are, I suspect, looking for someone to stand behind every sentence your company publishes. That is my job. I take the dense material that regulated industries run on (specifications, standards, contract small print) and turn it into English a buyer can trust.
+Every claim goes back to its source before it goes out. When a fact is missing, I flag it rather than invent it, and when a model has drafted a page, I check it line by line.
+Companies retain me for that standard, and at micro1 I bring the same judgement to robotics training data.
+
+## At a glance
+- Now: Freelance consultant, Switch Ltd, Jan 2026 – present
+- Now: Content Producer, micro1, Jul 2026 – present
+- Now: Consultant, Three Lions English GbR, 2015 – present
+- Before: Copywriter, BRITA SE, Feb 2021 – Feb 2023
+- Education: BA (Hons) Medieval and Modern History, University of Birmingham
+- Languages: English native, German C1, French B1
+- Base: Gozo, Malta, and remote-ready
+
+## How I work
+Every piece of work was put through three tests: how it sounds, whether it is true, and who it is for. Five live demonstrations on the page show the tests, and Lexiphon shows all three.
+
+## Published work
+Each piece is live client work, checked against the client's own source material and signed off by the client.
+- [Furnitubes: Solutions for local councils](https://www.furnitubes.com/solutions-for-local-councils): Public-sector content for procurement officers and specifiers, who read for compliance before they read for interest.
+- [Furnitubes: Didcot Garden Town](https://www.furnitubes.com/projects/didcot-garden-town): A project story for the same readers: procurement officers and specifiers.
+- [Furnitubes: Biodiversity net gain and wellbeing](https://www.furnitubes.com/blog/how-street-furniture-drives-biodiversity-net-gain-and-wellbeing): Long-form editorial on how street furniture contributes to biodiversity net gain.
+- [Contracts Engineering: HVAC reshoring case study](https://www.contractsengineering.com/case-studies/hvac-rooftop-support-reshoring-supply-chain/): A reshoring case study for OEM and Tier 1 buyers: 26 weeks of committed supply chain exposure cut to a three-week UK production cycle.
+- [Kalon: Timberline case study](https://kaloncreative.com/work/timberline): A US SaaS case study, written to carry the client's story without the usual superlatives.
+- [Vodafone: Innovation Park film](https://playout.3qsdn.com/embed/16e3ac84-3f90-11e9-ae4b-0cc47a188158): A commissioned English voiceover. The voice is mine.
+- [BRITA: Purity C iQ](https://www.brita.co.uk/purity-c-iq): Master content for the professional water-filtration range, written by hand without AI as the UK English master, then translated for eleven international subsidiaries.
+- [BRITA: Water dispenser range](https://www.brita.co.uk/water-dispensers/products): Content for the entire professional water-dispenser range (countertop and floorstanding units, integrated taps, bottling dispensers, filters, and accessories), written by hand without AI.
+- [BRITA: Fine dining](https://www.brita.co.uk/fine-dining): A sector page for fine-dining kitchens: water filtration for steam cooking, espresso, and glass washing, written by hand without AI.
+
+## Portfolio: five concept pages
+Speculative concept pages, drafted with an LLM as testbeds for the method: his direction, his edit, his sign-off. Not commissioned by the brands. Each ends with production notes; three carry evidence pins that tie each claim to its note (22 claims in all).
+- AX Hotels, The Saint John: Stone below. Light above. Valletta at the door. The house by the hour, sanctuary copy, and friction-free micro-copy, all from one verified spine. Full page. [PDF](https://drive.google.com/file/d/1_baZn2ZP3IAgg5jib9jt7GcTERgV8uqo/view)
+- Cambridge Audio, DacMagic 200M: A product essay held on one conceit: translation. Shows terminal stress and varied rhythm held across a long essay. Full page. [PDF](https://drive.google.com/file/d/1HPbnEHVC-kvoeMkHry9_E_8r3FAEffLp/view)
+- Cambridge Audio, Content engine: One verified spine, turned to six readers. Shows one checked fact base serving six different readers. Full page. 7 evidence pins. [PDF](https://drive.google.com/file/d/1a7M45gW0yt3dM3zTyKWJM1LUdhLc7E_n/view)
+- Gordon Murray Automotive, T.33 Spider: Written from the physics up. Shows the ledger at work: a record figure kept off the wrong car. Full page. 7 evidence pins. [PDF](https://drive.google.com/file/d/1YUakODtBrPsyFCTU6ymRr_GqgAlL3kZ5/view)
+- Rega, Planar 3 RS: What Rega leaves out, left out on purpose. Shows restraint: where Rega publishes no figure, the page leaves a blank. Full page. 8 evidence pins. [PDF](https://drive.google.com/file/d/1-J5ktl36WvCosKEDZO6PdPonC2Pf8vDG/view)
+
+## Questions people ask
+### What does Nathaniel Robertson do?
+Nathaniel Robertson is a content specialist. He devises, produces, and scales digital content with frontier and open-weight models that he configures and checks himself, and every claim goes back to its source before it goes out. His work covers source-checked B2B, B2C, and B2G writing, AI editing and governance, and content audits.
+
+### What is he working on now?
+Nathaniel Robertson is a freelance consultant at Switch Ltd (January 2026 to present), a content producer at micro1 (July 2026 to present), and a consultant at Three Lions English GbR (2015 to present). At Switch Ltd he works on four retained accounts: BAMUK Group in the UK, Kalon Software in the US, Alter Domus in Malta, and a manufacturing group.
+
+### Whom has he worked with?
+Nathaniel Robertson has worked with BRITA, Vodafone, Alter Domus, BAMUK Group, Kalon Software, Contracts Engineering, Assemblin Caverion Group, Furnitubes, Krüger, Metsä, Nickel, NRW Invest, OBI, Trend Micro, Pipex UK, Birkelbach Media Group, and Africa GreenTec.
+
+### Which industries does he know?
+Nathaniel Robertson has worked in fintech, SaaS, manufacturing, telecoms, hosting and cloud, water filtration, food and beverage, legal, specialist construction, building technology, technical building solutions, facility management, and AI training data.
+
+### What material does he work from?
+Nathaniel Robertson takes the dense material that regulated industries run on (specifications, standards, contract small print) and turns it into English a buyer can trust.
+
+### How does he keep AI-drafted content accurate?
+When a fact is missing, Nathaniel Robertson flags it rather than inventing it, and when a model has drafted a page, he checks it line by line. One fact base is verified once against source and then reused in every content type, and nothing ships until it has passed his own instruments and his own eye.
+
+### Does he offer content audits?
+Yes. Nathaniel Robertson audits existing content libraries, scores them for machine-generated tells and search exposure, and prices the rebuild in writing.
+
+### Does he work on search visibility, including AI answer engines?
+Yes. Nathaniel Robertson works on search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO). Search and AI answer boxes get the same facts, never a separate page written for them, and he writes answer blocks to be lifted whole.
+
+### Can the AI work run without client data leaving the premises?
+Yes. Open models (Gemma and Qwen, through Ollama) run on site, so client data and IP never leave the building.
+
+### Are the concept pages real client work?
+No. The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method, and product names, product photography, and brand marks belong to their owners. The Published work section is live client work, checked against the client’s own source material and signed off by the client.
+
+### What is Lexiphon?
+Lexiphon is a worked example, on this page, of how to tailor a company’s branded content. A visitor chooses brand archetypes and sets each one’s share, and the same text takes on each voice: its words, its rhythm, and its sound. The rules are simple and run in the browser.
+
+### Where is he based, and which languages does he use?
+Nathaniel Robertson is based in Gozo, Malta, and is remote-ready. He works in English (native), German (C1), and French (B1).
+
+## Contact
+Email: nathan667@gmail.com. The last section of the page also offers a content audit.

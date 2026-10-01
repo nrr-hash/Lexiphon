@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nrr-hash.github.io/Lexiphon/</loc>
     <lastmod>2026-09-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://nrr-hash.github.io/Lexiphon/"/>
+    <image:image>
+      <image:loc>https://nrr-hash.github.io/Lexiphon/images/og.png</image:loc>
+      <image:caption>Nathaniel Robertson, content specialist. Anyone can generate content. Somebody has to answer for it.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nrr-hash.github.io/Lexiphon/images/concepts/ax-saint-john-preview.webp</image:loc>
+      <image:caption>Top of the AX Hotels concept page: the headline “Stone below. Light above. Valletta at the door.”, its introduction, and two buttons, over an image of a hallway.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nrr-hash.github.io/Lexiphon/images/concepts/cambridge-dacmagic-preview.webp</image:loc>
+      <image:caption>Top of the Cambridge Audio DacMagic 200M concept page: the product name, an introduction beginning “Nothing in a digital file is music”, and two buttons.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nrr-hash.github.io/Lexiphon/images/concepts/cambridge-content-engine-preview.webp</image:loc>
+      <image:caption>Top of the Cambridge Audio content-engine concept page: the headline “One verified spine. Every surface stands on it.” and its opening paragraph.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nrr-hash.github.io/Lexiphon/images/concepts/gordon-murray-t33-preview.webp</image:loc>
+      <image:caption>Top of the Gordon Murray Automotive T.33 Spider concept page: the headline “Induction, airflow, and beauty – all unforced.” above a blue open-top car.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nrr-hash.github.io/Lexiphon/images/concepts/rega-planar-3rs-preview.webp</image:loc>
+      <image:caption>Top of the Rega Planar 3 RS concept page: the headline “Most of the engineering in this turntable is the kind you cannot hear.” beside a turntable.</image:caption>
+    </image:image>
   </url>
 </urlset>

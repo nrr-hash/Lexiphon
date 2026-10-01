@@ -9,6 +9,7 @@
 var NAMES = ["Innocent","Explorer","Sage","Hero","Outlaw","Magician","Regular Guy/Gal","Lover","Jester","Caregiver","Creator","Ruler"];
 var FILES = {"Innocent":"innocent","Explorer":"explorer","Sage":"sage","Hero":"hero","Outlaw":"outlaw","Magician":"magician","Regular Guy/Gal":"regular","Lover":"lover","Jester":"jester","Caregiver":"caregiver","Creator":"creator","Ruler":"ruler"};
 var LOOP = 6;           /* seconds in a bed loop */
+var MARGIN = .3;        /* seconds of the same periodic audio either side of it, so decoder padding never falls inside the loop */
 var BEDROOT = 9;        /* the beds sit on A */
 
 var SCALES = {
@@ -87,9 +88,12 @@ function Synth(ctx, opt){
   s.mix.connect(s.comp); s.comp.connect(s.lim); s.lim.connect(s.vol); s.vol.connect(s.analyser); s.analyser.connect(ctx.destination);
   /* wheels: pitch bend in cents, and a low-frequency oscillator whose depth the mod wheel sets */
   s.bendSrc = ctx.createConstantSource(); s.bendSrc.offset.value = 0; s.bendSrc.start();
+  s.cutSrc = ctx.createConstantSource(); s.cutSrc.offset.value = 0; s.cutSrc.start();   /* filter cutoff trim, in cents */
+  s.resSrc = ctx.createConstantSource(); s.resSrc.offset.value = 0; s.resSrc.start();   /* filter emphasis trim, in dB */
   s.lfo = ctx.createOscillator(); s.lfo.type = "sine"; s.lfo.frequency.value = 5; s.vibDepth = g(0); s.fltDepth = g(0);
   s.lfo.connect(s.vibDepth); s.lfo.connect(s.fltDepth); s.lfo.start();
   var N = ctx.sampleRate * 2, nb = ctx.createBuffer(1, N, ctx.sampleRate), d = nb.getChannelData(0); for(var j = 0; j < N; j++) d[j] = Math.random() * 2 - 1; s.noiseBuf = nb;
+  Synth.last = s;
   s.apply();
 }
 
@@ -112,8 +116,8 @@ Synth.prototype.setTrim = function(o){ for(var k in o) this.trim[k] = o[k]; this
 /* the trim dials centre on 5: they push the preset, they do not replace it */
 Synth.prototype.eff = function(){
   var P = this.P, T = this.trim, e = {};
-  e.cut = clamp(P.cut * Math.pow(2, (T.cut - 5) * .42), 80, 16000);
-  e.res = clamp(P.res * Math.pow(2, (T.res - 5) / 2.2), .2, 16);
+  e.cut = clamp(P.cut, 80, 16000); e.cutCents = (T.cut - 5) * .42 * 1200;       /* the trim is applied live, see apply() */
+  e.res = clamp(P.res, .2, 16); e.resDb = clamp((T.res - 5) * 2.4, -13, 8);
   e.con = clamp(P.con + (T.con - 5) * .45, 0, 6);
   e.rev = clamp(P.rev + (T.space - 5) * .11, 0, 1);
   e.dly = clamp(P.dly + (T.space - 5) * .07, 0, .9);
@@ -133,13 +137,15 @@ Synth.prototype.apply = function(){
   s.fltDepth.gain.setTargetAtTime(s.mod * 420, t, .05);
   s.vol.gain.setTargetAtTime(s.muted ? 0 : Math.pow(clamp(s.trim.vol / 10, 0, 1), 1.6) * .9, t, .03);
   s.bendSrc.offset.setTargetAtTime(s.bend, t, .02);
+  s.cutSrc.offset.setTargetAtTime(e.cutCents, t, .03);
+  s.resSrc.offset.setTargetAtTime(e.resDb, t, .03);
 };
 Synth.prototype.setMuted = function(m){ this.muted = !!m; this.apply(); };
 Synth.prototype.setBend = function(cents){ this.bend = cents; this.bendSrc.offset.setTargetAtTime(cents, this.ctx.currentTime, .02); };
 Synth.prototype.setMod = function(v){ this.mod = clamp(v, 0, 1); this.apply(); };
 
 /* ---- notes ---- */
-Synth.prototype._play = function(t, midi, dur, vel){
+Synth.prototype._play = function(t, midi, dur, vel, fast){
   var s = this, c = s.ctx, P = s.P, e = s.eff(), f = hz(midi), glide = e.glide, v = {osc:[], nodes:[], t:t};
   vel = vel == null ? .8 : vel;
   var g = c.createGain(); g.gain.value = 0;
@@ -157,12 +163,15 @@ Synth.prototype._play = function(t, midi, dur, vel){
   if(P.nz > .005){ var ns = c.createBufferSource(), ng = c.createGain(); ns.buffer = s.noiseBuf; ns.loop = true; ng.gain.value = P.nz * .5; ns.connect(ng); ng.connect(mixer); ns.start(t, Math.random() * 1.5); v.osc.push(ns); v.nodes.push(ng); }
   mixer.connect(lp1); lp1.connect(lp2); lp2.connect(g); g.connect(s.bus);
   s.fltDepth.connect(lp1.detune); s.fltDepth.connect(lp2.detune);
+  s.cutSrc.connect(lp1.detune); s.cutSrc.connect(lp2.detune); s.resSrc.connect(lp1.Q);
   /* filter contour */
   var track = Math.pow(2, (midi - 60) / 12 * .33), base = clamp(e.cut * track, 60, 15000), peak = clamp(base * Math.pow(2, e.con), 60, 18000), sus = clamp(base * Math.pow(2, e.con * P.fS), 60, 18000);
   var fA = Math.max(.002, dur == null ? P.fA : Math.min(P.fA, dur * .8)), fD = Math.max(.02, P.fD);
+  if(fast) fA = Math.min(fA, .03);
   [lp1.frequency, lp2.frequency].forEach(function(p){ p.setValueAtTime(base, t); p.setTargetAtTime(peak, t, fA / 3); p.setTargetAtTime(sus, t + fA, fD / 3); });
   /* loudness contour */
   var A = dur == null ? P.A : Math.min(P.A, dur * .8), D = P.D, peakG = vel;
+  if(fast) A = Math.min(A, .025);   /* a re-struck word continues; it does not begin again */
   g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peakG, t + Math.max(.002, A)); g.gain.setTargetAtTime(peakG * P.S, t + Math.max(.002, A), D / 3);
   v.g = g; v.lp = [lp1, lp2]; v.base = base; v.R = P.R; v.mixer = mixer;
   s.active.push(v); if(s.active.length > 10) s._release(s.active[0], c.currentTime);
@@ -186,14 +195,22 @@ Synth.prototype._release = function(v, t){
 Synth.prototype._free = function(v){
   var s = this, i = s.active.indexOf(v); if(i >= 0) s.active.splice(i, 1);
   v.osc.forEach(function(o, k){ try{ if(k < 3){ s.bendSrc.disconnect(o.detune); s.vibDepth.disconnect(o.detune); } o.disconnect(); }catch(err){} });
-  v.lp.forEach(function(l){ try{ s.fltDepth.disconnect(l.detune); l.disconnect(); }catch(err){} });
+  v.lp.forEach(function(l, k){ try{ s.fltDepth.disconnect(l.detune); s.cutSrc.disconnect(l.detune); if(k === 0) s.resSrc.disconnect(l.Q); l.disconnect(); }catch(err){} });
   try{ v.g.disconnect(); v.mixer.disconnect(); }catch(err){}
   v.nodes.forEach(function(n){ try{ n.disconnect(); }catch(err){} });
 };
 /* scheduled note, length known: for the text played back */
-Synth.prototype.note = function(t, midi, dur, vel){ return this._play(t, midi, dur, vel); };
+Synth.prototype.note = function(t, midi, dur, vel, fast){ return this._play(t, midi, dur, vel, fast); };
 /* held note: for the keyboard; release it later with off() */
-Synth.prototype.on = function(midi, vel){ return this._play(this.ctx.currentTime + .005, midi, null, vel); };
+Synth.prototype.on = function(midi, vel, t, fast){ return this._play(t == null ? this.ctx.currentTime + .005 : t, midi, null, vel, fast); };
+/* cut a note short at time t (scheduled or held) with a quick fade, so a replacement in a new timbre can take over */
+Synth.prototype.steal = function(h, t, rel){
+  var v = h && h.v; if(!v) return; rel = rel || .05;
+  var hold = function(p){ if(p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(t); else p.cancelScheduledValues(t); };
+  hold(v.g.gain); v.g.gain.setTargetAtTime(0, t, rel / 3); v.lp.forEach(function(l){ hold(l.frequency); });
+  v.done = true; v.stopAt = t + rel * 1.6 + .05; v.osc.forEach(function(o){ try{ o.stop(v.stopAt); }catch(err){} });
+  var s = this; v.osc[0].onended = function(){ s._free(v); };
+};
 Synth.prototype.off = function(h){ if(h && h.v) this._release(h.v, this.ctx.currentTime); };
 Synth.prototype.allOff = function(){ var s = this; s.active.slice().forEach(function(v){ s._release(v, s.ctx.currentTime); }); s.lastFreq = 0; };
 Synth.prototype.scaleNote = function(rootMidi, degree){ var sc = SCALES[this.P.scale] || SCALES.major; return rootMidi + sc[clamp(degree, 0, 6)]; };
@@ -204,10 +221,10 @@ Synth.prototype._bed = function(name){
   var s = this, c = s.ctx, b = s.beds[name];
   if(b) return b;
   b = s.beds[name] = {state:"loading", gain:c.createGain()}; b.gain.gain.value = 0; b.gain.connect(s.bedBus);
-  fetch(s.bedBase + FILES[name] + ".wav").then(function(r){ if(!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+  fetch(s.bedBase + FILES[name] + ".mp3").then(function(r){ if(!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
     .then(function(ab){ return new Promise(function(ok, no){ c.decodeAudioData(ab, ok, no); }); })
-    .then(function(buf){ var src = c.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(b.gain);
-      src.playbackRate.value = Math.pow(2, s.trim.transpose / 12); src.start(c.currentTime, ((c.currentTime - s.t0) % LOOP + LOOP) % LOOP); b.src = src; b.state = "ready"; s._beds(); })
+    .then(function(buf){ var src = c.createBufferSource(); src.buffer = buf; src.loop = true; src.loopStart = MARGIN; src.loopEnd = MARGIN + LOOP; src.connect(b.gain);
+      src.playbackRate.value = Math.pow(2, s.trim.transpose / 12); src.start(c.currentTime, MARGIN + ((c.currentTime - s.t0) % LOOP + LOOP) % LOOP); b.src = src; b.state = "ready"; s._beds(); })
     .catch(function(){ b.state = "failed"; });
   return b;
 };
@@ -235,6 +252,7 @@ Synth.prototype.level = function(){ /* rms of the output, 0..1, for the visuals 
   var x = 0; for(var i = 0; i < this._td.length; i++) x += this._td[i] * this._td[i]; return Math.sqrt(x / this._td.length);
 };
 
-Synth.NAMES = NAMES; Synth.PRESETS = PRESETS; Synth.SCALES = SCALES; Synth.blend = blend; Synth.hz = hz; Synth.LOOP = LOOP; Synth.BEDROOT = BEDROOT;
+Synth.last = null;
+Synth.NAMES = NAMES; Synth.PRESETS = PRESETS; Synth.SCALES = SCALES; Synth.blend = blend; Synth.hz = hz; Synth.LOOP = LOOP; Synth.MARGIN = MARGIN; Synth.BEDROOT = BEDROOT;
 root.LexiSynth = Synth;
 })(typeof window !== "undefined" ? window : this);
