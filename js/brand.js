@@ -1,16 +1,14 @@
-/* Lexiphon briefs: one fact base, many voices.
-   A brief is a short list of facts, each written once in a few grammatical shapes (third person, to the reader, as the
-   speaker, as a fragment) and checked once. A voice decides which facts to use, in what order, from whose point of view,
-   in what sentence shapes, and how to close. It cannot add a fact: every sentence of the output comes from a numbered fact,
-   and the frames around them (a headline shape, a closing line) carry no claim of their own.
-   The archetype method follows the house rule: one lead voice, up to two supporting voices, one seasoning voice. The lead
-   sets structure, point of view, register, rhythm, and words. Each supporting voice makes sure the fact it cares about most
-   is said. The seasoning voice writes the closing line and nothing else. Archetypes and quadrants after Margaret Mark and
-   Carol S. Pearson, The Hero and the Outlaw (2001). The voice rules are mine. */
+/* Lexiphon: a brand voice written down as a profile, and applied by rule.
+   The profile has six layers. Tone is four dials after the Nielsen Norman Group's four dimensions of tone of voice (2016):
+   formal to casual, serious to funny, respectful to irreverent, matter-of-fact to enthusiastic. Left on Auto, the tone sets
+   what leads, the point of view, the rhythm, and the words; any of them can be set by hand. The twelve archetypes of
+   Margaret Mark and Carol S. Pearson, The Hero and the Outlaw (2001), are fixed points in that tone space: the nearest one
+   lends its word list. Their coordinates, and every rule below, are my judgement, not a measurement.
+   Claims are a layer too: a voice can only use the facts in the brief, and when a fact it wants is missing it either marks
+   the gap or leaves it out. It never fills it. */
 (function(){
 "use strict";
 
-/* {S} is the subject: the name on first mention, then the pronoun. Each fact keeps its source note. */
 var BRIEFS = [
   {id:"jug", label:"A filter jug", tag:"invented", name:"the Lexi Jug", pron:"it", proper:["Lexi"],
    note:"Invented for this demonstration. There is no such product, and the figures are made up so that the check has something to check.",
@@ -62,101 +60,111 @@ var BRIEFS = [
    ]}
 ];
 
+
 var KIND = {what:"what it is", benefit:"what it does", proof:"the evidence", feature:"a working detail", audience:"who it is for", detail:"the terms"};
+var KINDS = ["proof","benefit","audience","what","feature","detail"];
 
-/* The voice rules. order: facts in priority. max: how many the lead says unprompted. person: "it" third person, "you" to
-   the reader, "we" as the speaker. head: headline shape. frag: evidence and terms as fragments. join: "and" joins short
-   pairs, "semi" joins them with a semicolon, "none" leaves sentences short. end: the closing line when this voice closes. */
-var VOICE = {
-  "Innocent":       {order:["benefit","what","feature","detail","proof","audience"], max:2, person:"you", head:"benefit", frag:false, join:"none", end:"{Cta}."},
-  "Explorer":       {order:["benefit","feature","what","proof","audience","detail"], max:2, person:"you", head:"imperative", frag:true, join:"none", end:"{Cta} and see for yourself."},
-  "Sage":           {order:["proof","benefit","what","feature","audience","detail"], max:3, person:"it", head:"name", frag:false, join:"and", end:"{Cta}, then judge it on the facts above."},
-  "Hero":           {order:["benefit","proof","feature","what","audience","detail"], max:2, person:"you", head:"imperative", frag:true, join:"none", end:"{Cta} today."},
-  "Outlaw":         {order:["benefit","detail","proof","what","feature","audience"], max:2, person:"you", head:"benefit", frag:true, join:"none", end:"Skip the small talk. {Cta}."},
-  "Magician":       {order:["benefit","what","feature","proof","audience","detail"], max:2, person:"it", head:"benefit", frag:false, join:"and", end:"{Cta}. The first step is yours."},
-  "Regular Guy/Gal":{order:["what","detail","benefit","feature","proof","audience"], max:3, person:"we", head:"what", frag:false, join:"none", end:"If it suits you, {cta}."},
-  "Lover":          {order:["benefit","feature","what","audience","proof","detail"], max:2, person:"you", head:"benefit", frag:false, join:"and", end:"{Cta}, and make it yours."},
-  "Jester":         {order:["benefit","proof","detail","what","feature","audience"], max:2, person:"you", head:"proof", frag:true, join:"none", end:"Go on. {Cta}."},
-  "Caregiver":      {order:["audience","benefit","feature","proof","what","detail"], max:3, person:"you", head:"audience", frag:false, join:"and", end:"{Cta} whenever you are ready."},
-  "Creator":        {order:["what","feature","benefit","proof","audience","detail"], max:2, person:"it", head:"what", frag:false, join:"semi", end:"{Cta}, and start from there."},
-  "Ruler":          {order:["what","proof","feature","detail","benefit","audience"], max:3, person:"it", head:"name", frag:false, join:"semi", end:"To proceed, {cta}."}
+/* tone: 0 to 100 on each dimension, the second-named end at 100 */
+var TONE = [
+  {k:"casual", lo:"Formal", hi:"Casual"},
+  {k:"funny", lo:"Serious", hi:"Funny"},
+  {k:"irreverent", lo:"Respectful", hi:"Irreverent"},
+  {k:"enthusiastic", lo:"Matter-of-fact", hi:"Enthusiastic"}
+];
+/* where each archetype sits in tone space: my reading of Mark and Pearson, not theirs */
+var LANDMARK = {
+  "Innocent":[60,30,10,70], "Explorer":[60,20,40,80], "Sage":[20,10,10,20], "Hero":[40,10,30,90], "Outlaw":[80,40,90,70], "Magician":[40,20,30,80],
+  "Regular Guy/Gal":[90,40,30,40], "Lover":[50,10,10,70], "Jester":[90,90,70,80], "Caregiver":[70,10,0,40], "Creator":[50,30,40,60], "Ruler":[10,0,10,30]
 };
-var PERSON = {it:"in the third person", you:"to the reader", we:"as the speaker"};
-var HEAD = {name:"the name", what:"what it is", benefit:"the benefit", imperative:"an instruction", proof:"the evidence", audience:"who it is for"};
-var HEADKIND = {name:"what", what:"what", benefit:"benefit", imperative:"benefit", proof:"proof", audience:"audience"};
-var JOIN = {and:"long: short pairs joined with “and”", semi:"measured: pairs joined with a semicolon", none:"short, one fact to a sentence"};
+function toneOf(name){ var c = LANDMARK[name]; return {casual:c[0], funny:c[1], irreverent:c[2], enthusiastic:c[3]}; }
+function nearest(t){ var best = null, bd = 1e9; Object.keys(LANDMARK).forEach(function(n){ var c = LANDMARK[n], d = Math.pow(c[0]-t.casual,2) + Math.pow(c[1]-t.funny,2) + Math.pow(c[2]-t.irreverent,2) + Math.pow(c[3]-t.enthusiastic,2); if(d < bd){ bd = d; best = n; } }); return best; }
 
-/* Mark and Pearson's four motivations. Opposite poles: stability against risk, belonging against independence. */
-var QUAD = {"Creator":"stability","Caregiver":"stability","Ruler":"stability","Jester":"belonging","Regular Guy/Gal":"belonging","Lover":"belonging",
-  "Hero":"mastery","Outlaw":"mastery","Magician":"mastery","Innocent":"independence","Explorer":"independence","Sage":"independence"};
-var QUADNAME = {stability:"Stability and control", belonging:"Belonging and enjoyment", mastery:"Risk and mastery", independence:"Independence and fulfilment"};
-var OPP = {stability:"mastery", mastery:"stability", belonging:"independence", independence:"belonging"};
+/* from tone to the other layers; each result says which dial decided it */
+function derive(p){
+  var t = p.tone, d = {why:{}};
+  if(p.lead !== "auto"){ d.lead = p.lead; d.why.lead = "set by hand"; }
+  else if(t.enthusiastic >= 65){ d.lead = "benefit"; d.why.lead = "enthusiastic, so the benefit leads"; }
+  else if(t.enthusiastic <= 35){ d.lead = "proof"; d.why.lead = "matter-of-fact, so the evidence leads"; }
+  else if(t.casual >= 60 && t.irreverent <= 25){ d.lead = "audience"; d.why.lead = "casual and respectful, so the reader leads"; }
+  else { d.lead = "what"; d.why.lead = "level tone, so it says what it is first"; }
+  if(p.person !== "auto"){ d.person = p.person; d.why.person = "set by hand"; }
+  else if(t.casual <= 30){ d.person = "it"; d.why.person = "formal, so the third person"; }
+  else if(t.casual >= 55 || t.irreverent >= 60){ d.person = "you"; d.why.person = t.irreverent >= 60 ? "irreverent, so straight to the reader" : "casual, so straight to the reader"; }
+  else { d.person = "we"; d.why.person = "neither formal nor casual, so the brand speaks"; }
+  if(p.rhythm !== "auto"){ d.rhythm = p.rhythm; d.why.rhythm = "set by hand"; }
+  else if(t.funny >= 60 || t.irreverent >= 60 || t.enthusiastic >= 75){ d.rhythm = "short"; d.why.rhythm = "lively tone, so short lines and fragments"; }
+  else if(t.casual <= 30){ d.rhythm = "long"; d.why.rhythm = "formal, so measured, joined sentences"; }
+  else { d.rhythm = "varied"; d.why.rhythm = "middle tone, so short pairs joined"; }
+  d.near = nearest(t);
+  if(p.words === "auto"){ d.words = d.near; d.why.words = "nearest archetype to this tone"; }
+  else { d.words = p.words === "none" ? null : p.words; d.why.words = p.words === "none" ? "the brief’s own words" : "set by hand"; }
+  d.bias = t.casual >= 60 ? Math.round((t.casual - 50) / 5) : t.casual <= 35 ? -Math.round((50 - t.casual) / 5) : 0;
+  d.why.register = d.bias > 0 ? "casual, so contractions" : d.bias < 0 ? "formal, so every form written out" : "neither, so as the brief has it";
+  d.head = t.casual <= 30 ? "name" : t.funny >= 60 ? "proof" : t.enthusiastic >= 65 ? (t.irreverent >= 40 || t.enthusiastic >= 80 ? "imperative" : "benefit") : d.lead === "audience" ? "audience" : "what";
+  /* the closing line follows the most marked dial */
+  var c;
+  if(t.funny >= 65){ c = "Go on. {Cta}."; d.why.close = "funny"; }
+  else if(t.irreverent >= 65){ c = "Skip the small talk. {Cta}."; d.why.close = "irreverent"; }
+  else if(t.enthusiastic >= 70){ c = "{Cta} today."; d.why.close = "enthusiastic"; }
+  else if(t.casual <= 15){ c = "To proceed, {cta}."; d.why.close = "formal"; }
+  else if(t.casual >= 55 && t.irreverent <= 25){ c = "{Cta} whenever you are ready."; d.why.close = "casual and respectful"; }
+  else if(t.enthusiastic <= 35){ c = "{Cta}, then judge it on the facts above."; d.why.close = "matter-of-fact"; }
+  else { c = "{Cta}."; d.why.close = "level"; }
+  d.close = c;
+  return d;
+}
 
 function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
 function wc(s){ return (s.match(/[A-Za-z0-9£][A-Za-z0-9£.,'’\-]*/g) || []).length; }
 function factById(b, id){ for(var i = 0; i < b.facts.length; i++) if(b.facts[i].id === id) return b.facts[i]; return null; }
-function factOfKind(b, k){ for(var i = 0; i < b.facts.length; i++) if(b.facts[i].kind === k) return b.facts[i]; return null; }
+function label(b, k){ return k === "detail" ? b.detailLabel : KIND[k]; }
+/* {S}: the name on first mention; after that the pronoun, but only when the sentence before was also about the subject */
+function subjects(b){ var said = false, prevSubj = false;
+  return function(s){ var startsSubj = /^\{S\}|^If [^,]*, \{S\}/.test(s);
+    var out = s.replace(/\{S\}/g, function(m, at){ var w = said && prevSubj ? b.pron : b.name; said = true; return at === 0 ? cap(w) : w; });
+    prevSubj = startsSubj || /\{S\}/.test(s); return out; }; }
+function lowerStart(s, b){ var m = s.match(/^([A-Za-z]+)/); if(!m) return s; if(b.proper.indexOf(m[1]) >= 0 || /^[A-Z]{2,}/.test(m[1])) return s; return s.charAt(0).toLowerCase() + s.slice(1); }
 
-/* resolve {S}: the name on first mention, then the pronoun */
-function subjects(b){
-  var said = false;
-  return function(s){ return s.replace(/\{S\}/g, function(m, at){ var w = said ? b.pron : b.name; said = true; return at === 0 ? cap(w) : w; }); };
-}
-function lowerStart(s, b){
-  var m = s.match(/^([A-Za-z]+)/); if(!m) return s;
-  if(b.proper.indexOf(m[1]) >= 0 || /^[A-Z]{2,}/.test(m[1])) return s;
-  return s.charAt(0).toLowerCase() + s.slice(1);
-}
-function shape(f, v){
-  if(v.frag && f.frag) return {text:f.frag, frag:true};
-  if(v.person === "we" && f.we) return {text:f.we};
-  if(v.person === "you" && f.you) return {text:f.you};
-  return {text:f.it};
-}
-
-function compose(b, roles){
-  var lead = roles.lead, v = VOICE[lead]; if(!v) return null;
-  var hk = HEADKIND[v.head], headFact = factOfKind(b, hk), head = "";
-  if(v.head === "name") head = headFact.nameHead;
-  else if(v.head === "imperative") head = headFact.imp || headFact.np;
-  else if(v.head === "benefit") head = headFact.np;
-  else if(v.head === "proof") head = headFact.frag.replace(/\.$/, "").split(". ")[0];
-  else head = headFact.head;
-  head = head.replace(/\.$/, "") + ".";
-  /* what the lead says unprompted, then what each supporting voice insists on */
-  var picks = [], by = {};
-  v.order.forEach(function(k){ if(k !== hk && picks.length < v.max){ picks.push(k); by[k] = lead; } });
-  (roles.support || []).forEach(function(s){ var sv = VOICE[s]; if(!sv) return;
-    for(var i = 0; i < sv.order.length; i++){ var k = sv.order[i]; if(k === hk) continue; if(picks.indexOf(k) < 0){ picks.push(k); by[k] = s; } else if(by[k] === lead){ by[k] = lead + " and " + s; } break; } });
-  picks.sort(function(a, c){ return v.order.indexOf(a) - v.order.indexOf(c); });
-  var subj = subjects(b), body = [];
-  picks.forEach(function(k){ var f = factOfKind(b, k); if(!f) return; var sh = shape(f, v);
-    body.push({text:subj(sh.text), ids:[f.id], kinds:[k], by:[by[k]], frag:!!sh.frag}); });
-  /* rhythm: the lead joins short neighbours, or leaves them short */
-  if(v.join !== "none"){
-    var joined = [];
-    for(var i = 0; i < body.length; i++){
-      var a = body[i], c = body[i + 1];
-      if(c && !a.frag && !c.frag && wc(a.text) + wc(c.text) <= 34 && !/^If /.test(c.text) && !/^(It|He|She|They)\b/.test(c.text) && !/, and /.test(a.text)){
-        var glue = v.join === "semi" ? "; " : ", and ";
-        joined.push({text:a.text.replace(/\.$/, "") + glue + lowerStart(c.text, b), ids:a.ids.concat(c.ids), kinds:a.kinds.concat(c.kinds), by:a.by.concat(c.by), frag:false}); i++;
-      } else joined.push(a);
-    }
-    body = joined;
+/* the piece: only facts in the brief, in the order and shapes the profile chooses */
+function compose(b, p, off){
+  off = off || {};
+  var d = derive(p), have = function(k){ for(var i = 0; i < b.facts.length; i++){ var f = b.facts[i]; if(f.kind === k && !off[f.id]) return f; } return null; };
+  var base = p.tone.enthusiastic >= 60 ? ["benefit","feature","proof","what","audience","detail"] : p.tone.enthusiastic <= 35 ? ["proof","what","detail","feature","benefit","audience"] : ["benefit","proof","what","feature","audience","detail"];
+  var order = [d.lead].concat(base.filter(function(k){ return k !== d.lead; }));
+  var max = d.rhythm === "short" ? 2 : d.rhythm === "long" ? 4 : 3, frag = d.rhythm === "short";
+  /* headline: the shape the tone asks for, from a fact that is there */
+  var HK = {name:"what", what:"what", benefit:"benefit", imperative:"benefit", proof:"proof", audience:"audience"};
+  var hk = HK[d.head], hf = have(hk), head;
+  if(!hf){ hk = null; for(var i = 0; i < order.length && !hf; i++){ if(have(order[i])){ hk = order[i]; hf = have(hk); } } }
+  if(!hf) head = {text:"", ids:[]};
+  else {
+    var ht = d.head === "name" && hk === "what" ? hf.nameHead : d.head === "imperative" && hk === "benefit" ? (hf.imp || hf.np) : hk === "benefit" ? hf.np : hk === "proof" ? (hf.frag || hf.it).split(". ")[0] : hk === "what" ? hf.head : hk === "audience" ? hf.head : null;
+    if(!ht){ ht = subjects(b)(hf.it); }
+    head = {text:ht.replace(/\.$/, "") + ".", ids:[hf.id], kind:hk};
   }
-  /* the closing line: the seasoning voice writes it if there is one, otherwise the lead */
-  var closer = roles.season && VOICE[roles.season] ? roles.season : lead, tpl = VOICE[closer].end;
-  var end = tpl.replace("{Cta}", cap(b.cta)).replace("{cta}", b.cta);
-  var sup = (roles.support || []).map(function(s){ var sv = VOICE[s]; if(!sv) return null; var k = null;
-    for(var i = 0; i < sv.order.length; i++){ if(sv.order[i] !== hk){ k = sv.order[i]; break; } }
-    var f = factOfKind(b, k); return {name:s, kind:k, label:k === "detail" ? b.detailLabel : KIND[k], id:f ? f.id : null, added:by[k] === s}; }).filter(Boolean);
-  var used = {}; body.forEach(function(s){ s.ids.forEach(function(id){ used[id] = 1; }); }); if(headFact) used[headFact.id] = 1;
-  return {head:{text:head, ids:[headFact.id], kind:hk}, body:body, end:{text:end, by:closer}, used:used,
-    rules:{lead:lead, person:PERSON[v.person], head:HEAD[v.head], leadsWith:body.length ? (body[0].kinds[0] === "detail" ? b.detailLabel : KIND[body[0].kinds[0]]) : "", support:sup, join:JOIN[v.join], frag:v.frag, closer:closer}};
+  var body = [], subj = subjects(b), n = 0;
+  for(var j = 0; j < order.length && n < max; j++){ var k = order[j]; if(k === hk) continue;
+    var f = have(k);
+    if(!f){ var exists = b.facts.some(function(x){ return x.kind === k; });
+      if(k === d.lead || j < max + 1){ n++; if(p.gaps === "flag") body.push({gap:true, text:"Needs " + label(b, k) + ": a fact, with its source.", ids:[], kinds:[k], frag:true, removed:exists}); }
+      continue; }
+    n++;
+    var t = frag && f.frag ? f.frag : d.person === "we" && f.we ? f.we : d.person === "you" && f.you ? f.you : f.it;
+    body.push({text:subj(t), ids:[f.id], kinds:[k], frag:frag && !!f.frag}); }
+  if(d.rhythm !== "short"){
+    var out = [];
+    for(var q = 0; q < body.length; q++){ var a = body[q], c = body[q + 1];
+      if(c && !a.gap && !c.gap && !a.frag && !c.frag && wc(a.text) + wc(c.text) <= 34 && !/^If /.test(c.text) && !/^(It|He|She|They)\b/.test(c.text) && !/, and /.test(a.text) && !/, and /.test(c.text)){
+        out.push({text:a.text.replace(/\.$/, "") + (d.rhythm === "long" ? "; " : ", and ") + lowerStart(c.text, b), ids:a.ids.concat(c.ids), kinds:a.kinds.concat(c.kinds)}); q++; }
+      else out.push(a); }
+    body = out; }
+  var end = d.close.replace("{Cta}", cap(b.cta)).replace("{cta}", b.cta);
+  var used = {}; body.forEach(function(s){ s.ids.forEach(function(id){ used[id] = 1; }); }); head.ids.forEach(function(id){ used[id] = 1; });
+  return {head:head, body:body, end:{text:end}, used:used, d:d, gaps:body.filter(function(s){ return s.gap; }).length};
 }
 
 /* every figure in the output must appear in the brief */
-var NUMRE = /£?\d[\d.,]*(?:-litre)?|\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|hundred)\b/gi;
+var NUMRE = /(?<![A-Za-z0-9])£?\d[\d.,]*(?:-litre|%)?|\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|hundred)\b/gi;
 function figures(s){ return (s.match(NUMRE) || []).map(function(x){ return x.toLowerCase().replace(/[.,]$/, ""); }); }
 function checkFigures(b, text){
   var pool = {}; b.facts.forEach(function(f){ ["it","we","you","frag","imp","np","head","nameHead"].forEach(function(k){ if(f[k]) figures(f[k]).forEach(function(x){ pool[x] = 1; }); }); });
@@ -164,18 +172,26 @@ function checkFigures(b, text){
   return {count:found.length, stray:stray};
 }
 
-/* the house rule, checked against the quadrant map */
-function checkRoles(roles){
-  var out = [], lq = QUAD[roles.lead];
-  if(!roles.lead) return out;
-  (roles.support || []).forEach(function(s){ var q = QUAD[s];
-    out.push(q === OPP[lq] ? {ok:false, t:s + " sits opposite the lead on the map (" + QUADNAME[q] + " against " + QUADNAME[lq] + "), so it pulls against it."}
-                           : {ok:true, t:s + " supports from " + (q === lq ? "the same quadrant" : QUADNAME[q]) + "."}); });
-  if(roles.season){ var sq = QUAD[roles.season];
-    out.push(sq === lq ? {ok:false, t:"The seasoning comes from the lead’s own quadrant, so it adds no contrast."}
-                       : {ok:true, t:roles.season + " seasons from " + QUADNAME[sq] + (sq === OPP[lq] ? ", the widest contrast available." : ".")}); }
-  return out;
+/* reading a draft: what a rule can measure, and nothing it cannot */
+var INTENS = "very really so incredibly amazing amazingly truly absolutely totally super extremely awesome fantastic love brilliant".split(" ");
+var ABSOL = ["best","greatest","fastest","leading","ultimate","unrivalled","unrivaled","unbeatable","unmatched","number one","#1","world-class","guaranteed","perfect"];
+function measure(text){
+  var E = window.LEXI_ENGINE, sents = E.splitSentences(text), words = text.match(E.WORD) || [], n = words.length || 1;
+  var lens = sents.map(function(s){ return E.wordsIn(s).length; }).filter(function(x){ return x > 0; }), st = E.stats(lens);
+  var contr = (text.match(/\b\w+(?:n['’]t|['’](?:re|ve|ll|m|d))\b|\b(?:it|that|there|here|what|he|she|let|who)['’]s\b/gi) || []).length;
+  var first = (text.match(/\b(?:i|me|my|we|us|our|ours)\b/gi) || []).length, second = (text.match(/\b(?:you|your|yours)\b/gi) || []).length;
+  var excl = (text.match(/!/g) || []).length, intens = words.filter(function(w){ return INTENS.indexOf(w.toLowerCase()) >= 0; }).length;
+  var low = " " + text.toLowerCase() + " ", absol = ABSOL.filter(function(a){ return new RegExp("[^a-z]" + a.replace(/[#]/g, "\\#") + "[^a-z]").test(low); });
+  var wl = words.reduce(function(a, w){ return a + w.length; }, 0) / n, per = function(x){ return x / n * 100; };
+  var mean = st ? st.mean : 0;
+  var casual = Math.max(0, Math.min(100, Math.round(35 + per(contr) * 10 + Math.min(20, per(second) * 4) - Math.max(0, mean - 18) * 2 - Math.max(0, wl - 5) * 30)));
+  var enth = Math.max(0, Math.min(100, Math.round(25 + per(excl) * 25 + per(intens) * 12 + absol.length * 8)));
+  return {sentences:sents.length, words:words.length, st:st, mean:mean, contr:contr, first:first, second:second, excl:excl, intens:intens, absol:absol, wl:wl,
+    figs:figures(text).filter(function(x){ return /\d/.test(x); }), tone:{casual:casual, enthusiastic:enth},
+    person:second > first * 1.2 && second >= 2 ? "you" : first > second && first >= 2 ? "we" : "it",
+    rhythm:mean && mean < 12 ? "short" : mean > 20 ? "long" : "varied"};
 }
 
-window.LEXI_BRAND = {BRIEFS:BRIEFS, VOICE:VOICE, QUAD:QUAD, QUADNAME:QUADNAME, OPP:OPP, KIND:KIND, compose:compose, checkFigures:checkFigures, checkRoles:checkRoles, factById:factById};
+window.LEXI_BRAND = {BRIEFS:BRIEFS, KIND:KIND, KINDS:KINDS, TONE:TONE, LANDMARK:LANDMARK, toneOf:toneOf, nearest:nearest, derive:derive, compose:compose,
+  checkFigures:checkFigures, measure:measure, factById:factById, label:label};
 })();

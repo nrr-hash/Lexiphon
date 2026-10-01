@@ -37,7 +37,7 @@ def shell():
         if "vendor/" not in u and u not in urls:
             urls.append(u)
     for pat in ("fonts/*.woff2", "images/favicon.svg", "images/apple-touch-icon.png",
-                "images/icons/*.png", "images/emblems/*.svg", "audio/fx/*.wav"):
+                "images/icons/*.png", "images/emblems/*.svg"):
         urls += sorted(glob.glob(pat))
     return urls
 

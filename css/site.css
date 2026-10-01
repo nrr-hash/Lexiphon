@@ -660,9 +660,6 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
 @media print{.route,.sweep-share{display:none!important}}
 
 
-.sy-tape-b{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem .8rem;margin-top:.5rem}
-.sy-legend{font-size:.74rem;color:#4d5a53}
-.sy-legend mark,.sy-legend del{font-size:1em}
 /* ================= print: the page as a two-page CV ================= */ @media print{
   @page{size:A4;margin:13mm 14mm 12mm 14mm}
   html{font-size:7.9pt!important}

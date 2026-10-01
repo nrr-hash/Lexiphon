@@ -13,7 +13,7 @@ How to read this site:
 - [Published work](https://nrr-hash.github.io/Lexiphon/#published): live client work, each piece checked against the client's own source material
 - [Portfolio: five concept pages](https://nrr-hash.github.io/Lexiphon/#gallery): speculative concept pages with production notes and evidence pins
 - [How I work](https://nrr-hash.github.io/Lexiphon/#method): five live demonstrations of how he checks tone, truth, and audience
-- [Lexiphon](https://nrr-hash.github.io/Lexiphon/#studio): a brand voice written down as rules, applied to one fixed set of facts
+- [Lexiphon](https://nrr-hash.github.io/Lexiphon/#studio): a brand voice written down as a profile, applied to fixed facts and used to check drafts
 - [Experience](https://nrr-hash.github.io/Lexiphon/#work): current roles and history
 - [Clients and sectors](https://nrr-hash.github.io/Lexiphon/#facts): whom he has worked with, and in which industries
 - [What I can do for you](https://nrr-hash.github.io/Lexiphon/#hired): AI editing and governance, writing and editing, local AI and training data
