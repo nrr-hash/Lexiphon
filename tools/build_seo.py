@@ -61,9 +61,6 @@ FAQ = [
      "Yes. Nathaniel Robertson works on search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO). Search and AI answer boxes get the same facts, never a separate page written for them, and he writes answer blocks to be lifted whole.",
      ["Search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO)",
       "Search and AI answer boxes get the same facts, never a separate page written for them", "I write answer blocks to be lifted whole"]),
-    ("Can the AI work run without client data leaving the premises?",
-     "Yes. Open models (Gemma and Qwen, through Ollama) run on site, so client data and IP never leave the building.",
-     ["Open models run on site (Gemma and Qwen, through Ollama), so client data and IP never leave the building"]),
     ("Are the concept pages real client work?",
      "No. The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method, and product names, product photography, and brand marks belong to their owners. The Published work section is live client work, checked against the client’s own source material and signed off by the client.",
      ["The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method",
@@ -190,9 +187,9 @@ def jsonld(page, base, published, concepts, hired, date):
          "primaryImageOfPage": {"@type": "ImageObject", "url": base + "images/og.png", "width": 1200, "height": 630}},
         person,
         {"@type": "WebApplication", "@id": base + "#lexiphon", "name": "Lexiphon", "url": base + "#studio", "inLanguage": "en-GB",
-         "description": FAQ[10][1], "applicationCategory": "BusinessApplication", "operatingSystem": "Any, in a web browser",
+         "description": next(a for q, a, _ in FAQ if q == "What is Lexiphon?"), "applicationCategory": "BusinessApplication", "operatingSystem": "Any, in a web browser",
          "browserRequirements": "Requires JavaScript and the Web Audio API", "isAccessibleForFree": True, "creator": {"@id": pid},
-         "softwareVersion": "1.2"},
+         "softwareVersion": "1.3"},
         {"@type": "ItemList", "@id": base + "#published", "name": "Published work", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": {"@type": "CreativeWork", "name": n, "url": u, "description": d, "creator": {"@id": pid}, "inLanguage": "en-GB"}}
             for i, (n, u, d) in enumerate(published)]},
@@ -250,7 +247,7 @@ class Walker(HTMLParser):
     """Collects the page's own prose as Markdown lines, skipping the interface and the deliberate exhibits."""
     SKIP_TAGS = {"script", "style", "svg", "noscript", "textarea", "button", "nav", "dialog", "canvas", "select", "input", "summary", "details", "footer"}
     SKIP_IDS = {"method", "gallery", "published", "faq", "contact", "studio"}
-    SKIP_CLASSES = {"sy-lex", "synth", "instrument", "slop", "prints", "close", "audit", "colophon", "jump", "weight-note", "pins", "shots", "pubs", "dz"}
+    SKIP_CLASSES = {"sy-lex", "synth", "instrument", "slop", "prints", "close", "audit", "colophon", "jump", "weight-note", "pins", "shots", "pubs", "dz", "ledger"}
 
     def __init__(self):
         super().__init__()
@@ -333,13 +330,14 @@ How to read this site:
 
 ## Pages
 - [Home, with contact details]({base}): who he is, what he does, and how to reach him
+- [What I can do for you]({base}#hired): AI editing and governance, writing and editing, tools and training data
+- [How a piece reaches you]({base}#protocol): five steps from source material to a signed-off piece with its production notes
+- [Lexiphon]({base}#studio): a brand voice written down as a profile, applied to fixed facts and used to check drafts
 - [Published work]({base}#published): live client work, each piece checked against the client's own source material
 - [Portfolio: five concept pages]({base}#gallery): speculative concept pages with production notes and evidence pins
 - [How I work]({base}#method): five live demonstrations of how he checks tone, truth, and audience
-- [Lexiphon]({base}#studio): a brand voice written down as a profile, applied to fixed facts and used to check drafts
 - [Experience]({base}#work): current roles and history
 - [Clients and sectors]({base}#facts): whom he has worked with, and in which industries
-- [What I can do for you]({base}#hired): AI editing and governance, writing and editing, local AI and training data
 
 ## Optional
 - [Full text of the page, without the interface]({base}llms-full.txt)

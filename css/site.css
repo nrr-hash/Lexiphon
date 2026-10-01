@@ -571,10 +571,12 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
 .dx-kicker{margin:0 0 .4rem;text-align:center;font-family:var(--display);font-style:italic;font-variation-settings:"opsz" 36,"wght" 460;font-size:1.05rem;color:var(--carmine)}
 .dx-pull{max-width:52ch;margin:0 auto 1.5rem;text-align:center;font-family:var(--display);font-variation-settings:"opsz" 72,"wght" 520;font-size:clamp(1.3rem,2.3vw,1.8rem);line-height:1.26;color:var(--ink);text-wrap:balance}
 .dx-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1.3rem var(--G);border-top:1px solid var(--rule);padding-top:1.3rem}
-@media (min-width:760px){.dx-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media (min-width:900px){.dx-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .dx-col h2{margin:0 0 .35rem;font-family:var(--display);font-variation-settings:"opsz" 36,"wght" 620;font-size:1.14rem;line-height:1.2;color:var(--ink)}
 .dx-col p{margin:0 0 1.15rem;color:var(--ink);font-size:1.02rem;line-height:1.62}
 .dx-col p:last-child{margin-bottom:0}
+.dx-col .dx-fact{font-size:.92rem;line-height:1.55;color:var(--slate)}
+.dx-col .dx-fact a{color:var(--ink);font-weight:600;text-underline-offset:.2em}
 .glance .g-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0 1.6rem;margin:0}
 @media (min-width:460px){.glance .g-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 .glance .g-col{min-width:0}
@@ -751,3 +753,42 @@ a,button,input,select,textarea,summary,label,[role="button"],[role="slider"]{tou
 .hero-alt{color:var(--ink);font-weight:600;text-underline-offset:.2em}
 .hero-alt:hover{color:var(--amber-deep)}
 .hero-cta .btn{display:inline-flex;align-items:center}
+
+/* hero: two ways in */
+.hero-alt-t{color:var(--slate);font-size:1rem;text-wrap:pretty}
+.hero-alt-t .hero-alt{font-weight:600}
+.btn-alt{background:transparent;color:var(--ink)}
+.btn-alt:hover{color:var(--paper)}
+a.btn.btn-alt{display:inline-flex;align-items:center}
+/* protocol: five steps and a sample record */
+.proto{list-style:none;margin:0;padding:0;counter-reset:ps;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.2rem 1.4rem}
+.proto li{counter-increment:ps;border-top:3px solid var(--ink);padding-top:.7rem}
+.proto li:first-child{border-top-color:var(--amber)}
+.proto li::before{content:counter(ps);display:block;font-family:var(--display);font-variation-settings:"opsz" 36,"wght" 600;color:var(--amber-deep);font-size:1.1rem}
+.proto h3{margin:.1rem 0 .35rem;font-family:var(--display);font-variation-settings:"opsz" 36,"wght" 620;font-size:1.1rem;line-height:1.2}
+.proto p{margin:0;font-size:.95rem;line-height:1.55;text-wrap:pretty}
+@media (max-width:1000px){.proto{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.proto{grid-template-columns:minmax(0,1fr)}}
+.ledger{margin-top:clamp(1.8rem,3.4vw,2.6rem);background:var(--paper-2);border:1px solid var(--rule);border-radius:12px 2px 12px 2px;padding:clamp(1rem,2.6vw,1.6rem)}
+.lg-h{margin:0 0 .2rem;font-family:var(--display);font-variation-settings:"opsz" 36,"wght" 620;font-size:1.15rem}
+.lg-lede{margin:0 0 .9rem;color:var(--slate);font-size:.95rem;max-width:68ch;text-wrap:pretty}
+.lg-wrap{overflow-x:auto}
+.ledger table{width:100%;border-collapse:collapse;font-size:.92rem;line-height:1.5}
+.ledger th,.ledger td{text-align:left;vertical-align:top;padding:.55rem .7rem .55rem 0;border-top:1px solid var(--rule)}
+.ledger thead th{border-top:0;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);font-weight:650}
+.lg-st{display:inline-block;padding:.1rem .55rem;border:1.5px solid var(--ink);border-radius:999px;font-size:.8rem;font-weight:650;white-space:nowrap}
+.lg-pg{white-space:nowrap;color:var(--slate)}
+.lg-q{font-style:italic}
+@media (max-width:760px){
+  .ledger table,.ledger tbody,.ledger tr,.ledger td,.ledger th{display:block}
+  .ledger thead{position:absolute;left:-9999px}
+  .ledger tr{padding:.6rem 0;border-top:1px solid var(--rule)}
+  .ledger th,.ledger td{border:0;padding:.1rem 0}
+  .lg-pg{white-space:normal}
+}
+/* try it */
+#try .studio{margin-top:0;border-top:0;padding-top:0}
+.try-next{margin:1.4rem 0 0;font-size:1.02rem}
+.try-next a{font-weight:650}
+@media print{#protocol,#try{display:none!important}}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

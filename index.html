@@ -141,8 +141,8 @@
      "@type": "Offer",
      "itemOffered": {
       "@type": "Service",
-      "name": "Local AI and training data",
-      "description": "Open models run on site (Gemma and Qwen, through Ollama), so client data and IP never leave the building. Drafting runs through tools I have set up myself, and nothing ships until it has passed my own instruments and my own eye. Training data for frontier AI labs: at micro1, I review and annotate robotic-arm video against customer grading guidelines.",
+      "name": "Tools and training data",
+      "description": "Drafting runs through tools I have set up myself, and nothing ships until it has passed my own instruments and my own eye. Training data for frontier AI labs: at micro1, I review and annotate robotic-arm video against customer grading guidelines.",
       "provider": {
        "@id": "https://nrr-hash.github.io/Lexiphon/#person"
       },
@@ -165,7 +165,7 @@
    "creator": {
     "@id": "https://nrr-hash.github.io/Lexiphon/#person"
    },
-   "softwareVersion": "1.2"
+   "softwareVersion": "1.3"
   },
   {
    "@type": "ItemList",
@@ -405,7 +405,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Lexiphon">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="stylesheet" href="css/site.css?v=140bd6d4">
+<link rel="stylesheet" href="css/site.css?v=a08249f9">
 <link rel="stylesheet" href="css/studio.css?v=570e4f25" media="print" onload="this.media='all';window.dispatchEvent(new Event('resize'))">
 <noscript><link rel="stylesheet" href="css/studio.css?v=570e4f25"></noscript>
 </head>
@@ -419,7 +419,7 @@
     <div class="tagline"><span class="nb">Content specialist /</span> <span class="nb">B2B, B2C, B2G /</span> <span class="nb">source-checked</span></div>
   </div>
   <nav aria-label="Sections">
-    <button type="button" class="nav-link" data-go="published" data-tip="Published work">Published</button><button type="button" class="nav-link" data-go="gallery" data-tip="Five concept pages">Portfolio</button><button type="button" class="nav-link" data-go="method" data-tip="Five live demonstrations and a studio">Method</button><button type="button" class="nav-link" data-go="work" data-tip="Roles and history">Experience</button><button type="button" class="nav-link" data-go="contact" data-tip="Get in touch">Contact</button><a class="nav-cta" href="mailto:nathan667@gmail.com">Email me</a>
+    <button type="button" class="nav-link" data-go="hired" data-tip="What I can do for you">Services</button><button type="button" class="nav-link" data-go="try" data-tip="Try Lexiphon on your own draft">Lexiphon</button><button type="button" class="nav-link" data-go="published" data-tip="Published work">Published</button><button type="button" class="nav-link" data-go="gallery" data-tip="Five concept pages">Portfolio</button><button type="button" class="nav-link" data-go="method" data-tip="Five live demonstrations and a studio">Method</button><button type="button" class="nav-link" data-go="work" data-tip="Roles and history">Experience</button><button type="button" class="nav-link" data-go="contact" data-tip="Get in touch">Contact</button><a class="nav-cta" href="mailto:nathan667@gmail.com">Email me</a>
   </nav>
 </header>
 
@@ -432,13 +432,14 @@
   <div class="opening">
     <p class="opening-lede">I’m a content specialist for B2B, B2C, and B2G teams. I devise, produce, and scale digital content with frontier and open-weight models that I configure and check myself. The model learns your voice.</p>
     <p class="hero-proof">Currently on four retained accounts, in three countries. The concept pages below show the method, and three of them tie each claim to the note that backs it.</p>
-    <p class="hero-cta"><a class="btn" href="#studio" data-lx="check">Check a draft of yours</a><a class="hero-alt" href="mailto:nathan667@gmail.com?subject=Content%20audit">or ask for a content audit</a></p>
+    <p class="hero-cta"><a class="btn" href="#studio" data-lx="check">Check a draft of yours</a><span class="hero-alt-t">Or <a class="hero-alt" href="mailto:nathan667@gmail.com?subject=Content%20audit">ask for a content audit</a>, or <a class="hero-alt" href="mailto:nathan667@gmail.com?subject=Role%20or%20contract">discuss a role or contract</a>.</span></p>
     <div class="dx">
       <p class="dx-kicker">The problem, in 2026</p>
       <p class="dx-pull">Anyone can generate content now. The problem is that too little of it is worth reading, because “universal output” comes out too smooth and too generic to stick.</p>
       <div class="dx-grid">
-        <div class="dx-col"><h2>How it sounds</h2><p>Sentences lack burst. The same words turn up everywhere. The tone is flat. “It’s not this, it’s that” is a construction LLMs lean on far too often.</p><h2>Whether it is true</h2><p>Some models invent facts more than others, and your claims quietly stop being true.</p></div>
-        <div class="dx-col"><h2>Who it is for</h2><p>Pages swell into keyword nests built for ranking, read mostly by other machines scraping by. Lorem ipsum used to hold a page until the real words arrived. On too many pages now, the filler is the words. Look closer, and the same narrative patterns are everywhere.</p></div>
+        <div class="dx-col"><h2>It sounds like everyone</h2><p>Models write in a shared house style, and your brand inherits it.</p><p class="dx-fact">A study of more than 15 million biomedical abstracts, 2010 to 2024, found a sudden rise in a small set of favoured words, and estimated that at least 13.5% of 2024 abstracts were processed with a language model. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12219543/">Kobak et al., Science Advances, 2025</a></p></div>
+        <div class="dx-col"><h2>It says what is not so</h2><p>A model fills a gap with a plausible claim, and your page quietly stops being true.</p><p class="dx-fact">In a 2026 preprint testing 35 open-weight models, the best fabricated answers 1.19% of the time at a 32K context, and fabrication rose as documents grew longer. <a href="https://arxiv.org/abs/2603.08274">Roig, arXiv:2603.08274</a></p></div>
+        <div class="dx-col"><h2>It gets accused, and nothing settles it</h2><p>Detection tools cannot reliably tell human writing from machine writing, so good work gets doubted too.</p><p class="dx-fact">The Authors Guild ran five detectors on ten human-written articles from 2022 or earlier, and scores for the same text ran from correctly human to 100% AI. <a href="https://authorsguild.org/news/can-ai-detectors-be-trusted/">Authors Guild</a></p><p class="dx-fact">In 2026 a detector scored a Commonwealth Short Story Prize winner 100% AI-generated, and the Commonwealth Foundation stood by the story. <a href="https://lunch.publishersmarketplace.com/2026/05/commonwealth-foundation-and-granta-stand-by-short-story-after-accusations-of-ai/">Publishers Lunch</a></p></div>
       </div>
     </div>
   </div>
@@ -477,10 +478,103 @@
   <p class="route">If you have a few minutes, hear the <a href="#tonality" data-go="tonality">tonality demonstration</a>, then read <a href="#beforeafter" data-go="beforeafter">Before and after</a>.</p>
 </div>
 
+<section id="hired" aria-labelledby="hired-h">
+  <div class="sec-head"><h2 id="hired-h">What I can do for you</h2><p class="one spread">Three lines of work: governing AI-drafted content, writing and editing it myself, and working with AI directly, through tools I have set up myself and training data for frontier labs.</p></div>
+  <div class="hired">
+    <div><h3>AI editing and governance</h3><ul>
+      <li>Audits of existing content libraries, scored for machine-generated tells and search exposure, with the rebuild priced in writing.</li>
+      <li>Detection and rewrite of <span class="nb">machine-generated</span> copy against codified, testable house standards, so content stays distinct and worth reading.</li>
+      <li>Retrieval-augmented generation: NotebookLM indexed on client material, so every task cites back to source.</li>
+      <li>Search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO).</li>
+    </ul></div>
+    <div><h3>Writing and editing</h3><ul>
+      <li>Source-checked B2B, B2C, and B2G writing, with claims checked against client documents and house style held on every agency account.</li>
+      <li>UX and UI microcopy, bids, case studies, and board speeches.</li>
+      <li>Tone of voice set by brand archetype. A/B testing and performance reviews.</li>
+      <li>One fact base, verified once against source, then reused in every content type.</li>
+    </ul></div>
+    <div><h3>Tools and training data</h3><ul>
+      <li>Drafting runs through tools I have set up myself, and nothing ships until it has passed my own instruments and my own eye.</li>
+      <li>Training data for frontier AI labs: at micro1, I review and annotate robotic-arm video against customer grading guidelines.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="protocol" aria-labelledby="proto-h">
+  <div class="sec-head">
+    <h2 id="proto-h">How a piece reaches you</h2>
+    <p class="one spread">Five steps, in the order I take them, and a written record at the end.</p>
+  </div>
+  <ol class="proto">
+    <li><h3>You send the source</h3><p>Specifications, standards, product sheets, contract small print: whatever your claims rest on.</p></li>
+    <li><h3>A model drafts</h3><p>It drafts from that material, in your voice, and the draft counts as unchecked until step three.</p></li>
+    <li><h3>I check every claim</h3><p>Each one goes back to its source. What I cannot source is flagged, corrected, or held back, and never invented.</p></li>
+    <li><h3>I read it for tells</h3><p>I rewrite machine phrasing and flat rhythm, then check the claims again.</p></li>
+    <li><h3>You get the record</h3><p>The finished piece arrives with its production notes: what was checked, what was held back, and why. You sign it off.</p></li>
+  </ol>
+  <div class="ledger">
+    <p class="lg-h">A sample record</p>
+    <p class="lg-lede">Six entries from the ledgers on three of the concept pages below, one for each status. Those pages carry 22 in all.</p>
+    <div class="lg-wrap"><table>
+      <caption class="sr-only">Six sample ledger entries: status, page, the words on the page, and the note behind them</caption>
+      <thead><tr><th scope="col">Status</th><th scope="col">Page</th><th scope="col">On the page</th><th scope="col">The note</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><span class="lg-st">Verified</span></th><td class="lg-pg">Content engine</td><td class="lg-q">“part in 300,000”</td><td class="lg-n">Derivations are unit translations only: −110dB ≈ one part in 300,000.</td></tr>
+        <tr><th scope="row"><span class="lg-st">Sourced</span></th><td class="lg-pg">T.33 Spider</td><td class="lg-q">“took the brief to Cosworth”</td><td class="lg-n">The Cosworth commission, the bespoke V12, the gear-driven ancillaries, and the 1960s inspiration are sourced to Cosworth and named press.</td></tr>
+        <tr><th scope="row"><span class="lg-st">Held back</span></th><td class="lg-pg">T.33 Spider</td><td class="lg-q">“a ceiling at 11,100”</td><td class="lg-n">The 12,100 rpm record belongs to the T.50 and was kept off the T.33, which runs the same architecture as the GMA.2 at 11,100.</td></tr>
+        <tr><th scope="row"><span class="lg-st">Corrected</span></th><td class="lg-pg">T.33 Spider</td><td class="lg-q">“torsionally stiff”</td><td class="lg-n">“Isotropic” was held back for a carbon laminate, which is anisotropic by design, so “torsional” was used instead.</td></tr>
+        <tr><th scope="row"><span class="lg-st">Flagged</span></th><td class="lg-pg">Content engine</td><td class="lg-q">“footprint of a hardback”</td><td class="lg-n">“Footprint of a hardback” is illustrative; exact dimensions sit in the table.</td></tr>
+        <tr><th scope="row"><span class="lg-st">Removed</span></th><td class="lg-pg">Planar 3 RS</td><td class="lg-q">“Set the labels aside”</td><td class="lg-n">All prices, at the client’s instruction. Value carried by inheritance, awards, and reviewers.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="try" aria-labelledby="try-h">
+  <div class="sec-head">
+    <h2 id="try-h">Try it on your own words</h2>
+    <p class="one spread">Lexiphon is a worked example of a brand voice written down as a profile. Paste a draft of yours and see what it makes of it.</p>
+  </div>
+  <div class="studio" id="studio">
+    <div class="st-head">
+      <p class="test-label"><span class="test-n">Studio</span> All three tests, as one voice</p>
+      <h3>Lexiphon</h3>
+      <p class="st-purpose">A brand voice is a set of decisions, and most of them sit above the words. Lexiphon writes those decisions down as a profile, applies it to one fixed set of facts, and checks your own drafts against it. Set the tone, and the rest follows.</p>
+    </div>
+    <div class="lx" id="lx">
+      <div class="lx-top">
+        <p class="lx-plate" aria-hidden="true">Lexiphon</p>
+        <div class="lx-modes" id="lxModes" role="group" aria-label="Mode"><button type="button" data-mode="write" aria-pressed="true">Write from a brief</button><button type="button" data-mode="check" aria-pressed="false">Check a draft</button></div>
+      </div>
+      <div class="lx-start" id="lxStart" role="group" aria-label="Start from a voice"></div>
+      <div class="lx-grid">
+        <div class="lx-profile" id="lxProfile" role="group" aria-label="Voice profile"></div>
+        <div class="lx-out">
+          <div class="lx-write" id="lxWrite">
+            <div class="lx-briefs" id="lxBriefs" role="group" aria-label="Choose a brief"></div>
+            <div class="lx-piece" id="lxPiece" tabindex="0" role="region" aria-label="The piece, in this voice" aria-live="polite"></div>
+            <div class="lx-facts" id="lxFacts"></div>
+          </div>
+          <div class="lx-check" id="lxCheck" hidden>
+            <div class="lx-samples" id="lxSamples" role="group" aria-label="Sample drafts"></div>
+            <label class="lx-cap" for="stText">Your draft</label>
+            <textarea id="stText" spellcheck="false" maxlength="7000" placeholder="Paste a draft, up to about 1,000 words. Nothing you enter leaves your browser."></textarea>
+            <div class="lx-draft" id="lxDraft" tabindex="0" role="region" aria-label="Your draft, marked against the profile"></div>
+            <div class="lx-report" id="lxReport" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+      <p class="lx-checks" id="lxChecks" aria-live="polite"></p>
+    </div>
+    <p class="sy-note"><b>How to read it.</b> The four tone dimensions are the Nielsen Norman Group’s (2016). The twelve archetypes come from Margaret Mark and Carol S. Pearson, <i>The Hero and the Outlaw</i> (2001); where each sits on the four dials is my reading, and so is every rule that turns tone into structure. Two of the briefs are invented, as each one says, and the third quotes this page. Checking a draft, Lexiphon can measure formality and enthusiasm by proxy, sentence lengths, point of view, and figures that need a source; it cannot measure humour or respect, and it cannot tell whether a claim is true. It runs on rules in your browser, no language model is called, and nothing you enter leaves the page.</p>
+  </div>
+  <p class="try-next">Found something worth fixing? <a href="mailto:nathan667@gmail.com?subject=Content%20audit">A content audit</a> does the same across a whole library, and prices the rebuild in writing.</p>
+</section>
+
 <section id="published" aria-labelledby="pub-h">
   <div class="sec-head">
     <h2 id="pub-h">Published work</h2>
-    <p class="spread">Each piece here is live client work, checked against the client’s own source material and signed off by them. Every link opens the page as the public sees it. Links confirmed live on 30 September 2026.</p>
+    <p class="spread">Each piece here is live client work, checked against the client’s own source material and signed off by them. Where a piece was written without AI, it says so, and the concept pages further down show the AI-assisted method. Every link opens the page as the public sees it. Links confirmed live on 30 September 2026.</p>
   </div>
   <div class="shots">
     <figure class="shot"><a class="shot-img" href="https://www.furnitubes.com/solutions-for-local-councils" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="images/work/furnitubes-local-councils.jpg" width="800" height="512" alt="" loading="lazy"></a><figcaption><a href="https://www.furnitubes.com/solutions-for-local-councils" target="_blank" rel="noopener">Furnitubes: Solutions for local councils</a><p>Public-sector content for procurement officers and specifiers, who read for compliance before they read for interest.</p></figcaption></figure>
@@ -516,7 +610,6 @@
       <li><a href="#sweep" data-go="sweep"><span class="dl-n">3</span><span class="dl-name">Telltale</span><span class="dl-test">How it sounds</span><span class="dl-what">The words that give a machine away. Try it on your own text.</span></a></li>
       <li><a href="#beforeafter" data-go="beforeafter"><span class="dl-n">4</span><span class="dl-name">Before and after</span><span class="dl-test">Whether it is true</span><span class="dl-what">A live product claim set beside the specification behind it.</span></a></li>
       <li><a href="#spine" data-go="spine"><span class="dl-n">5</span><span class="dl-name">One fact base, many readers</span><span class="dl-test">Who it is for</span><span class="dl-what">Six pieces for six readers, drawn from one checked fact base.</span></a></li>
-      <li class="dl-studio"><a href="#studio" data-go="studio"><span class="dl-n">+</span><span class="dl-name">Lexiphon</span><span class="dl-test">All three tests</span><span class="dl-what">Turn the dials and watch your text rewrite itself.</span></a></li>
     </ol>
   </div>
 
@@ -697,40 +790,6 @@
     </div>
   </div>
 
-  <!-- Studio: the method as a panel -->
-  <div class="studio" id="studio">
-    <div class="st-head">
-      <p class="test-label"><span class="test-n">Studio</span> All three tests, as one voice</p>
-      <h3>Lexiphon</h3>
-      <p class="st-purpose">A brand voice is a set of decisions, and most of them sit above the words. Lexiphon writes those decisions down as a profile, applies it to one fixed set of facts, and checks your own drafts against it. Set the tone, and the rest follows.</p>
-    </div>
-    <div class="lx" id="lx">
-      <div class="lx-top">
-        <p class="lx-plate" aria-hidden="true">Lexiphon</p>
-        <div class="lx-modes" id="lxModes" role="group" aria-label="Mode"><button type="button" data-mode="write" aria-pressed="true">Write from a brief</button><button type="button" data-mode="check" aria-pressed="false">Check a draft</button></div>
-      </div>
-      <div class="lx-start" id="lxStart" role="group" aria-label="Start from a voice"></div>
-      <div class="lx-grid">
-        <div class="lx-profile" id="lxProfile" role="group" aria-label="Voice profile"></div>
-        <div class="lx-out">
-          <div class="lx-write" id="lxWrite">
-            <div class="lx-briefs" id="lxBriefs" role="group" aria-label="Choose a brief"></div>
-            <div class="lx-piece" id="lxPiece" tabindex="0" role="region" aria-label="The piece, in this voice" aria-live="polite"></div>
-            <div class="lx-facts" id="lxFacts"></div>
-          </div>
-          <div class="lx-check" id="lxCheck" hidden>
-            <div class="lx-samples" id="lxSamples" role="group" aria-label="Sample drafts"></div>
-            <label class="lx-cap" for="stText">Your draft</label>
-            <textarea id="stText" spellcheck="false" maxlength="7000" placeholder="Paste a draft, up to about 1,000 words. Nothing you enter leaves your browser."></textarea>
-            <div class="lx-draft" id="lxDraft" tabindex="0" role="region" aria-label="Your draft, marked against the profile"></div>
-            <div class="lx-report" id="lxReport" aria-live="polite"></div>
-          </div>
-        </div>
-      </div>
-      <p class="lx-checks" id="lxChecks" aria-live="polite"></p>
-    </div>
-    <p class="sy-note"><b>How to read it.</b> The four tone dimensions are the Nielsen Norman Group’s (2016). The twelve archetypes come from Margaret Mark and Carol S. Pearson, <i>The Hero and the Outlaw</i> (2001); where each sits on the four dials is my reading, and so is every rule that turns tone into structure. Two of the briefs are invented, as each one says, and the third quotes this page. Checking a draft, Lexiphon can measure formality and enthusiasm by proxy, sentence lengths, point of view, and figures that need a source; it cannot measure humour or respect, and it cannot tell whether a claim is true. It runs on rules in your browser, no language model is called, and nothing you enter leaves the page.</p>
-  </div>
 </section>
 
 
@@ -802,28 +861,6 @@
       </dl>
 </section>
 
-<section id="hired" aria-labelledby="hired-h">
-  <div class="sec-head"><h2 id="hired-h">What I can do for you</h2><p class="one spread">Three lines of work: governing AI-drafted content, writing and editing it myself, and working with AI directly, through private models on site and training data for frontier labs.</p></div>
-  <div class="hired">
-    <div><h3>AI editing and governance</h3><ul>
-      <li>Audits of existing content libraries, scored for machine-generated tells and search exposure, with the rebuild priced in writing.</li>
-      <li>Detection and rewrite of <span class="nb">machine-generated</span> copy against codified, testable house standards, so content stays distinct and worth reading.</li>
-      <li>Retrieval-augmented generation: NotebookLM indexed on client material, so every task cites back to source.</li>
-      <li>Search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO).</li>
-    </ul></div>
-    <div><h3>Writing and editing</h3><ul>
-      <li>Source-checked B2B, B2C, and B2G writing, with claims checked against client documents and house style held on every agency account.</li>
-      <li>UX and UI microcopy, bids, case studies, and board speeches.</li>
-      <li>Tone of voice set by brand archetype. A/B testing and performance reviews.</li>
-      <li>One fact base, verified once against source, then reused in every content type.</li>
-    </ul></div>
-    <div><h3>Local AI and training data</h3><ul>
-      <li>Open models run on site (Gemma and Qwen, through Ollama), so client data and IP never leave the building.</li>
-      <li>Drafting runs through tools I have set up myself, and nothing ships until it has passed my own instruments and my own eye.</li>
-      <li>Training data for frontier AI labs: at micro1, I review and annotate robotic-arm video against customer grading guidelines.</li>
-    </ul></div>
-  </div>
-</section>
 
 <section class="close" id="contact" aria-labelledby="close-h">
   <h2 class="close-line" id="close-h" aria-label="The page shows the method. The work carries my name."><span data-ramp-close data-seat="1">The page shows the method.</span><br><span data-ramp-close data-seat="1">The work carries my name.</span></h2>
@@ -831,7 +868,7 @@
     <a href="mailto:nathan667@gmail.com">nathan667@gmail.com</a>
     <a href="tel:+35699021235">+356 9902 1235</a>
   </div>
-  <p class="cta-audit"><a class="btn" href="mailto:nathan667@gmail.com?subject=Content%20audit">Ask for a content audit</a></p>
+  <p class="cta-audit"><a class="btn" href="mailto:nathan667@gmail.com?subject=Content%20audit">Ask for a content audit</a><a class="btn btn-alt" href="mailto:nathan667@gmail.com?subject=Role%20or%20contract">Discuss a role or contract</a></p>
 </section>
 </main>
 
@@ -839,9 +876,9 @@
   <div class="audit" id="audit">
     <p class="audit-h">This page, tested against its own list</p>
     <p class="audit-r" id="auditR" aria-live="polite">The test runs when the page opens.</p>
-    <details><summary>What was tested, and the reason for each mark</summary><ul id="auditL"></ul><p class="ex">Left out as exhibits, because the words are not mine or change as you use them: the AI-written bio, the Cambridge Audio quotation, the sample passages in Telltale and Lexiphon, the sentence demonstration, and the titles of cited sources.</p><p class="ex">Generated, not sourced: the studio’s archetype emblems, bed loops, and switch sounds come from a script (tools/make_assets.py), with no photographs, recordings, or samples.</p></details>
+    <details><summary>What was tested, and the reason for each mark</summary><ul id="auditL"></ul><p class="ex">Left out as exhibits, because the words are not mine or change as you use them: the AI-written bio, the Cambridge Audio quotation, the sample passages in Telltale and Lexiphon, the sentence demonstration, and the titles of cited sources.</p><p class="ex">Generated, not sourced: the studio’s archetype emblems come from a script (tools/make_assets.py) and the app icons from another (tools/make_icons.py), with no photographs, recordings, or samples.</p></details>
   </div>
-  <p class="colophon"><b>Release 1.2, 1 October 2026.</b><span class="colophon-web"> This page was built using an LLM, working with connected apps and plugins: Adobe Photoshop services and Python imaging for the product cut-outs and tonal correction, three.js for the 3D content engine, the browser’s Web Audio for the Listen synthesiser, the Fraunces and Hanken Grotesk typefaces, served from this site, and a headless browser for layout and widow testing. It was edited by a human. The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method. Product names, product photography, and brand marks belong to their owners, and copyright in published client work remains with the clients.</span><span class="colophon-print"> Product names and brand marks belong to their owners, and copyright in published client work remains with the clients.</span></p>
+  <p class="colophon"><b>Release 1.3, 1 October 2026.</b><span class="colophon-web"> This page was built using an LLM, working with connected apps and plugins: Adobe Photoshop services and Python imaging for the product cut-outs and tonal correction, three.js for the 3D content engine, the browser’s Web Audio for the Listen synthesiser, the Fraunces and Hanken Grotesk typefaces, served from this site, and a headless browser for layout and widow testing. It was edited by a human. The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method. Product names, product photography, and brand marks belong to their owners, and copyright in published client work remains with the clients.</span><span class="colophon-print"> Product names and brand marks belong to their owners, and copyright in published client work remains with the clients.</span></p>
 </footer>
 </div>
 
