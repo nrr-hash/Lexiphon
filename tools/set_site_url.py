@@ -14,7 +14,7 @@ Settings > Pages. This script does not create either.
 import argparse, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FILES = ["index.html", "404.html", "robots.txt", "sitemap.xml", "llms.txt", "llms-full.txt"]
+FILES = ["index.html", "js/page.js", "404.html", "robots.txt", "sitemap.xml", "llms.txt", "llms-full.txt"]
 CURRENT = re.compile(r'<link rel="canonical" href="([^"]+)">')
 
 def current():
