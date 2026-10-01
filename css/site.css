@@ -625,8 +625,6 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
 
 /* roles: title and dates take a third, the work takes two */ @media (min-width:900px){.roles .role{grid-template-columns:minmax(0,1fr) minmax(0,1.9fr)}}
 .slop-notes .slop-cite{grid-column:1 / -1}
-.legal{grid-column:1/-1;max-width:none!important;margin:1.4rem 0 0;padding-top:1rem;border-top:3px solid var(--ink);font-family:var(--display);font-variation-settings:"opsz" 48,"wght" 560;font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.25;color:var(--ink);text-wrap:balance}
-.legal b{font-variation-settings:"opsz" 72,"wght" 800;letter-spacing:-.01em}
 .colophon-print{display:none}
 @media print{.colophon-web{display:none!important}.colophon-print{display:inline!important}}
 /* the three tests, named over each demonstration */ .test-label{margin:0 0 .5rem;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);display:flex;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline}

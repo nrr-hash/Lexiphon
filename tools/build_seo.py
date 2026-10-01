@@ -70,8 +70,8 @@ FAQ = [
       "Product names, product photography, and brand marks belong to their owners",
       "Each piece here is live client work, checked against the client’s own source material and signed off by them"]),
     ("What is Lexiphon?",
-     "Lexiphon is a worked example, on this page, of how to tailor a company’s branded content. A visitor chooses brand archetypes and sets each one’s share, and the same text takes on each voice: its words, its rhythm, and its sound. The rules are simple and run in the browser.",
-     ["Lexiphon shows one way to tailor a company’s branded content", "The rules are simple and run in your browser"]),
+     "Lexiphon is a worked example, on this page, of a brand voice written down as rules. It applies those rules to one fixed set of facts, so that voices can be compared on equal terms: the claims stay fixed, while the structure, the point of view, the rhythm, and the words change. It runs on rules in the browser, and no language model is called.",
+     ["Lexiphon writes those decisions down as rules", "applies them to one fixed set of facts", "No language model is called"]),
     ("Where is he based, and which languages does he use?",
      "Nathaniel Robertson is based in Gozo, Malta, and is remote-ready. He works in English (native), German (C1), and French (B1).",
      ["Gozo, Malta, and remote-ready", "English native, German C1, French B1"]),
@@ -192,7 +192,7 @@ def jsonld(page, base, published, concepts, hired, date):
         {"@type": "WebApplication", "@id": base + "#lexiphon", "name": "Lexiphon", "url": base + "#studio", "inLanguage": "en-GB",
          "description": FAQ[10][1], "applicationCategory": "BusinessApplication", "operatingSystem": "Any, in a web browser",
          "browserRequirements": "Requires JavaScript and the Web Audio API", "isAccessibleForFree": True, "creator": {"@id": pid},
-         "softwareVersion": "1.2", "copyrightYear": 2026, "copyrightHolder": {"@id": pid}},
+         "softwareVersion": "1.2"},
         {"@type": "ItemList", "@id": base + "#published", "name": "Published work", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": {"@type": "CreativeWork", "name": n, "url": u, "description": d, "creator": {"@id": pid}, "inLanguage": "en-GB"}}
             for i, (n, u, d) in enumerate(published)]},
@@ -336,7 +336,7 @@ How to read this site:
 - [Published work]({base}#published): live client work, each piece checked against the client's own source material
 - [Portfolio: five concept pages]({base}#gallery): speculative concept pages with production notes and evidence pins
 - [How I work]({base}#method): five live demonstrations of how he checks tone, truth, and audience
-- [Lexiphon]({base}#studio): a worked example of how to tailor a company's branded content by brand archetype
+- [Lexiphon]({base}#studio): a brand voice written down as rules, applied to one fixed set of facts
 - [Experience]({base}#work): current roles and history
 - [Clients and sectors]({base}#facts): whom he has worked with, and in which industries
 - [What I can do for you]({base}#hired): AI editing and governance, writing and editing, local AI and training data
