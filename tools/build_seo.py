@@ -70,8 +70,8 @@ FAQ = [
       "Product names, product photography, and brand marks belong to their owners",
       "Each piece here is live client work, checked against the client’s own source material and signed off by them"]),
     ("What is Lexiphon?",
-     "Lexiphon is a worked example, on this page, of a brand voice written down as rules. It applies those rules to one fixed set of facts, so that voices can be compared on equal terms: the claims stay fixed, while the structure, the point of view, the rhythm, and the words change. It runs on rules in the browser, and no language model is called.",
-     ["Lexiphon writes those decisions down as rules", "applies them to one fixed set of facts", "No language model is called"]),
+     "Lexiphon is a worked example, on this page, of a brand voice written down as a profile. The profile sets tone on four dials, after the Nielsen Norman Group, and the tone sets what leads, the point of view, the rhythm, and the words. It applies the profile to one fixed set of facts, and checks a visitor's own drafts against it. It runs on rules in the browser, and no language model is called.",
+     ["Lexiphon writes those decisions down as a profile", "applies it to one fixed set of facts", "checks your own drafts against it", "no language model is called"]),
     ("Where is he based, and which languages does he use?",
      "Nathaniel Robertson is based in Gozo, Malta, and is remote-ready. He works in English (native), German (C1), and French (B1).",
      ["Gozo, Malta, and remote-ready", "English native, German C1, French B1"]),
@@ -336,7 +336,7 @@ How to read this site:
 - [Published work]({base}#published): live client work, each piece checked against the client's own source material
 - [Portfolio: five concept pages]({base}#gallery): speculative concept pages with production notes and evidence pins
 - [How I work]({base}#method): five live demonstrations of how he checks tone, truth, and audience
-- [Lexiphon]({base}#studio): a brand voice written down as rules, applied to one fixed set of facts
+- [Lexiphon]({base}#studio): a brand voice written down as a profile, applied to fixed facts and used to check drafts
 - [Experience]({base}#work): current roles and history
 - [Clients and sectors]({base}#facts): whom he has worked with, and in which industries
 - [What I can do for you]({base}#hired): AI editing and governance, writing and editing, local AI and training data

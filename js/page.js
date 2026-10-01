@@ -232,6 +232,7 @@ function fixRx(src){
   return src;
 }
 var SLOPRX = SLOP.map(function(x){ try{ return {t:x[0], label:x[1], rx:new RegExp(fixRx(x[2]), x[3])}; }catch(e){ return null; } }).filter(Boolean);
+window.LEXI_TELLS = SLOPRX; /* shared with Lexiphon’s draft check */
 var sweepSets = [
   {name:"A machine draft", note:"Constructed for the demonstration.", text:"In today\u2019s evolving landscape, our platform serves as a testament to what teams can achieve. Additionally, it boasts a vibrant community that fosters collaboration and underscores our commitment to excellence. Let\u2019s delve into the intricate tapestry of features that showcase why we are a pivotal, groundbreaking partner."},
   {name:"Rega", note:"Rega Planar 3 RS concept page, on the arm.", text:"The RB330 is the part that quietly explains why a Rega punches so far above its station. Its job is unglamorous and absolute: hold the cartridge rigidly, move with almost no friction, and add no resonance of its own. The bearings are the tell. Rega specifies no measurable free play in them at all, and in practice one or two microns of pre load, a clearance finer than the eye can resolve. An arm with play does not lose detail so much as invent it. The RB330 has none to invent."},
