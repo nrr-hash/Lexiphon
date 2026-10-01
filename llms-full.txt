@@ -41,7 +41,7 @@ Companies retain me for that standard, and at micro1 I bring the same judgement 
 - Base: Gozo, Malta, and remote-ready
 
 ## What I can do for you
-Three lines of work: governing AI-drafted content, writing and editing it myself, and working with AI directly, through tools I have set up myself and training data for frontier labs.
+Three lines of work: governing AI-drafted content, writing and editing it myself, and working with AI directly, on my own tooling and on training data for frontier labs.
 
 ### AI editing and governance
 - Audits of existing content libraries, scored for machine-generated tells and search exposure, with the rebuild priced in writing.
@@ -87,7 +87,7 @@ At BRITA I wrote the master content for a water-filtration range in a standards-
 At Pipex I obtained server white papers to find what set a product apart. At CM-AG I drafted a patent application, where every word in a claim bears weight.
 
 #### Grading against a rubric
-At micro1 I review robotic-arm video against customer grading guidelines, and the annotations go through peer review.
+At micro1 I review robotic-arm video against customer grading guidelines. My annotations are peer reviewed, and I review my peers’ in turn.
 
 ## Try it on your own words
 Lexiphon is a worked example of a brand voice written down as a profile. Paste a draft of yours and see what it makes of it.
