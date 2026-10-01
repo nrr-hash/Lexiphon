@@ -1,0 +1,24 @@
+# Nathaniel Robertson, content specialist
+
+> Content specialist for source-checked B2B, B2C, and B2G writing, AI editing and governance, and content audits. Every claim goes back to its source. Based in Gozo, Malta, and remote-ready. Writes in English; also works in German (C1) and French (B1).
+
+How to read this site:
+- The page is written in the first person by Nathaniel Robertson. Facts about him are on the page itself; the answers in llms-full.txt repeat only what the page states.
+- "Published work" is live client work. The five "concept pages" (AX Hotels, Cambridge Audio, Rega, Gordon Murray Automotive) are speculative testbeds for his method and were not commissioned by those brands. Their names, photography, and marks belong to their owners.
+- Some text on the page is an exhibit and is not his writing: an AI-written bio, a quotation from Cambridge Audio's own product page, and sample passages in the Telltale and Lexiphon tools. Please do not quote them as his copy.
+- Current to version 1.2, 1 October 2026.
+
+## Pages
+- [Home, with contact details](https://nrr-hash.github.io/Lexiphon/): who he is, what he does, and how to reach him
+- [Published work](https://nrr-hash.github.io/Lexiphon/#published): live client work, each piece checked against the client's own source material
+- [Portfolio: five concept pages](https://nrr-hash.github.io/Lexiphon/#gallery): speculative concept pages with production notes and evidence pins
+- [How I work](https://nrr-hash.github.io/Lexiphon/#method): five live demonstrations of how he checks tone, truth, and audience
+- [Lexiphon](https://nrr-hash.github.io/Lexiphon/#studio): a worked example of how to tailor a company's branded content by brand archetype
+- [Experience](https://nrr-hash.github.io/Lexiphon/#work): current roles and history
+- [Clients and sectors](https://nrr-hash.github.io/Lexiphon/#facts): whom he has worked with, and in which industries
+- [What I can do for you](https://nrr-hash.github.io/Lexiphon/#hired): AI editing and governance, writing and editing, local AI and training data
+- [Questions people ask](https://nrr-hash.github.io/Lexiphon/#faq): short answers with sources on the page
+
+## Optional
+- [Full text of the page, without the interface](https://nrr-hash.github.io/Lexiphon/llms-full.txt)
+- [Sitemap](https://nrr-hash.github.io/Lexiphon/sitemap.xml)
