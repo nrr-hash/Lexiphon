@@ -788,8 +788,8 @@ a.btn.btn-alt{display:inline-flex;align-items:center}
 }
 /* what the checking rests on */
 .rests{margin-top:clamp(1.8rem,3.4vw,2.6rem);border-top:1px solid var(--rule);padding-top:clamp(1.4rem,2.8vw,2rem)}
-.rests h3{margin:0 0 .5rem;font-family:var(--display);font-variation-settings:"opsz" 60,"wght" 600;font-size:clamp(1.45rem,2.6vw,1.9rem);line-height:1.12}
-.rests-lede{max-width:62ch;margin:0 0 1.2rem;font-size:1.04rem;line-height:1.6;text-wrap:pretty}
+.rests h3{text-align:center;margin:0 0 .5rem;font-family:var(--display);font-variation-settings:"opsz" 60,"wght" 600;font-size:clamp(1.45rem,2.6vw,1.9rem);line-height:1.12}
+.rests-lede{max-width:62ch;margin:0 auto 1.5rem;text-align:center;font-size:1.04rem;line-height:1.6;text-wrap:balance}
 .rests-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem 2rem}
 .rests-grid h4{margin:0 0 .35rem;padding-top:.6rem;border-top:3px solid var(--ink);font-family:var(--display);font-variation-settings:"opsz" 36,"wght" 620;font-size:1.1rem;line-height:1.2}
 .rests-grid div:first-child h4{border-top-color:var(--amber)}
