@@ -22,7 +22,7 @@ def shell():
     for u in re.findall(r'(?:href|src)="((?:css|js)/[^"]+)"', html):
         if "vendor/" not in u and u not in urls:
             urls.append(u)
-    for pat in ("fonts/*.woff2", "images/favicon.svg", "images/apple-touch-icon.png", "images/walnut.jpg", "images/panel.png",
+    for pat in ("fonts/*.woff2", "images/favicon.svg", "images/apple-touch-icon.png",
                 "images/emblems/*.svg", "audio/fx/*.wav"):
         urls += sorted(glob.glob(pat))
     return urls

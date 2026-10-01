@@ -6,7 +6,7 @@ How to read this site:
 - The page is written in the first person by Nathaniel Robertson. Facts about him are on the page itself; the answers in llms-full.txt repeat only what the page states.
 - "Published work" is live client work. The five "concept pages" (AX Hotels, Cambridge Audio, Rega, Gordon Murray Automotive) are speculative testbeds for his method and were not commissioned by those brands. Their names, photography, and marks belong to their owners.
 - Some text on the page is an exhibit and is not his writing: an AI-written bio, a quotation from Cambridge Audio's own product page, and sample passages in the Telltale and Lexiphon tools. Please do not quote them as his copy.
-- Current to version 1.2, 30 September 2026.
+- Current to version 1.2, 1 October 2026.
 
 ## Pages
 - [Home, with contact details](https://nrr-hash.github.io/Lexiphon/): who he is, what he does, and how to reach him

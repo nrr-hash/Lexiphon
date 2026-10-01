@@ -187,7 +187,8 @@ def jsonld(page, base, published, concepts, hired, date):
         person,
         {"@type": "WebApplication", "@id": base + "#lexiphon", "name": "Lexiphon", "url": base + "#studio", "inLanguage": "en-GB",
          "description": FAQ[10][1], "applicationCategory": "BusinessApplication", "operatingSystem": "Any, in a web browser",
-         "browserRequirements": "Requires JavaScript and the Web Audio API", "isAccessibleForFree": True, "creator": {"@id": pid}},
+         "browserRequirements": "Requires JavaScript and the Web Audio API", "isAccessibleForFree": True, "creator": {"@id": pid},
+         "softwareVersion": "1.2", "copyrightYear": 2026, "copyrightHolder": {"@id": pid}},
         {"@type": "ItemList", "@id": base + "#published", "name": "Published work", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": {"@type": "CreativeWork", "name": n, "url": u, "description": d, "creator": {"@id": pid}, "inLanguage": "en-GB"}}
             for i, (n, u, d) in enumerate(published)]},
@@ -315,7 +316,7 @@ def llms_texts(page, base, published, concepts, date):
     w.lines = [("\n### " + l[4:]) if l.strip() in CARD_HEADS else l for l in w.lines]
     prose = [l for l in w.lines if not l.startswith("# ") and "Anyone can generate content. Somebody has to answer for it." not in l]
     prose = [l for l in prose if "In these two lines, type weight follows" not in l and "If you have a few minutes" not in l]
-    version = re.search(r"Version ([0-9.]+), ([0-9]+ [A-Za-z]+ [0-9]{4})", page)
+    version = re.search(r"(?:Version|Release) ([0-9.]+), ([0-9]+ [A-Za-z]+ [0-9]{4})", page)
     ver = f"version {version.group(1)}, {version.group(2)}" if version else f"modified {date}"
     short = f"""# {NAME}, content specialist
 

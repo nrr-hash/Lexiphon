@@ -3,11 +3,9 @@
 
 Everything here is synthesised from code: no recordings, no stock images, nothing sampled.
 Run from the repository root:  python3 tools/make_assets.py
-Needs numpy and Pillow; ffmpeg is not required.
+Needs numpy; ffmpeg encodes the beds to MP3.
 
 Writes:
-  images/walnut.jpg            tileable walnut grain for the cabinet cheeks
-  images/panel.png             tileable matte panel grain
   images/emblems/<name>.svg    one emblem per archetype, in that archetype's mark colour
   audio/beds/<name>.mp3        loopable bed per archetype (16 kHz, mono, 48 kbit/s; needs ffmpeg, else .wav)
   audio/fx/rocker.wav, tick.wav  short switch sounds
@@ -23,7 +21,6 @@ import subprocess
 import wave
 
 import numpy as np
-from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 rng = np.random.default_rng(1971)
@@ -43,53 +40,6 @@ def out(*p):
 
 
 # ---------------------------------------------------------------- images
-def periodic_noise(h, w, cells_y, cells_x, octaves=4):
-    """Tileable value noise: sums of bilinear-interpolated random grids that wrap."""
-    total = np.zeros((h, w))
-    amp, norm = 1.0, 0.0
-    for o in range(octaves):
-        cy, cx = cells_y * 2 ** o, cells_x * 2 ** o
-        grid = rng.random((cy, cx))
-        ys = np.linspace(0, cy, h, endpoint=False)
-        xs = np.linspace(0, cx, w, endpoint=False)
-        y0 = np.floor(ys).astype(int) % cy
-        x0 = np.floor(xs).astype(int) % cx
-        y1, x1 = (y0 + 1) % cy, (x0 + 1) % cx
-        fy = (ys - np.floor(ys))[:, None]
-        fx = (xs - np.floor(xs))[None, :]
-        fy, fx = fy * fy * (3 - 2 * fy), fx * fx * (3 - 2 * fx)
-        a = grid[y0][:, x0] * (1 - fx) + grid[y0][:, x1] * fx
-        b = grid[y1][:, x0] * (1 - fx) + grid[y1][:, x1] * fx
-        total += amp * (a * (1 - fy) + b * fy)
-        norm += amp
-        amp *= 0.5
-    return total / norm
-
-
-def walnut(path, h=1024, w=512):
-    warp = periodic_noise(h, w, 3, 2, 4)
-    fine = periodic_noise(h, w, 64, 96, 2)
-    x = np.arange(w)[None, :] / w
-    y = np.arange(h)[:, None] / h
-    rings = np.sin(2 * math.pi * (x * 14 + warp * 5.5 + 0.35 * np.sin(2 * math.pi * y * 2)))
-    rings = 0.5 + 0.5 * rings
-    rings = rings ** 1.6
-    pores = (fine > 0.66).astype(float) * 0.5
-    t = np.clip(0.55 * rings + 0.25 * warp + 0.2 * fine - pores * 0.25, 0, 1)
-    stops = np.array([[38, 22, 14], [66, 38, 22], [104, 64, 38], [140, 92, 58]], float)
-    pos = np.linspace(0, 1, len(stops))
-    img = np.stack([np.interp(t, pos, stops[:, c]) for c in range(3)], axis=-1)
-    Image.fromarray(img.clip(0, 255).astype("uint8")).save(path, quality=84, optimize=True)
-
-
-def panel(path, n=256):
-    g = periodic_noise(n, n, 32, 32, 3)
-    fine = rng.random((n, n))
-    base = 22 + 10 * g + 6 * fine
-    img = np.stack([base, base, base * 1.02], axis=-1)
-    Image.fromarray(img.clip(0, 255).astype("uint8")).save(path, optimize=True)
-
-
 def star_points(cx, cy, r_out, r_in, n=5, rot=-90):
     pts = []
     for i in range(n * 2):
@@ -485,8 +435,6 @@ def fx():
 
 
 def main():
-    walnut(out("images", "walnut.jpg"))
-    panel(out("images", "panel.png"))
     for name, col in MARK.items():
         with open(out("images", "emblems", f"{name}.svg"), "w", encoding="utf-8") as f:
             f.write(emblem(name, col))

@@ -49,7 +49,7 @@
    "mainEntity": {
     "@id": "https://nrr-hash.github.io/Lexiphon/#person"
    },
-   "dateModified": "2026-09-30",
+   "dateModified": "2026-10-01",
    "primaryImageOfPage": {
     "@type": "ImageObject",
     "url": "https://nrr-hash.github.io/Lexiphon/images/og.png",
@@ -163,6 +163,11 @@
    "browserRequirements": "Requires JavaScript and the Web Audio API",
    "isAccessibleForFree": true,
    "creator": {
+    "@id": "https://nrr-hash.github.io/Lexiphon/#person"
+   },
+   "softwareVersion": "1.2",
+   "copyrightYear": 2026,
+   "copyrightHolder": {
     "@id": "https://nrr-hash.github.io/Lexiphon/#person"
    }
   },
@@ -1136,6 +1141,8 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
 
 /* roles: title and dates take a third, the work takes two */ @media (min-width:900px){.roles .role{grid-template-columns:minmax(0,1fr) minmax(0,1.9fr)}}
 .slop-notes .slop-cite{grid-column:1 / -1}
+.legal{grid-column:1/-1;max-width:none!important;margin:1.4rem 0 0;padding-top:1rem;border-top:3px solid var(--ink);font-family:var(--display);font-variation-settings:"opsz" 48,"wght" 560;font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.25;color:var(--ink);text-wrap:balance}
+.legal b{font-variation-settings:"opsz" 72,"wght" 800;letter-spacing:-.01em}
 .colophon-print{display:none}
 @media print{.colophon-web{display:none!important}.colophon-print{display:inline!important}}
 /* the three tests, named over each demonstration */ .test-label{margin:0 0 .5rem;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);display:flex;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline}
@@ -1539,23 +1546,30 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
       <p class="lead-in">Patch in any text and turn the dials. The output rewrites itself as you go: it splits and joins sentences, swaps words, and marks every change. Each archetype keeps its own word list, so Sage and Jester choose different words for the same job, and each mark takes the colour of its voice. Press Play or touch the keys. The same voices play the text as music, through a small synthesiser of three oscillators, a filter, and a room. Everything runs in your browser. Until you check them, the words are a machine’s.</p>
     </div>
     <div class="synth" id="synth" role="group" aria-label="Lexiphon panel">
-      <div class="sy-cheek" aria-hidden="true"></div>
+      <canvas class="sy-aura" id="syAura" aria-hidden="true"></canvas>
       <div class="sy-body">
       <div class="sy-face">
-        <canvas class="sy-aura" id="syAura" aria-hidden="true"></canvas>
-        <div class="sy-plate-row"><p class="sy-plate" aria-hidden="true">Lexiphon</p><p class="sy-hint">Drag a dial up or across, or scroll over it. Hold Shift for fine control. Double-click or double-tap to reset. Hover or focus any control for a plain explanation; on a touch screen, tap its label.</p><button type="button" class="sy-sound" id="sySound" aria-pressed="true"><span class="sy-lamp on" aria-hidden="true"></span><span>Sound</span></button></div>
-        <div class="sy-patch">
-          <label class="sy-cap" for="stText">Patch in your text</label>
-          <div class="sy-bay"><textarea id="stText" spellcheck="false" aria-label="Text for Lexiphon" maxlength="7000" placeholder="Paste or type here, up to about 1,000 words. Nothing you enter leaves your browser."></textarea><div class="sy-scope" aria-hidden="true"><span class="sy-scope-tag">SCOPE · SENTENCE LENGTHS</span><canvas id="syScope"></canvas><div class="sy-scope-read" id="syScopeRead"></div></div></div>
-          <div class="sy-chips" role="group" aria-label="Sample text"><button type="button" class="sy-chip" data-src="voiceText" title="Invented copy, written to give every word list something to work on">Voice sample (invented)</button><button type="button" class="sy-chip" data-src="baText">Product page</button><button type="button" class="sy-chip" data-src="slopText">Machine draft</button><button type="button" class="sy-chip" data-src="cleanText">Edited pitch</button><button type="button" class="sy-chip" data-src="clear">Clear</button></div>
-          <script type="text/plain" id="voiceText">We help customers with big problems using a simple plan. Our team uses good tools, and we check every result. The new process is quick, and it keeps the cost low. We explain each step, so people understand what happens next. Many clients find it easy to start. It is a great way to get the results, and we are very happy to show the method. It is not a secret, and we do not hide it.</script>
-        </div>
-        <div class="sy-tape-wrap">
+        <div class="sy-top"><p class="sy-plate" aria-hidden="true">Lexiphon</p><p class="sy-hint">Drag or scroll a dial. Shift for fine steps, double-click to reset. Hover or focus any control for a plain explanation; on touch, tap its label.</p><div class="sy-transport"><button type="button" class="sy-play" id="syPlay" aria-pressed="false"><span class="sy-lamp" aria-hidden="true"></span><span class="sy-play-l">Play</span></button><button type="button" class="sy-sound sy-loop" id="syLoop" aria-pressed="true"><span class="sy-lamp on" aria-hidden="true"></span><span>Loop</span></button><button type="button" class="sy-sound" id="sySound" aria-pressed="true"><span class="sy-lamp on" aria-hidden="true"></span><span>Sound</span></button></div></div>
+        <div class="sy-io">
+          <div class="sy-in">
+            <label class="sy-cap" for="stText">Your text</label>
+            <textarea id="stText" spellcheck="false" aria-label="Text for Lexiphon" maxlength="7000" placeholder="Paste or type up to about 1,000 words. Nothing you enter leaves your browser."></textarea>
+            <div class="sy-chips" role="group" aria-label="Sample text"><button type="button" class="sy-chip" data-src="voiceText" title="Invented copy, written to give every word list something to work on">Voice sample (invented)</button><button type="button" class="sy-chip" data-src="baText">Product page</button><button type="button" class="sy-chip" data-src="slopText">Machine draft</button><button type="button" class="sy-chip" data-src="cleanText">Edited pitch</button><button type="button" class="sy-chip" data-src="clear">Clear</button></div>
+            <script type="text/plain" id="voiceText">We help customers with big problems using a simple plan. Our team uses good tools, and we check every result. The new process is quick, and it keeps the cost low. We explain each step, so people understand what happens next. Many clients find it easy to start. It is a great way to get the results, and we are very happy to show the method. It is not a secret, and we do not hide it.</script>
+          </div>
+          <div class="sy-tape-wrap">
           <div class="sy-tape-h"><span class="sy-cap">Output · the text as the dials set it</span><span class="sy-tape-sum" id="syTapeSum"></span></div>
-          <div class="sy-tape" id="syPreview"></div>
+          <div class="sy-tape" id="syPreview" tabindex="0" role="region" aria-label="Output text. Scrolls if the text is long."></div>
           <div class="sy-tape-b"><span class="sy-legend"><mark class="d-add">changed or added</mark> <del class="d-del">removed</del> <span class="sy-key" id="syKey"></span></span><span class="sy-thint">Click a coloured word for its alternatives.</span><button type="button" class="sy-chip" id="syUseOut">Use as input</button></div>
         </div>
+          <div class="sy-scope" aria-hidden="true"><span class="sy-scope-tag">SCOPE · SENTENCE LENGTHS</span><canvas id="syScope"></canvas><div class="sy-scope-read" id="syScopeRead"></div></div>
+        </div>
         <div class="sy-row">
+          <div class="sy-sec sy-voice" id="syVoice">
+            <div class="sy-arch" role="group" aria-label="Archetypes, choose up to three" id="syArch"></div>
+            <div class="sy-knobs" id="syMix"></div>
+            <p class="sy-name">Voice</p>
+          </div>
           <div class="sy-sec s-rhythm" id="syRhythm">
             <div class="sy-knobs">
               <div class="knob" data-k="cv" data-label="Burstiness" data-min="0" data-max="1.2" data-step="0.01" data-val="0.65" data-dp="2"></div>
@@ -1569,11 +1583,6 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
               <div class="knob" data-k="end" data-label="End weight" data-unit="%" data-min="0" data-max="100" data-step="5" data-val="80" data-dp="0"></div>
             </div>
             <p class="sy-name">Stress</p>
-          </div>
-          <div class="sy-sec sy-voice" id="syVoice">
-            <div class="sy-arch" role="group" aria-label="Archetypes, choose up to three" id="syArch"></div>
-            <div class="sy-knobs" id="syMix"></div>
-            <p class="sy-name">Voice</p>
           </div>
           <div class="sy-sec s-ctrl" id="syCtrl">
             <div class="sy-knobs">
@@ -1597,7 +1606,6 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
               <div class="knob" data-k="bed" data-label="Bed" data-min="0" data-max="10" data-step="0.5" data-val="3" data-dp="1" data-live="1"></div>
               <div class="knob" data-k="vol" data-label="Volume" data-min="0" data-max="10" data-step="0.5" data-val="7" data-dp="1" data-live="1"></div>
             </div>
-            <div class="sy-transport"><button type="button" class="sy-play" id="syPlay" aria-pressed="false"><span class="sy-lamp" aria-hidden="true"></span><span class="sy-play-l">Play</span></button><button type="button" class="sy-sound sy-loop" id="syLoop" aria-pressed="true"><span class="sy-lamp on" aria-hidden="true"></span><span>Loop</span></button></div>
             <p class="sy-name">Output</p>
           </div>
         </div>
@@ -1609,11 +1617,10 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
         </div>
         <div class="sy-kbwrap">
           <div class="sy-keys" id="syKeys" tabindex="0" role="group" aria-label="Keyboard. Play it with the pointer, or press A to semicolon on a computer keyboard. Z and X shift the octave."></div>
-          <p class="sy-kbhint">Play the keys, or focus them and use A to ; on your keyboard. Z and X shift the octave. The pitch wheel springs back; the mod wheel adds vibrato and a filter sweep.</p>
+          <p class="sy-kbhint">Play the keys, or press A to ; on your keyboard. Z and X shift the octave. Pitch springs back; Mod adds vibrato and a filter sweep.</p>
         </div>
       </div>
       </div>
-      <div class="sy-cheek" aria-hidden="true"></div>
     </div>
     <div class="sy-lex" id="syLex"></div>
     <div class="sy-report" aria-live="polite">
@@ -1749,16 +1756,17 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
   <div class="audit" id="audit">
     <p class="audit-h">This page, tested against its own list</p>
     <p class="audit-r" id="auditR" aria-live="polite">The test runs when the page opens.</p>
-    <details><summary>What was tested, and the reason for each mark</summary><ul id="auditL"></ul><p class="ex">Left out as exhibits, because the words are not mine or change as you use them: the AI-written bio, the Cambridge Audio quotation, the sample passages in Telltale and Lexiphon, the sentence demonstration, and the titles of cited sources.</p><p class="ex">Generated, not sourced: the studio’s walnut and panel textures, archetype emblems, bed loops, and switch sounds come from a script (tools/make_assets.py), with no photographs, recordings, or samples.</p></details>
+    <details><summary>What was tested, and the reason for each mark</summary><ul id="auditL"></ul><p class="ex">Left out as exhibits, because the words are not mine or change as you use them: the AI-written bio, the Cambridge Audio quotation, the sample passages in Telltale and Lexiphon, the sentence demonstration, and the titles of cited sources.</p><p class="ex">Generated, not sourced: the studio’s archetype emblems, bed loops, and switch sounds come from a script (tools/make_assets.py), with no photographs, recordings, or samples.</p></details>
   </div>
-  <p class="colophon"><b>Version 1.2, 30 September 2026.</b><span class="colophon-web"> This page was built using an LLM, working with connected apps and plugins: Adobe Photoshop services and Python imaging for the product cut-outs and tonal correction, three.js for the 3D content engine, the browser’s Web Audio for the Listen synthesiser, the Fraunces and Hanken Grotesk typefaces, served from this site, and a headless browser for layout and widow testing. It was edited by a human. The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method. Product names, product photography, and brand marks belong to their owners, and copyright in published client work remains with the clients.</span><span class="colophon-print"> Product names and brand marks belong to their owners, and copyright in published client work remains with the clients.</span></p>
+  <p class="colophon"><b>Release 1.2, 1 October 2026.</b><span class="colophon-web"> This page was built using an LLM, working with connected apps and plugins: Adobe Photoshop services and Python imaging for the product cut-outs and tonal correction, three.js for the 3D content engine, the browser’s Web Audio for the Listen synthesiser, the Fraunces and Hanken Grotesk typefaces, served from this site, and a headless browser for layout and widow testing. It was edited by a human. The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method. Product names, product photography, and brand marks belong to their owners, and copyright in published client work remains with the clients.</span><span class="colophon-print"> Product names and brand marks belong to their owners, and copyright in published client work remains with the clients.</span></p>
+  <p class="legal"><b>Lexiphon</b>, an experimental synaesthetic instrument of LLM-assisted content branding, is © 2026 NRR (Nathaniel Robertson).</p>
 </footer>
 </div>
 
 <script>
 (function(){
 "use strict";
-var WSEL = "p, li, dd, dt, h1, h2, h3, h4, summary, .p-cap, .fig-l, .fig-t, .ledger li > span:last-child, .pub a, .stress-line, .spine-detail, .sweep-count, .close-line, .weight-note, .role .when, .tagline, .card-meta b, .card-meta .line, .eng-card b, .eng-card span.who, blockquote, h5, .swept, .tt-h, .tt-p, .legend, .ballard, .ba-src, .st b, .st span, .both span, .lane-head p, .checks li, .obs, .plate-note, .armbox figcaption";
+var WSEL = ".legal, p, li, dd, dt, h1, h2, h3, h4, summary, .p-cap, .fig-l, .fig-t, .ledger li > span:last-child, .pub a, .stress-line, .spine-detail, .sweep-count, .close-line, .weight-note, .role .when, .tagline, .card-meta b, .card-meta .line, .eng-card b, .eng-card span.who, blockquote, h5, .swept, .tt-h, .tt-p, .legend, .ballard, .ba-src, .st b, .st span, .both span, .lane-head p, .checks li, .obs, .plate-note, .armbox figcaption";
 function bindLast(el){
   var tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [], n;
   while((n = tw.nextNode())) nodes.push(n);
@@ -2813,11 +2821,9 @@ function archOf(word){ var w = word.toLowerCase(), hit = [];
   ARCH.forEach(function(a,i){ for(var k=0;k<a.stems.length;k++){ var st = a.stems[k]; if(st.length < 4 ? w === st : w.indexOf(st) === 0){ hit.push(i); break; } } });
   var lf = typeof LEXFORMS !== "undefined" && LEXFORMS[w]; if(lf) Object.keys(lf).forEach(function(nm){ var ix = NAMEIX[nm]; if(ix != null && hit.indexOf(ix) < 0) hit.push(ix); });
   return hit; }
-/* ---------- knobs: knurled skirt, machined cap, printed scale; a ghost pointer shows where the text sits ---------- */
+/* ---------- knobs: a glass disc inside a value ring; a ghost pointer shows where the text sits ---------- */
 var svgDefs = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>' +
-  '<radialGradient id="stCap" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#5a5b61"/><stop offset=".35" stop-color="#2f2f34"/><stop offset=".75" stop-color="#161618"/><stop offset="1" stop-color="#0a0a0b"/></radialGradient>' +
-  '<radialGradient id="stSkirt" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#303035"/><stop offset=".7" stop-color="#131315"/><stop offset="1" stop-color="#060607"/></radialGradient>' +
-  '<filter id="stShadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3.5" stdDeviation="3" flood-color="#000" flood-opacity=".65"/></filter>' +
+  '<radialGradient id="stDisc" cx="38%" cy="28%" r="85%"><stop offset="0" stop-color="#3d524a"/><stop offset=".55" stop-color="#18261f"/><stop offset="1" stop-color="#0b1511"/></radialGradient>' +
   '</defs></svg>';
 root.insertAdjacentHTML("afterbegin", svgDefs);
 var knobs = {}, C = 60;
@@ -2825,28 +2831,15 @@ function P(r, a){ var t = a * Math.PI / 180; return [C + Math.sin(t) * r, C - Ma
 function arcPath(r, a1, a2){ if(Math.abs(a2 - a1) < .5) a2 = a1 + .5; var s = P(r, a1), e = P(r, a2), large = Math.abs(a2 - a1) > 180 ? 1 : 0, sweep = a2 > a1 ? 1 : 0;
   return "M" + s[0].toFixed(2) + " " + s[1].toFixed(2) + " A" + r + " " + r + " 0 " + large + " " + sweep + " " + e[0].toFixed(2) + " " + e[1].toFixed(2); }
 function trimNum(v){ var s = (Math.round(v * 100) / 100).toString(); return s.replace(/^(-?)0\./, "$1."); }
-function scaleLabels(k){
-  if(k.names) return [0, 3, 6, 9].map(function(i){ return [i, k.names[i]]; });
-  var span = k.max - k.min, n = (k.step >= 1 && span % 4 !== 0) ? 3 : 5, out = [];
-  for(var i = 0; i < n; i++){ var v = k.min + span * i / (n - 1); out.push([v, trimNum(v)]); }
-  return out;
-}
 function knobSVG(k){
-  var ang = function(v){ return -135 + (v - k.min) / (k.max - k.min) * 270; };
-  var s = '<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="k-halo" cx="60" cy="60" r="46"/>';
-  s += '<path d="' + arcPath(41, -135, 135) + '" fill="none" stroke="#3a403d" stroke-width="2" stroke-linecap="round"/>';
-  for(var i = 0; i <= 20; i++){ var a = -135 + i * 13.5, maj = i % 5 === 0, p1 = P(maj ? 43.5 : 44.5, a), p2 = P(maj ? 49 : 47.5, a);
-    s += '<line x1="' + p1[0].toFixed(1) + '" y1="' + p1[1].toFixed(1) + '" x2="' + p2[0].toFixed(1) + '" y2="' + p2[1].toFixed(1) + '" stroke="#f1eee6" stroke-opacity="' + (maj ? .95 : .55) + '" stroke-width="' + (maj ? 1.5 : 1) + '"/>'; }
-  scaleLabels(k).forEach(function(l){ var p = P(55.5, ang(l[0])); s += '<text x="' + p[0].toFixed(1) + '" y="' + (p[1] + 2.8).toFixed(1) + '" text-anchor="middle" font-size="8" font-weight="700" fill="#f1eee6" font-family="Hanken Grotesk,system-ui,sans-serif">' + escHtml(String(l[1])) + '</text>'; });
-  s += '<path class="k-arc" d="" stroke-opacity="0"/>';
-  s += '<g class="kr" filter="url(#stShadow)"><circle cx="60" cy="60" r="35" fill="url(#stSkirt)" stroke="#040505" stroke-width="1"/>';
-  for(var r = 0; r < 64; r++){ var aa = r * 5.625, q1 = P(31, aa), q2 = P(34.6, aa); s += '<line x1="' + q1[0].toFixed(2) + '" y1="' + q1[1].toFixed(2) + '" x2="' + q2[0].toFixed(2) + '" y2="' + q2[1].toFixed(2) + '" stroke="#3b403e" stroke-width=".9"/>'; }
-  s += '<line x1="60" y1="26" x2="60" y2="37" stroke="#f6f1e4" stroke-width="3" stroke-linecap="round"/>';
-  s += '<circle cx="60" cy="60" r="23" fill="url(#stCap)" stroke="#4b4c50" stroke-width=".8"/><line x1="60" y1="42" x2="60" y2="28" stroke="#f1eee6" stroke-width="2.8" stroke-linecap="round"/>';
-  s += '<circle cx="60" cy="60" r="18" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-width=".6"/><circle cx="60" cy="60" r="12" fill="none" stroke="#000" stroke-opacity=".12" stroke-width=".6"/><circle cx="60" cy="60" r="6" fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width=".5"/>';
-  s += '<ellipse cx="52" cy="50" rx="9" ry="5" fill="#ffffff" fill-opacity=".16" transform="rotate(-30 52 50)"/>';
-  s += '</g><circle class="k-ghost" cx="60" cy="19" r="3.6" fill="none" style="display:none"/></svg>';
-  return s;
+  var g = P(39, 0);
+  return '<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="k-halo" cx="60" cy="60" r="52"/>' +
+    '<path class="k-track" d="' + arcPath(47, -135, 135) + '" fill="none"/><path class="k-val" d="" fill="none"/>' +
+    '<path class="k-arc" d="" stroke-opacity="0"/>' +
+    '<g class="kr"><circle cx="60" cy="60" r="31" fill="url(#stDisc)" stroke="#ffffff" stroke-opacity=".2" stroke-width="1"/>' +
+    '<circle cx="60" cy="60" r="25" fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="1"/>' +
+    '<line class="k-ptr" x1="60" y1="33" x2="60" y2="46" stroke-width="3.6" stroke-linecap="round"/></g>' +
+    '<circle class="k-ghost" cx="' + g[0].toFixed(1) + '" cy="' + g[1].toFixed(1) + '" r="3.6" fill="none" style="display:none"/></svg>';
 }
 function makeKnob(el, onChange){
   var d = el.dataset, k = {el:el, key:d.k, min:+d.min, max:+d.max, step:+d.step, val:+d.val, dp:+(d.dp||0), names:d.names ? d.names.split(",") : null, onChange:onChange, readVal:null, state:0};
@@ -2855,18 +2848,19 @@ function makeKnob(el, onChange){
   el.tabIndex = 0; el.setAttribute("role","slider"); el.setAttribute("aria-label", d.label + (isOut || isMix ? "" : " target"));
   el.setAttribute("aria-valuemin", k.min); el.setAttribute("aria-valuemax", k.max);
   k.rot = el.querySelector(".kr"); k.v = el.querySelector(".knob-v"); k.lamp = el.querySelector(".sy-lamp"); k.rt = el.querySelector(".knob-rt");
-  k.arc = el.querySelector(".k-arc"); k.ghost = el.querySelector(".k-ghost");
+  k.arc = el.querySelector(".k-arc"); k.ghost = el.querySelector(".k-ghost"); k.vArc = el.querySelector(".k-val");
   if(!onChange || isOut || isMix){ k.lamp.style.display = "none"; }
   k.ang = function(v){ return -135 + (Math.min(k.max, Math.max(k.min, v)) - k.min) / (k.max - k.min) * 270; };
   function fmt(v){ return (k.names ? k.names[Math.round(v)] : v.toFixed(k.dp)) + (d.unit || ""); }
   k.draw = function(){
     if(k.readVal == null){ k.arc.setAttribute("stroke-opacity","0"); k.ghost.style.display = "none"; return; }
     var a1 = k.ang(k.val), a2 = k.ang(k.readVal), cls = k.state === 2 ? "k-on" : k.state === 1 ? "k-near" : "k-off";
-    k.arc.setAttribute("d", arcPath(41, Math.min(a1, a2), Math.max(a1, a2))); k.arc.setAttribute("stroke-opacity","1"); k.arc.setAttribute("class", "k-arc " + cls);
-    var g = P(41, a2); k.ghost.setAttribute("cx", g[0].toFixed(2)); k.ghost.setAttribute("cy", g[1].toFixed(2)); k.ghost.setAttribute("class", "k-ghost " + cls); k.ghost.style.display = "";
+    k.arc.setAttribute("d", arcPath(39, Math.min(a1, a2), Math.max(a1, a2))); k.arc.setAttribute("stroke-opacity","1"); k.arc.setAttribute("class", "k-arc " + cls);
+    var g = P(39, a2); k.ghost.setAttribute("cx", g[0].toFixed(2)); k.ghost.setAttribute("cy", g[1].toFixed(2)); k.ghost.setAttribute("class", "k-ghost " + cls); k.ghost.style.display = "";
   };
   k.set = function(v, quiet){ v = Math.min(k.max, Math.max(k.min, Math.round(v / k.step) * k.step)); k.val = +v.toFixed(4);
     k.rot.setAttribute("transform","rotate(" + k.ang(k.val).toFixed(1) + " 60 60)");
+    k.vArc.setAttribute("d", arcPath(47, -135, k.ang(k.val)));
     k.v.textContent = (k.names || isOut || isMix ? "" : "Target ") + fmt(k.val);
     el.setAttribute("aria-valuenow", k.val); el.setAttribute("aria-valuetext", fmt(k.val));
     k.draw(); if(!quiet && k.onChange) k.onChange(); };
@@ -3529,7 +3523,7 @@ var TIPS = {
   tempo:["Tempo","How fast the tune plays, in beats per minute. It also sets the spacing of the echo."],
   key:["Key","The note the melody is built on. It also retunes the looping backdrop to match."],
   glide:["Glide","How smoothly one note slides into the next. At 0 each note steps cleanly. Higher values slur them together.","Try it: around 100 for a singing slide."],
-  cut:["Cutoff","How bright the sound is. Turn it down for a darker, softer tone and up for a sharper, brighter one.","Try it: turn it while the tune plays."],
+  cut:["Cutoff","How bright the sound is. Turn it down for a darker, softer tone and up for a sharper, brighter one.","Try it: turn it as the tune plays."],
   res:["Emphasis","How strongly the filter boosts the sound right at the cutoff. Higher values give a more nasal, singing edge."],
   con:["Contour","How far the brightness opens at the start of each note before it settles. Higher values give a sharper pluck."],
   space:["Space","How much echo and room sound surrounds the notes."],
@@ -3538,10 +3532,10 @@ var TIPS = {
   play:["Play","Plays your output text as a tune. Longer words play higher notes, small words play softly, and a sentence that ends on a strong word finishes on a high note."],
   loop:["Loop","Repeats the tune until you press Stop, so you can keep turning dials and hear what each one does."],
   sound:["Sound","Switches all sound on or off. Nothing plays until you press Play or a key."],
-  bend:["Pitch wheel","Bends the pitch up or down while you hold it. It springs back when you let go."],
+  bend:["Pitch wheel","Bends the pitch up or down for as long as you hold it. It springs back when you let go."],
   modw:["Mod wheel","Adds a gentle wobble to the pitch and a slow sweep to the brightness. It stays where you leave it."],
   keys:["Keyboard","Play it with the mouse or your finger, or use the A to semicolon keys on a computer keyboard. Z and X move down and up an octave."],
-  scope:["Scope","Each dot is one sentence, and higher means longer. The dashed line is your Length target. Red dots end on a small word, and the white line follows the sound while it plays."],
+  scope:["Scope","Each dot is one sentence, and higher means longer. The dashed line is your Length target. Red dots end on a small word, and the white line follows the sound as it plays."],
   useout:["Use as input","Moves the rewritten text into the box, so the dials work from this version."]
 };
 var tipEl = document.createElement("div"); tipEl.id = "syTip"; tipEl.setAttribute("role", "tooltip"); tipEl.hidden = true; synthEl.appendChild(tipEl);
