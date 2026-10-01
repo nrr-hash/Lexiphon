@@ -17,6 +17,7 @@ Live: https://nrr-hash.github.io/Lexiphon/
 | `js/viewer.js` | The concept-page deep-zoom viewer. |
 | `js/listen.js` | The Listen buttons on the demonstrations. |
 | `js/lexicon.js` | The word lists: 236 rows of source words and what each archetype says instead, plus a patch table that fills thin voices. Every replacement is screened against the house slop lists. |
+| `js/brand.js` | The briefs and the voice rules. A brief is a short list of facts, each written once in a few grammatical shapes; a voice chooses which facts to use, in what order, from whose point of view, and how to close, and it cannot add a fact. One lead, up to two supporting voices, one seasoning voice. |
 | `js/studio.js` | The Lexiphon studio: dials, lexicon, thesaurus, tooltips, and playback. |
 | `js/pwa.js` | Registers the service worker. |
 | `js/synth.js` | The studio's audio engine. No DOM access, so it can be rendered offline and measured. |

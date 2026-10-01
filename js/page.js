@@ -1,7 +1,7 @@
 /* Page behaviour: widow control, the headline, Telltale, the audit, the sentence demonstrations. */
 (function(){
 "use strict";
-var WSEL = ".legal, p, li, dd, dt, h1, h2, h3, h4, summary, .p-cap, .fig-l, .fig-t, .ledger li > span:last-child, .pub a, .stress-line, .spine-detail, .sweep-count, .close-line, .weight-note, .role .when, .tagline, .card-meta b, .card-meta .line, .eng-card b, .eng-card span.who, blockquote, h5, .swept, .tt-h, .tt-p, .legend, .ballard, .ba-src, .st b, .st span, .both span, .lane-head p, .checks li, .obs, .plate-note, .armbox figcaption";
+var WSEL = "p, li, dd, dt, h1, h2, h3, h4, summary, .p-cap, .fig-l, .fig-t, .ledger li > span:last-child, .pub a, .stress-line, .spine-detail, .sweep-count, .close-line, .weight-note, .role .when, .tagline, .card-meta b, .card-meta .line, .eng-card b, .eng-card span.who, blockquote, h5, .swept, .tt-h, .tt-p, .legend, .ballard, .ba-src, .st b, .st span, .both span, .lane-head p, .checks li, .obs, .plate-note, .armbox figcaption";
 function bindLast(el){
   var tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [], n;
   while((n = tw.nextNode())) nodes.push(n);
