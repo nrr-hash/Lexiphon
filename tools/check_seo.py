@@ -48,7 +48,7 @@ for r in set(refs(graph)):
         fail(f"unresolved @id {r}")
 
 # FAQ: visible answers equal the structured ones
-faq_ld = next(n for n in graph if n["@type"] == "FAQPage")
+faq_ld = next((n for n in graph if n["@type"] == "FAQPage"), None)
 
 
 class Faq(HTMLParser):
@@ -83,13 +83,18 @@ class Faq(HTMLParser):
             s.a[-1] += d
 
 
-f = Faq()
-f.feed(page)
-norm = lambda x: re.sub(r"\s+", " ", html.unescape(x)).strip()
-vis = [(norm(q), norm(a)) for q, a in zip(f.q, f.a)]
-ld = [(norm(e["name"]), norm(e["acceptedAnswer"]["text"])) for e in faq_ld["mainEntity"]]
-if vis != ld:
-    fail(f"visible FAQ ({len(vis)}) differs from FAQPage JSON-LD ({len(ld)})")
+if faq_ld is None:
+    # no FAQPage markup, so no FAQ may be visible either (markup must match visible content, and the reverse)
+    if 'id="faq"' in page:
+        fail("a visible FAQ section exists but there is no FAQPage markup")
+else:
+    f = Faq()
+    f.feed(page)
+    norm = lambda x: re.sub(r"\s+", " ", html.unescape(x)).strip()
+    vis = [(norm(q), norm(a)) for q, a in zip(f.q, f.a)]
+    ld = [(norm(e["name"]), norm(e["acceptedAnswer"]["text"])) for e in faq_ld["mainEntity"]]
+    if vis != ld:
+        fail(f"visible FAQ ({len(vis)}) differs from FAQPage JSON-LD ({len(ld)})")
 
 # head
 title = re.search(r"<title>(.*?)</title>", page, re.S).group(1)

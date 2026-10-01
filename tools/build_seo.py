@@ -28,6 +28,10 @@ DESCRIPTION = ("Content specialist for source-checked B2B, B2C, and B2G writing,
 
 # Question, answer, and the phrases on the page that support the answer. The answers are written in the third person so that
 # each one names its subject when it is lifted out of the page. Nothing in an answer goes beyond its cited phrases.
+# The visible FAQ section is off. The answers below still feed the descriptions, and their cited phrases are still checked.
+# FAQPage markup must match visible content, so it is off with the section.
+SHOW_FAQ = False
+
 FAQ = [
     ("What does Nathaniel Robertson do?",
      "Nathaniel Robertson is a content specialist. He devises, produces, and scales digital content with frontier and open-weight models that he configures and checks himself, and every claim goes back to its source before it goes out. His work covers source-checked B2B, B2C, and B2G writing, AI editing and governance, and content audits.",
@@ -197,8 +201,7 @@ def jsonld(page, base, published, concepts, hired, date):
              "description": c + " A speculative concept page offered as a testbed for the method.", "creator": {"@id": pid}, "inLanguage": "en-GB",
              "image": base + img}}
             for i, (b, t, c, pdf, alt, img) in enumerate(concepts)]},
-        {"@type": "FAQPage", "@id": base + "#faq", "url": base + "#faq", "inLanguage": "en-GB", "mainEntity": faq},
-    ]}
+    ] + ([{"@type": "FAQPage", "@id": base + "#faq", "url": base + "#faq", "inLanguage": "en-GB", "mainEntity": faq}] if SHOW_FAQ else [])}
 
 
 def head_tags(page, base):
@@ -337,7 +340,6 @@ How to read this site:
 - [Experience]({base}#work): current roles and history
 - [Clients and sectors]({base}#facts): whom he has worked with, and in which industries
 - [What I can do for you]({base}#hired): AI editing and governance, writing and editing, local AI and training data
-- [Questions people ask]({base}#faq): short answers with sources on the page
 
 ## Optional
 - [Full text of the page, without the interface]({base}llms-full.txt)
@@ -354,10 +356,11 @@ How to read this site:
     full += ["", "## Portfolio: five concept pages",
              "Speculative concept pages, drafted with an LLM as testbeds for the method: his direction, his edit, his sign-off. Not commissioned by the brands. Each ends with production notes; three carry evidence pins that tie each claim to its note (22 claims in all)."]
     full += [f"- {b}, {t}: {c} [PDF]({pdf})" for b, t, c, pdf, _, _ in concepts]
-    full += ["", "## Questions people ask"]
-    for q, a, _ in FAQ:
-        full += [f"### {q}", a, ""]
-    full += ["## Contact", "Email: nathan667@gmail.com. The last section of the page also offers a content audit."]
+    if SHOW_FAQ:
+        full += ["", "## Questions people ask"]
+        for q, a, _ in FAQ:
+            full += [f"### {q}", a, ""]
+    full += ["", "## Contact", "Email: nathan667@gmail.com. The last section of the page also offers a content audit."]
     return short, "\n".join(full).rstrip() + "\n"
 
 
@@ -417,8 +420,8 @@ def main():
     # 2. index.html: FAQ section, JSON-LD, head tags
     block = faq_html()
     if "<!-- faq:start -->" in page:
-        page = re.sub(r"<!-- faq:start -->.*?<!-- faq:end -->", lambda m: block, page, flags=re.S)
-    else:
+        page = re.sub(r"<!-- faq:start -->.*?<!-- faq:end -->\n*", lambda m: (block + "\n\n") if SHOW_FAQ else "", page, flags=re.S)
+    elif SHOW_FAQ:
         anchor = '<section class="close" id="contact"'
         if anchor not in page:
             sys.exit("contact section not found")
