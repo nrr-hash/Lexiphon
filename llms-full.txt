@@ -2,24 +2,30 @@
 
 > Content specialist for source-checked B2B, B2C, and B2G writing, AI editing and governance, and content audits. Every claim goes back to its source.
 
-Source: https://nrr-hash.github.io/Lexiphon/ (version 1.2, 1 October 2026). Generated from the page by tools/build_seo.py on 2026-10-01. The page is written in the first person by Nathaniel Robertson.
+Source: https://nrr-hash.github.io/Lexiphon/ (version 1.3, 1 October 2026). Generated from the page by tools/build_seo.py on 2026-10-01. The page is written in the first person by Nathaniel Robertson.
 
 Not included: the interface, the demonstration texts, and three exhibits that are not his writing (an AI-written bio, a quotation from Cambridge Audio's own product page, and the sample passages in Telltale and Lexiphon).
 
 ## The position
-Anyone can generate content. Somebody has to answer for it.
-At heart, I’m a copywriter. In practice, I devise, produce, and scale digital content with frontier and open-weight models that I configure and check myself. The model learns your voice. I make sure it tells the truth.
+AI drafts the content. I answer for every claim.
+I’m a content specialist for B2B, B2C, and B2G teams. I devise, produce, and scale digital content with frontier and open-weight models that I configure and check myself. The model learns your voice.
+Currently on four retained accounts, in three countries. The concept pages below show the method, and three of them tie each claim to the note that backs it.
+Check a draft of yoursOr ask for a content audit, or discuss a role or contract.
 The problem, in 2026
-Anyone can generate content, you say. Correct. The problem is that too little of it is worth reading, because “universal output” comes out too smooth and too generic to stick.
+Anyone can generate content now. The problem is that too little of it is worth reading, because “universal output” comes out too smooth and too generic to stick.
 
-### How it sounds
-Sentences lack burst. The same words turn up everywhere. The tone is flat. “It’s not this, it’s that” is a construction LLMs lean on far too often.
+## It sounds like everyone
+Models write in a shared house style, and your brand inherits it.
+A study of more than 15 million biomedical abstracts, 2010 to 2024, found a sudden rise in a small set of favoured words, and estimated that at least 13.5% of 2024 abstracts were processed with a language model. Kobak et al., Science Advances, 2025
 
-### Whether it is true
-Some models invent facts more than others, and your claims quietly stop being true.
+## It says what is not so
+A model fills a gap with a plausible claim, and your page quietly stops being true.
+In a 2026 preprint testing 35 open-weight models, the best fabricated answers 1.19% of the time at a 32K context, and fabrication rose as documents grew longer. Roig, arXiv:2603.08274
 
-### Who it is for
-Pages swell into keyword nests built for ranking, read mostly by other machines scraping by. Lorem ipsum used to hold a page until the real words arrived. On too many pages now, the filler is the words. Look closer, and the same narrative patterns are everywhere.
+## It gets accused, and nothing settles it
+Detection tools cannot reliably tell human writing from machine writing, so good work gets doubted too.
+The Authors Guild ran five detectors on ten human-written articles from 2022 or earlier, and scores for the same text ran from correctly human to 100% AI. Authors Guild
+In 2026 a detector scored a Commonwealth Short Story Prize winner 100% AI-generated, and the Commonwealth Foundation stood by the story. Publishers Lunch
 I was trained to check sources before I was trained to write. That order has never reversed.
 You are, I suspect, looking for someone to stand behind every sentence your company publishes. That is my job. I take the dense material that regulated industries run on (specifications, standards, contract small print) and turn it into English a buyer can trust.
 Every claim goes back to its source before it goes out. When a fact is missing, I flag it rather than invent it, and when a model has drafted a page, I check it line by line.
@@ -33,6 +39,59 @@ Companies retain me for that standard, and at micro1 I bring the same judgement 
 - Education: BA (Hons) Medieval and Modern History, University of Birmingham
 - Languages: English native, German C1, French B1
 - Base: Gozo, Malta, and remote-ready
+
+## What I can do for you
+Three lines of work: governing AI-drafted content, writing and editing it myself, and working with AI directly, on my own tooling and on training data for frontier labs.
+
+### AI editing and governance
+- Audits of existing content libraries, scored for machine-generated tells and search exposure, with the rebuild priced in writing.
+- Detection and rewrite of machine-generated copy against codified, testable house standards, so content stays distinct and worth reading.
+- Retrieval-augmented generation: with the client’s permission, NotebookLM indexed on client material, so answers cite the passage they came from.
+- Search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO).
+
+### Writing and editing
+- Source-checked B2B, B2C, and B2G writing, with claims checked against client documents and house style held on every agency account.
+- UX and UI microcopy, bids, case studies, and board speeches.
+- Tone of voice set by brand archetype. A/B testing and performance reviews.
+- One fact base, verified once against source, then reused in every content type.
+
+### Tools and training data
+- Drafting runs through tools I have set up myself, and nothing ships until it has passed my own instruments and my own eye.
+- Training data for frontier AI labs: at micro1, I review and annotate robotic-arm video against customer grading guidelines.
+
+## How a piece reaches you
+Five steps, in the order I take them, and a written record at the end.
+
+### You send the source
+Specifications, standards, product sheets, contract small print: whatever your claims rest on.
+
+### A model drafts
+It drafts from that material, in your voice, and the draft counts as unchecked until step three.
+
+### I check every claim
+Each one goes back to its source. What I cannot source is flagged, corrected, or held back, and never invented.
+
+### I read it for tells
+I rewrite machine phrasing and flat rhythm, then check the claims again.
+
+### You get the record
+The finished piece arrives with its production notes: what was checked, what was held back, and why. You sign it off.
+
+### What the checking rests on
+A model can compare a sentence with a source. It cannot know which sentence the reader will test first, or what the source leaves unsaid. Three kinds of experience tell me where to look.
+
+#### Standards-bound writing
+At BRITA I wrote the master content for a water-filtration range in a standards-bound industry. That taught me which claims a specification can carry, and which it cannot.
+
+#### Reading technical documents
+At Pipex I obtained server white papers to find what set a product apart. At CM-AG I drafted a patent application, where every word in a claim bears weight.
+
+#### Grading against a rubric
+At micro1 I review robotic-arm video against customer grading guidelines. My annotations are peer reviewed, and I review my peers’ in turn.
+
+## Try it on your own words
+Lexiphon is a worked example of a brand voice written down as a profile. Paste a draft of yours and see what it makes of it.
+Found something worth fixing? A content audit does the same across a whole library, and prices the rebuild in writing.
 
 ## How I work
 Every piece of work was put through three tests: how it sounds, whether it is true, and who it is for. Five live demonstrations on the page show the tests, and Lexiphon shows all three.

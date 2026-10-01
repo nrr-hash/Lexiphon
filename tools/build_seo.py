@@ -61,9 +61,6 @@ FAQ = [
      "Yes. Nathaniel Robertson works on search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO). Search and AI answer boxes get the same facts, never a separate page written for them, and he writes answer blocks to be lifted whole.",
      ["Search visibility in three places: Google ranking (SEO), AI answer boxes (AEO), and citation inside generative engines (GEO)",
       "Search and AI answer boxes get the same facts, never a separate page written for them", "I write answer blocks to be lifted whole"]),
-    ("Can the AI work run without client data leaving the premises?",
-     "Yes. Open models (Gemma and Qwen, through Ollama) run on site, so client data and IP never leave the building.",
-     ["Open models run on site (Gemma and Qwen, through Ollama), so client data and IP never leave the building"]),
     ("Are the concept pages real client work?",
      "No. The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method, and product names, product photography, and brand marks belong to their owners. The Published work section is live client work, checked against the client’s own source material and signed off by the client.",
      ["The AX Hotels, Cambridge Audio, Rega, and Gordon Murray Automotive pages are speculative concept pages offered as testbeds for the method",
@@ -190,9 +187,9 @@ def jsonld(page, base, published, concepts, hired, date):
          "primaryImageOfPage": {"@type": "ImageObject", "url": base + "images/og.png", "width": 1200, "height": 630}},
         person,
         {"@type": "WebApplication", "@id": base + "#lexiphon", "name": "Lexiphon", "url": base + "#studio", "inLanguage": "en-GB",
-         "description": FAQ[10][1], "applicationCategory": "BusinessApplication", "operatingSystem": "Any, in a web browser",
+         "description": next(a for q, a, _ in FAQ if q == "What is Lexiphon?"), "applicationCategory": "BusinessApplication", "operatingSystem": "Any, in a web browser",
          "browserRequirements": "Requires JavaScript and the Web Audio API", "isAccessibleForFree": True, "creator": {"@id": pid},
-         "softwareVersion": "1.2"},
+         "softwareVersion": "1.3"},
         {"@type": "ItemList", "@id": base + "#published", "name": "Published work", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": {"@type": "CreativeWork", "name": n, "url": u, "description": d, "creator": {"@id": pid}, "inLanguage": "en-GB"}}
             for i, (n, u, d) in enumerate(published)]},
@@ -227,7 +224,7 @@ def head_tags(page, base):
     setmeta("property", "og:image:type", "image/png", '<meta property="og:image:height" content="630">')
     setmeta("name", "twitter:title", TITLE, '<meta name="twitter:card" content="summary_large_image">')
     setmeta("name", "twitter:description", DESCRIPTION, '<meta name="twitter:title" content="%s">' % html.escape(TITLE, quote=True))
-    setmeta("name", "twitter:image:alt", "Nathaniel Robertson, content specialist. Anyone can generate content. Somebody has to answer for it.", '<meta name="twitter:image" content="%simages/og.png">' % base)
+    setmeta("name", "twitter:image:alt", "Nathaniel Robertson, content specialist. AI drafts the content. I answer for every claim.", '<meta name="twitter:image" content="%simages/og.png">' % base)
     setmeta("name", "robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1", '<meta name="author" content="%s">' % NAME)
     extra = [
         f'<link rel="alternate" hreflang="en-GB" href="{base}">',
@@ -250,7 +247,7 @@ class Walker(HTMLParser):
     """Collects the page's own prose as Markdown lines, skipping the interface and the deliberate exhibits."""
     SKIP_TAGS = {"script", "style", "svg", "noscript", "textarea", "button", "nav", "dialog", "canvas", "select", "input", "summary", "details", "footer"}
     SKIP_IDS = {"method", "gallery", "published", "faq", "contact", "studio"}
-    SKIP_CLASSES = {"sy-lex", "synth", "instrument", "slop", "prints", "close", "audit", "colophon", "jump", "weight-note", "pins", "shots", "pubs", "dz"}
+    SKIP_CLASSES = {"sy-lex", "synth", "instrument", "slop", "prints", "close", "audit", "colophon", "jump", "weight-note", "pins", "shots", "pubs", "dz", "ledger"}
 
     def __init__(self):
         super().__init__()
@@ -317,7 +314,7 @@ def llms_texts(page, base, published, concepts, date):
     w = Walker()
     w.feed(page)
     w.lines = [("\n### " + l[4:]) if l.strip() in CARD_HEADS else l for l in w.lines]
-    prose = [l for l in w.lines if not l.startswith("# ") and "Anyone can generate content. Somebody has to answer for it." not in l]
+    prose = [l for l in w.lines if not l.startswith("# ") and "AI drafts the content. I answer for every claim." not in l]
     prose = [l for l in prose if "In these two lines, type weight follows" not in l and "If you have a few minutes" not in l]
     version = re.search(r"(?:Version|Release) ([0-9.]+), ([0-9]+ [A-Za-z]+ [0-9]{4})", page)
     ver = f"version {version.group(1)}, {version.group(2)}" if version else f"modified {date}"
@@ -333,13 +330,14 @@ How to read this site:
 
 ## Pages
 - [Home, with contact details]({base}): who he is, what he does, and how to reach him
+- [What I can do for you]({base}#hired): AI editing and governance, writing and editing, tools and training data
+- [How a piece reaches you]({base}#protocol): five steps from source material to a signed-off piece with its production notes
+- [Lexiphon]({base}#studio): a brand voice written down as a profile, applied to fixed facts and used to check drafts
 - [Published work]({base}#published): live client work, each piece checked against the client's own source material
 - [Portfolio: five concept pages]({base}#gallery): speculative concept pages with production notes and evidence pins
 - [How I work]({base}#method): five live demonstrations of how he checks tone, truth, and audience
-- [Lexiphon]({base}#studio): a brand voice written down as a profile, applied to fixed facts and used to check drafts
 - [Experience]({base}#work): current roles and history
 - [Clients and sectors]({base}#facts): whom he has worked with, and in which industries
-- [What I can do for you]({base}#hired): AI editing and governance, writing and editing, local AI and training data
 
 ## Optional
 - [Full text of the page, without the interface]({base}llms-full.txt)
@@ -348,7 +346,7 @@ How to read this site:
     full = [f"# {NAME}, content specialist", "", f"> {DESCRIPTION}", "",
             f"Source: {base} ({ver}). Generated from the page by tools/build_seo.py on {date}. The page is written in the first person by {NAME}.", "",
             "Not included: the interface, the demonstration texts, and three exhibits that are not his writing (an AI-written bio, a quotation from Cambridge Audio's own product page, and the sample passages in Telltale and Lexiphon).", "",
-            "## The position", "Anyone can generate content. Somebody has to answer for it."]
+            "## The position", "AI drafts the content. I answer for every claim."]
     full += prose
     full += ["", "## How I work", "Every piece of work was put through three tests: how it sounds, whether it is true, and who it is for. Five live demonstrations on the page show the tests, and Lexiphon shows all three."]
     full += ["", "## Published work", "Each piece is live client work, checked against the client's own source material and signed off by the client."]
@@ -365,7 +363,7 @@ How to read this site:
 
 
 def sitemap(base, date, concepts):
-    imgs = [(base + "images/og.png", "Nathaniel Robertson, content specialist. Anyone can generate content. Somebody has to answer for it.")]
+    imgs = [(base + "images/og.png", "Nathaniel Robertson, content specialist. AI drafts the content. I answer for every claim.")]
     imgs += [(base + c[5], c[4]) for c in concepts]
     rows = "\n".join(f"    <image:image>\n      <image:loc>{esc(u)}</image:loc>\n      <image:caption>{esc(c)}</image:caption>\n    </image:image>" for u, c in imgs)
     return f"""<?xml version="1.0" encoding="UTF-8"?>
