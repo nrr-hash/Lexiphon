@@ -227,7 +227,7 @@ def head_tags(page, base):
     setmeta("property", "og:image:type", "image/png", '<meta property="og:image:height" content="630">')
     setmeta("name", "twitter:title", TITLE, '<meta name="twitter:card" content="summary_large_image">')
     setmeta("name", "twitter:description", DESCRIPTION, '<meta name="twitter:title" content="%s">' % html.escape(TITLE, quote=True))
-    setmeta("name", "twitter:image:alt", "Nathaniel Robertson, content specialist. Anyone can generate content. Somebody has to answer for it.", '<meta name="twitter:image" content="%simages/og.png">' % base)
+    setmeta("name", "twitter:image:alt", "Nathaniel Robertson, content specialist. AI drafts the content. I answer for every claim.", '<meta name="twitter:image" content="%simages/og.png">' % base)
     setmeta("name", "robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1", '<meta name="author" content="%s">' % NAME)
     extra = [
         f'<link rel="alternate" hreflang="en-GB" href="{base}">',
@@ -317,7 +317,7 @@ def llms_texts(page, base, published, concepts, date):
     w = Walker()
     w.feed(page)
     w.lines = [("\n### " + l[4:]) if l.strip() in CARD_HEADS else l for l in w.lines]
-    prose = [l for l in w.lines if not l.startswith("# ") and "Anyone can generate content. Somebody has to answer for it." not in l]
+    prose = [l for l in w.lines if not l.startswith("# ") and "AI drafts the content. I answer for every claim." not in l]
     prose = [l for l in prose if "In these two lines, type weight follows" not in l and "If you have a few minutes" not in l]
     version = re.search(r"(?:Version|Release) ([0-9.]+), ([0-9]+ [A-Za-z]+ [0-9]{4})", page)
     ver = f"version {version.group(1)}, {version.group(2)}" if version else f"modified {date}"
@@ -348,7 +348,7 @@ How to read this site:
     full = [f"# {NAME}, content specialist", "", f"> {DESCRIPTION}", "",
             f"Source: {base} ({ver}). Generated from the page by tools/build_seo.py on {date}. The page is written in the first person by {NAME}.", "",
             "Not included: the interface, the demonstration texts, and three exhibits that are not his writing (an AI-written bio, a quotation from Cambridge Audio's own product page, and the sample passages in Telltale and Lexiphon).", "",
-            "## The position", "Anyone can generate content. Somebody has to answer for it."]
+            "## The position", "AI drafts the content. I answer for every claim."]
     full += prose
     full += ["", "## How I work", "Every piece of work was put through three tests: how it sounds, whether it is true, and who it is for. Five live demonstrations on the page show the tests, and Lexiphon shows all three."]
     full += ["", "## Published work", "Each piece is live client work, checked against the client's own source material and signed off by the client."]
@@ -365,7 +365,7 @@ How to read this site:
 
 
 def sitemap(base, date, concepts):
-    imgs = [(base + "images/og.png", "Nathaniel Robertson, content specialist. Anyone can generate content. Somebody has to answer for it.")]
+    imgs = [(base + "images/og.png", "Nathaniel Robertson, content specialist. AI drafts the content. I answer for every claim.")]
     imgs += [(base + c[5], c[4]) for c in concepts]
     rows = "\n".join(f"    <image:image>\n      <image:loc>{esc(u)}</image:loc>\n      <image:caption>{esc(c)}</image:caption>\n    </image:image>" for u, c in imgs)
     return f"""<?xml version="1.0" encoding="UTF-8"?>

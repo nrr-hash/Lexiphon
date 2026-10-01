@@ -7,10 +7,12 @@ Source: https://nrr-hash.github.io/Lexiphon/ (version 1.2, 1 October 2026). Gene
 Not included: the interface, the demonstration texts, and three exhibits that are not his writing (an AI-written bio, a quotation from Cambridge Audio's own product page, and the sample passages in Telltale and Lexiphon).
 
 ## The position
-Anyone can generate content. Somebody has to answer for it.
-At heart, I’m a copywriter. In practice, I devise, produce, and scale digital content with frontier and open-weight models that I configure and check myself. The model learns your voice. I make sure it tells the truth.
+AI drafts the content. I answer for every claim.
+I’m a content specialist for B2B, B2C, and B2G teams. I devise, produce, and scale digital content with frontier and open-weight models that I configure and check myself. The model learns your voice.
+Currently on four retained accounts, in three countries. The concept pages below show the method, and three of them tie each claim to the note that backs it.
+Check a draft of yoursor ask for a content audit
 The problem, in 2026
-Anyone can generate content, you say. Correct. The problem is that too little of it is worth reading, because “universal output” comes out too smooth and too generic to stick.
+Anyone can generate content now. The problem is that too little of it is worth reading, because “universal output” comes out too smooth and too generic to stick.
 
 ### How it sounds
 Sentences lack burst. The same words turn up everywhere. The tone is flat. “It’s not this, it’s that” is a construction LLMs lean on far too often.

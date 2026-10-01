@@ -744,3 +744,10 @@ a,button,input,select,textarea,summary,label,[role="button"],[role="slider"]{tou
   background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   -webkit-mask-image:linear-gradient(#000 calc(100% - 28px),transparent);mask-image:linear-gradient(#000 calc(100% - 28px),transparent)}
 @media print{.mast::before{display:none}}
+
+/* hero: who it is for, one proof, one next step */
+.hero-proof{max-width:58ch;margin:0 auto 1.3rem;text-align:center;color:var(--slate);font-size:1rem;line-height:1.55;text-wrap:pretty}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.7rem 1.4rem;margin:0 0 clamp(2rem,3.5vw,2.8rem)}
+.hero-alt{color:var(--ink);font-weight:600;text-underline-offset:.2em}
+.hero-alt:hover{color:var(--amber-deep)}
+.hero-cta .btn{display:inline-flex;align-items:center}

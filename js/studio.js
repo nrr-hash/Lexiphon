@@ -12,7 +12,7 @@ var prof = {tone:B.toneOf("Caregiver"), lead:"auto", person:"auto", rhythm:"auto
 
 /* "My voice": formality and enthusiasm measured from the opening of this page; humour and respect set by ear */
 function myVoice(){
-  var src = [].slice.call(document.querySelectorAll(".opening-lede, .intro p")).map(function(p){ return p.textContent; }).join(" ").replace(/\s+/g, " ");
+  var src = [].slice.call(document.querySelectorAll(".intro p")).map(function(p){ return p.textContent; }).join(" ").replace(/\s+/g, " ");
   var m = src ? B.measure(src) : null;
   return {tone:{casual:m ? m.tone.casual : 45, funny:15, irreverent:15, enthusiastic:m ? m.tone.enthusiastic : 25}, lead:"proof", person:"we", rhythm:"varied", words:"none", gaps:"flag", measured:m};
 }
@@ -189,9 +189,11 @@ $("lxReport").addEventListener("click", function(e){ if(!(e.target.closest && e.
   drawStart(); drawStartSoft(); $("lxNow").textContent = "Learnt from your draft: formality, enthusiasm, point of view, and rhythm. Humour and respect stay where you set them."; drawProfile(); run(); });
 
 /* ---------- mode ---------- */
-function setMode(m){ mode = m; $("lxWrite").hidden = m !== "write"; $("lxCheck").hidden = m !== "check";
+function setMode(m, noFill){ mode = m; $("lxWrite").hidden = m !== "write"; $("lxCheck").hidden = m !== "check";
   $("lxModes").querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.mode === m ? "true" : "false"); });
-  if(m === "check" && !ta.value){ ta.value = lastPiece(); } run(); }
+  if(m === "check" && !ta.value && !noFill){ ta.value = lastPiece(); } run(); }
+/* the hero's button: open the draft check, empty, for the visitor's own text */
+document.addEventListener("click", function(e){ var a = e.target.closest && e.target.closest("[data-lx=check]"); if(!a) return; setMode("check", true); setTimeout(function(){ ta.focus({preventScroll:true}); }, 600); });
 $("lxModes").addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("button[data-mode]"); if(b && b.dataset.mode !== mode) setMode(b.dataset.mode); });
 function run(){ if(mode === "write") runWrite(); else runCheck(); }
 
