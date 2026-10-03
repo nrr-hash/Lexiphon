@@ -117,3 +117,23 @@ a.fx.hi,a.fx:hover{background:var(--v1);color:#0b1411}
 .pc-h{text-wrap:balance}
 a.fx{white-space:nowrap}
 @media (pointer:coarse){.lx-seg button,.lx-modes button,.lx-briefs button,.lx-samples button,.lx-learn,.lx-start .lx-mine{min-height:44px}.lx-dial input{height:44px}.lx-facts input{width:1.4rem;height:1.4rem}.lx-facts label{padding:.2rem 0}.lx select{min-height:44px}}
+
+/* the result, sent or printed */
+.lx-send{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem .8rem;margin:.9rem 0 0}
+.lx-send span{flex-basis:100%;font-size:.85rem;color:var(--slate)}
+#lxSheet{display:none}
+@media print{
+  html.lx-printing body > :not(#lxSheet){display:none!important}
+  html.lx-printing #lxSheet{display:block!important;font:10.5pt/1.45 "Hanken Grotesk",Arial,sans-serif;color:#1F3A31;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #lxSheet .ls-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:.8pt solid #1F3A31;padding-bottom:4pt;margin-bottom:8pt}
+  #lxSheet .ls-head b{font:600 16pt/1.1 Fraunces,Georgia,serif}
+  #lxSheet .ls-head span{font-size:8.5pt;color:#55675E}
+  #lxSheet h2{font:600 11.5pt/1.2 Fraunces,Georgia,serif;margin:10pt 0 4pt;break-after:avoid}
+  #lxSheet .ls-meta,#lxSheet .ls-limit{color:#55675E;margin:0 0 6pt}
+  #lxSheet .ls-draft{border:.6pt solid #C5D2C7;border-radius:4pt;padding:6pt 8pt}
+  #lxSheet mark{background:none!important;box-shadow:none!important;color:inherit;border-bottom:1.6pt solid}
+  #lxSheet mark.m-tell{border-color:#AD3E27}#lxSheet mark.m-fig{border-color:#E8832E}#lxSheet mark.m-abs{border-color:#93531D;border-bottom-style:double;border-bottom-width:2.4pt}
+  #lxSheet .ls-key{font-size:8.5pt;color:#55675E;margin:4pt 0 0}#lxSheet .ls-key span{margin-right:8pt}
+  #lxSheet ul{margin:0;padding-left:1em}#lxSheet li{margin:0 0 3pt}
+  #lxSheet .ls-foot{margin-top:12pt;padding-top:5pt;border-top:.6pt solid #C5D2C7;font-size:9pt}
+}

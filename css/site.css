@@ -812,3 +812,31 @@ a.btn.btn-alt{display:inline-flex;align-items:center}
 .cta-mid a{font-weight:650;text-underline-offset:.2em}
 .lg-act{margin:1rem 0 0}
 @media print{.cta-mid,.lg-act{display:none!important}}
+
+/* arriving from the CV: three proofs, before the hero */
+.from-cv{margin:clamp(.8rem,2vw,1.4rem) 0 0;padding:clamp(1rem,2.4vw,1.4rem) clamp(1rem,2.6vw,1.6rem);background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--amber);border-radius:12px 2px 12px 2px}
+.from-cv[hidden]{display:none}
+.fc-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.from-cv h2{margin:0;font-family:var(--display);font-variation-settings:"opsz" 36,"wght" 620;font-size:1.15rem}
+.fc-x{font:inherit;font-size:.85rem;color:var(--slate);background:none;border:0;padding:.2rem 0;cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
+.fc-lede{margin:.3rem 0 .8rem;font-size:1rem}
+.fc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem 1.4rem}
+.fc-list li{display:flex;flex-direction:column;gap:.15rem;border-top:1px solid var(--rule);padding-top:.5rem}
+.fc-list a,.fc-link{font:inherit;font-weight:650;color:var(--ink);text-align:left;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
+.fc-list span{font-size:.92rem;color:var(--slate);text-wrap:pretty}
+@media (max-width:760px){.fc-list{grid-template-columns:minmax(0,1fr)}}
+@media print{.from-cv{display:none!important}}
+.close .reply{margin:.8rem 0 0;text-align:center;color:var(--slate);font-size:.95rem}
+@media print{.close .reply{display:none!important}}
+
+/* "How I work" folded on phones (js/page.js) */
+.demo-open{display:none}
+@media (max-width:760px){
+  .demo-open{display:inline-flex;align-items:center;gap:.5rem;font:inherit;font-size:.95rem;font-weight:650;color:var(--ink);background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;padding:.45rem 1rem;margin:.2rem 0 .4rem;cursor:pointer}
+  .demo-open::after{content:"";width:.45em;height:.45em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-.15em) rotate(45deg)}
+  .demo-open[aria-expanded="true"]::after{transform:translateY(.1em) rotate(-135deg)}
+  .instrument.demo-folded > :not(.explain),
+  .instrument.demo-folded .explain > :not(.test-label):not(h3):not(.lead-in):not(.demo-open),
+  .slop.demo-folded > :not(.test-label):not(.slop-kicker):not(.slop-intro):not(.demo-open){display:none!important}
+  .instrument.demo-folded{padding-bottom:1.2rem}
+}
