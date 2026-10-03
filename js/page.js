@@ -352,7 +352,7 @@ sweepNote = sweepSets[0].note; runSweep(sweepSets[0].text);
 
 /* ---------- in-page navigation without URLs ---------- */
 document.querySelectorAll("[data-go]").forEach(function(b){
-  b.addEventListener("click", function(e){ var t = document.getElementById(b.dataset.go); if(!t) return; var f = t.closest("details.fold"); if(f) f.open = true; if(b.tagName === "A") e.preventDefault(); t.scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "start"}); if(/^role-/.test(t.id)){ t.classList.remove("arrived"); void t.offsetWidth; t.classList.add("arrived"); } });
+  b.addEventListener("click", function(e){ var t = document.getElementById(b.dataset.go); if(!t) return; var f = t.closest("details.fold"); if(f) f.open = true; if(t.classList.contains("demo-folded") && window.LEXI_UNFOLD) window.LEXI_UNFOLD(t); if(b.tagName === "A") e.preventDefault(); t.scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "start"}); if(/^role-/.test(t.id)){ t.classList.remove("arrived"); void t.offsetWidth; t.classList.add("arrived"); } });
 });
 
 /* ---------- spine ---------- */
@@ -420,7 +420,7 @@ surfaces.forEach(function(s,i){
   select(0);
   /* the 3D view is an enhancement on the SVG: fetch three.js only when the section is about to be seen */
   function loadThree(cb){ if(window.THREE) return cb(); var s = document.createElement("script"); s.src = "js/vendor/three.min.js"; s.onload = cb; document.head.appendChild(s); }
-  var spineEl = document.getElementById("spine");
+  var spineEl = document.querySelector("#spine .panel") || document.getElementById("spine"); /* the panel, so a folded demo on a phone loads nothing */
   if("IntersectionObserver" in window && spineEl){ new IntersectionObserver(function(es, ob){ if(es[0].isIntersecting){ ob.disconnect(); loadThree(upgrade); } }, {rootMargin:"700px 0px"}).observe(spineEl); }
   else loadThree(upgrade);
 
@@ -549,3 +549,22 @@ surfaces.forEach(function(s,i){
 
 /* the CV card: hide on request, and hand focus back to the page */
 (function(){ var x = document.getElementById("fcX"); if(!x) return; x.addEventListener("click", function(){ document.getElementById("fromCv").hidden = true; document.getElementById("main").focus({preventScroll:true}); }); })();
+
+/* on a phone, "How I work" runs to about a third of the page: each demonstration folds to its heading and one line, and opens on request.
+   Desktop, print, and a page without a script keep them open. Folded demos also hold back their opening animations and the 3D engine until opened. */
+(function(){
+  var mq = window.matchMedia("(max-width:760px)"), ids = ["tonality", "craft", "sweep", "beforeafter", "spine"];
+  function nameOf(d){ var h = d.querySelector(".slop-kicker, h3"); return h ? h.textContent.trim() : "this demonstration"; }
+  function set(d, open){ d.classList.toggle("demo-folded", !open); var b = d.querySelector(".demo-open"); if(!b) return;
+    b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Close the demonstration" : "Open the demonstration";
+    b.setAttribute("aria-label", (open ? "Close the demonstration: " : "Open the demonstration: ") + nameOf(d)); }
+  window.LEXI_UNFOLD = function(d){ set(d, true); };
+  function fold(){ ids.forEach(function(id){ var d = document.getElementById(id); if(!d) return;
+    var b = d.querySelector(".demo-open");
+    if(!b){ b = document.createElement("button"); b.type = "button"; b.className = "demo-open"; b.setAttribute("aria-controls", id);
+      var after = d.querySelector(".explain .lead-in") || d.querySelector(".slop-intro"); after.insertAdjacentElement("afterend", b);
+      b.addEventListener("click", function(){ var open = d.classList.contains("demo-folded"); set(d, open); if(!open) d.scrollIntoView({block:"start"}); }); }
+    set(d, false); }); }
+  if(mq.matches) fold();
+  mq.addEventListener("change", function(e){ if(e.matches) fold(); else ids.forEach(function(id){ var d = document.getElementById(id); if(d) set(d, true); }); });
+})();

@@ -828,3 +828,15 @@ a.btn.btn-alt{display:inline-flex;align-items:center}
 @media print{.from-cv{display:none!important}}
 .close .reply{margin:.8rem 0 0;text-align:center;color:var(--slate);font-size:.95rem}
 @media print{.close .reply{display:none!important}}
+
+/* "How I work" folded on phones (js/page.js) */
+.demo-open{display:none}
+@media (max-width:760px){
+  .demo-open{display:inline-flex;align-items:center;gap:.5rem;font:inherit;font-size:.95rem;font-weight:650;color:var(--ink);background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;padding:.45rem 1rem;margin:.2rem 0 .4rem;cursor:pointer}
+  .demo-open::after{content:"";width:.45em;height:.45em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-.15em) rotate(45deg)}
+  .demo-open[aria-expanded="true"]::after{transform:translateY(.1em) rotate(-135deg)}
+  .instrument.demo-folded > :not(.explain),
+  .instrument.demo-folded .explain > :not(.test-label):not(h3):not(.lead-in):not(.demo-open),
+  .slop.demo-folded > :not(.test-label):not(.slop-kicker):not(.slop-intro):not(.demo-open){display:none!important}
+  .instrument.demo-folded{padding-bottom:1.2rem}
+}
