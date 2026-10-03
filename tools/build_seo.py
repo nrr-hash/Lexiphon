@@ -166,6 +166,32 @@ def faq_html():
             '\n  </div>\n</section>\n<!-- faq:end -->')
 
 
+def prerender_headline(page):
+    """Writes the headline's weighted word spans into the HTML, the same markup js/page.js ramp() builds.
+
+    The script is deferred, so without this the headline paints once as plain text and again as weighted words, and on a phone
+    the second paint wraps differently and the page jumps. Edit the headline as plain text in its data-ramp lines and run this."""
+    def line(m):
+        seat = m.group(2)
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", m.group(3))).strip()
+        words = text.split(" ")
+        n = max(1, int(seat or 1)); start = len(words) - n
+        out, box = [], None
+        for i, w in enumerate(words):
+            t = i / (len(words) - 1) if len(words) > 1 else 1
+            span = (f'<span class="w" style="--wt:{int(250 + 650 * t ** 1.35 + 0.5)};'
+                    f'color:color-mix(in srgb, var(--ink) {int(55 + 45 * t + 0.5)}%, var(--slate))">{esc(w)}</span>')
+            if i == start:
+                out.append('<span class="seat">')
+            out.append(span)
+            if i < len(words) - 1:
+                out.append(" ")
+        out.append("</span>")
+        return m.group(1) + "".join(out) + "</span>"
+    pat = r'(<span class="line" data-ramp(?: data-seat="(\d+)")?>)(.*?)</span>(?=\s*(?:<span class="line"|</h1>))'
+    return re.sub(pat, line, page, flags=re.S)
+
+
 def jsonld(page, base, published, concepts, hired, date):
     old = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', page, re.S).group(1))
     if "@graph" in old:
@@ -427,6 +453,7 @@ def main():
     ld = json.dumps(jsonld(page, base, published, concepts, hired, date), ensure_ascii=False, indent=1)
     page = re.sub(r'<script type="application/ld\+json">.*?</script>', lambda m: '<script type="application/ld+json">' + ld + "</script>", page, count=1, flags=re.S)
     page = head_tags(page, base)
+    page = prerender_headline(page)
     changed = write("index.html", page, args.check)
     short, full = llms_texts(page, base, published, concepts, date)
     changed |= write("llms.txt", short, args.check)

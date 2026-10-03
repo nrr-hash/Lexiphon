@@ -83,7 +83,8 @@ function fitHeadline(){
 fitHeadline();
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeadline);
 window.addEventListener("resize", fitHeadline);
-if(!reduce){
+/* on a phone the headline wraps at its edge, so growing the weights would re-wrap it as it goes: no intro animation there */
+if(!reduce && window.innerWidth >= 700){
   hw.forEach(function(w){ w.style.setProperty("--wt", 200); w.style.opacity = .25; });
   setTimeout(function(){ hw.forEach(function(w,i){ setTimeout(function(){ w.style.setProperty("--wt", w.dataset.wt); w.style.opacity = 1; }, i*70); }); }, 450);
 }
@@ -351,7 +352,7 @@ sweepNote = sweepSets[0].note; runSweep(sweepSets[0].text);
 
 /* ---------- in-page navigation without URLs ---------- */
 document.querySelectorAll("[data-go]").forEach(function(b){
-  b.addEventListener("click", function(e){ var t = document.getElementById(b.dataset.go); if(!t) return; if(b.tagName === "A") e.preventDefault(); t.scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "start"}); if(/^role-/.test(t.id)){ t.classList.remove("arrived"); void t.offsetWidth; t.classList.add("arrived"); } });
+  b.addEventListener("click", function(e){ var t = document.getElementById(b.dataset.go); if(!t) return; var f = t.closest("details.fold"); if(f) f.open = true; if(b.tagName === "A") e.preventDefault(); t.scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "start"}); if(/^role-/.test(t.id)){ t.classList.remove("arrived"); void t.offsetWidth; t.classList.add("arrived"); } });
 });
 
 /* ---------- spine ---------- */
@@ -535,4 +536,13 @@ surfaces.forEach(function(s,i){
     return api;
   }
 })();
+})();
+
+/* the history folds on a phone, where Experience is the longest block; it opens for print and stays open without a script */
+(function(){
+  var fold = document.querySelector("details.fold"); if(!fold) return;
+  if(window.matchMedia("(max-width:760px)").matches) fold.open = false;
+  var was = fold.open;
+  window.addEventListener("beforeprint", function(){ was = fold.open; fold.open = true; });
+  window.addEventListener("afterprint", function(){ fold.open = was; });
 })();

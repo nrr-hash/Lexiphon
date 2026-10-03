@@ -46,7 +46,7 @@ img,svg{max-width:100%}
 .mast nav a:hover{color:var(--ink);text-decoration:underline}
 @media (max-width:640px){.mast{flex-wrap:nowrap;align-items:center;padding-bottom:.7rem;padding-top:calc(.8rem + env(safe-area-inset-top,0px))}.mast .tagline{font-size:.8rem}.mast nav a:not(.nav-cta){display:none}}
 .mast nav a.nav-cta{white-space:nowrap;color:var(--paper);background:var(--ink);padding:.15rem .75rem;border-radius:999px;font-weight:600}
-.mast nav a.nav-cta:hover{color:var(--paper);background:var(--amber);text-decoration:none}
+.mast nav a.nav-cta:hover{color:var(--paper);background:var(--amber-deep);text-decoration:none}
 /* hero */ .hero{padding:clamp(2rem,5vw,3.8rem) 0 clamp(1.6rem,4vw,2.8rem)}
 .headline{font-family:var(--display);font-size:clamp(2.6rem,7.2vw,5.6rem);color:var(--ink);line-height:.98;letter-spacing:-.015em;margin:0 0 1.2rem;font-weight:400}
 .headline .line{display:block}
@@ -65,7 +65,7 @@ img,svg{max-width:100%}
 .glance dd b{display:block;font-weight:650}
 .glance dd span{display:block;color:var(--slate);font-size:.85rem}
 .btn{font:inherit;font-size:.9rem;font-weight:650;text-decoration:none;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink);border-radius:999px;padding:.45rem 1rem;cursor:pointer}
-.btn:hover{background:var(--amber);border-color:var(--amber);color:var(--paper)}
+.btn:hover{background:var(--amber-deep);border-color:var(--amber-deep);color:var(--paper)}
 .ask{font-family:var(--display);font-variation-settings:"opsz" 36,"wght" 560;font-size:1.25em;line-height:1.3;color:var(--ink);border-left:3px solid var(--amber);padding-left:.9rem}
 .intro{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem;max-width:64ch}
 .intro .lede{font-family:var(--display);font-variation-settings:"opsz" 32,"wght" 420;font-size:clamp(1.2rem,2.2vw,1.5rem);line-height:1.4;margin:0}
@@ -181,6 +181,11 @@ details.words summary{cursor:pointer;color:var(--ink)}
 .role li::before{content:"\2013";position:absolute;left:0;color:var(--slate)}
 .role li:first-child::before{color:var(--amber)}
 .sub-head{font-family:var(--display);font-variation-settings:"opsz" 48,"wght" 560;font-size:1.5rem;margin:2.8rem 0 1rem}
+.fold>summary.sub-head{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr;column-gap:.8rem;align-items:baseline;margin:2.8rem 0 .4rem}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary.sub-head::before{content:"";margin-left:.2em;width:.55em;height:.55em;border-right:2px solid var(--slate);border-bottom:2px solid var(--slate);transform:translateY(-.18em) rotate(-45deg);transition:transform .2s ease}
+.fold[open]>summary.sub-head::before{transform:translateY(-.3em) rotate(45deg)}
+.fold-n{grid-column:2;font-family:var(--body);font-variation-settings:normal;font-size:.9rem;font-weight:400;color:var(--slate)}
 .history{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 2.5rem}
 .history .h{padding:1.1rem 0;border-top:1px solid var(--rule)}
 .history h4{margin:0;font-size:1.02rem;font-weight:700}
@@ -675,7 +680,7 @@ dialog.dz.evon .dz-bottom{visibility:hidden}
   .mast .tagline{font-size:8.6pt}
   .mast nav{display:none!important}
   .mast::after{content:"nathan667@gmail.com  /  +356 9902 1235  /  Gozo, Malta";font-size:8.6pt;color:#3F5249}
-  .weight-note,.opening-copy,.opening,.sec-head .learnt,.bridge,.slop,#gallery,#method,.shot-img,.prints-ev,.jump,.cta-audit,.audit,details,.listen-row,.close-line,.close-links,.sec-head p.ask,.sec-head p b.handoff{display:none!important}
+  .weight-note,.opening-copy,.opening,.sec-head .learnt,.bridge,.slop,#gallery,#method,.shot-img,.prints-ev,.jump,.cta-audit,.audit,details:not(.fold),.listen-row,.close-line,.close-links,.sec-head p.ask,.sec-head p b.handoff{display:none!important}
   section{padding:4pt 0 0!important;border-top:0!important;break-inside:auto}
   .hero{padding:8pt 0 0!important}
   .headline{font-size:17pt!important;line-height:1.05!important;margin:0 0 5pt!important}
@@ -801,3 +806,9 @@ a.btn.btn-alt{display:inline-flex;align-items:center}
 .try-next a{font-weight:650}
 @media print{#protocol,#try{display:none!important}}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* a way in, mid-page, and the sample record's route to the evidence */
+.cta-mid{margin:1.2rem 0 0;font-size:1.02rem;text-wrap:pretty}
+.cta-mid a{font-weight:650;text-underline-offset:.2em}
+.lg-act{margin:1rem 0 0}
+@media print{.cta-mid,.lg-act{display:none!important}}
