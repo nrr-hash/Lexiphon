@@ -546,3 +546,6 @@ surfaces.forEach(function(s,i){
   window.addEventListener("beforeprint", function(){ was = fold.open; fold.open = true; });
   window.addEventListener("afterprint", function(){ fold.open = was; });
 })();
+
+/* the CV card: hide on request, and hand focus back to the page */
+(function(){ var x = document.getElementById("fcX"); if(!x) return; x.addEventListener("click", function(){ document.getElementById("fromCv").hidden = true; document.getElementById("main").focus({preventScroll:true}); }); })();

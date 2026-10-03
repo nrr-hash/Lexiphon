@@ -172,19 +172,60 @@ function runCheck(){
   var dt = function(a, b){ return Math.abs(a - b) <= 20; }, st = m.st, PN = {it:"the third person", you:"the reader", we:"the speaker"};
   var rows = [
     ["Tone", dt(m.tone.casual, prof.tone.casual) && dt(m.tone.enthusiastic, prof.tone.enthusiastic),
-      "On the formal-to-casual dial the draft sits at " + m.tone.casual + " and the profile at " + prof.tone.casual + ", judged from " + m.contr + (m.contr === 1 ? " contraction" : " contractions") + " and the word lengths. On enthusiasm the draft sits at " + m.tone.enthusiastic + " and the profile at " + prof.tone.enthusiastic + ", from " + m.excl + " exclamation marks, " + m.intens + " intensifiers, and " + m.absol.length + " absolute claims. Humour and respect are for your ear: no rule here measures them."],
+      "On the formal-to-casual dial the draft sits at " + m.tone.casual + " and the profile at " + prof.tone.casual + ", judged from " + m.contr + (m.contr === 1 ? " contraction" : " contractions") + " and the word lengths. On enthusiasm the draft sits at " + m.tone.enthusiastic + " and the profile at " + prof.tone.enthusiastic + ", from " + m.excl + (m.excl === 1 ? " exclamation mark, " : " exclamation marks, ") + m.intens + (m.intens === 1 ? " intensifier, and " : " intensifiers, and ") + m.absol.length + (m.absol.length === 1 ? " absolute claim." : " absolute claims.") + " Humour and respect are for your ear: no rule here measures them."],
     ["Point of view", m.person === d.person, "Written mostly from " + PN[m.person] + "; the profile speaks " + PERSONNAME[d.person] + "."],
     ["Rhythm", m.rhythm === d.rhythm, st ? "Sentences average " + Math.round(m.mean) + " words, from " + Math.min.apply(null, E.splitSentences(text).map(function(s){ return E.wordsIn(s).length; }).filter(Boolean)) + " to " + Math.max.apply(null, E.splitSentences(text).map(function(s){ return E.wordsIn(s).length; })) + ", spread " + (st.cv || 0).toFixed(2) + ". That reads as " + m.rhythm + "; the profile asks for " + d.rhythm + "." : "Too short to read."],
     ["Words", !tells, (tr.swaps ? tr.swaps + (tr.swaps === 1 ? " word has" : " words have") + " an alternative in " + escHtml(d.words || "") + "’s list (see Rewritten). " : d.words ? "No word here has an entry in " + escHtml(d.words) + "’s list. " : "") + (tells ? tells + (tells === 1 ? " phrase is" : " phrases are") + " on the house list, marked red." : "Nothing from the house list.")],
     ["Claims", !m.figs.length && !m.absol.length, (m.figs.length ? m.figs.length + (m.figs.length === 1 ? " figure needs" : " figures need") + " a source, marked amber. " : "No figures. ") + (m.absol.length ? "Absolute claims: " + escHtml(m.absol.join(", ")) + ". " : "") + "Whether any of it is true is a question for the sources, not for Lexiphon."]
   ];
-  $("lxReport").innerHTML = '<p class="lx-cap">Against the profile</p><ul>' + rows.map(function(r){ return '<li class="' + (r[1] ? "ok" : "warn") + '"><b>' + r[0] + '.</b> ' + r[2] + '</li>'; }).join("") + '</ul><button type="button" class="lx-learn" id="lxLearn" data-tip="learn">Make this draft the profile</button>';
+  var inLine = rows.filter(function(r){ return r[1]; }).length;
+  lastResult = {words:E.wordsIn(text).length, sentences:E.splitSentences(text).length, inLine:inLine, figs:m.figs.length, abs:m.absol.length, tells:tells,
+    who:preset === "mine" ? "My voice, measured from this page’s opening" : preset ? preset + "’s place on the dials" : "a setting of the visitor’s own",
+    dials:"formal to casual " + prof.tone.casual + ", serious to funny " + prof.tone.funny + ", respectful to irreverent " + prof.tone.irreverent + ", matter-of-fact to enthusiastic " + prof.tone.enthusiastic,
+    rows:rows.map(function(r){ return [r[0], r[1], plain(r[2])]; }), marked:html};
+  $("lxReport").innerHTML = '<p class="lx-cap">Against the profile</p><ul>' + rows.map(function(r){ return '<li class="' + (r[1] ? "ok" : "warn") + '"><b>' + r[0] + '.</b> ' + r[2] + '</li>'; }).join("") + '</ul><button type="button" class="lx-learn" id="lxLearn" data-tip="learn">Make this draft the profile</button>' +
+    '<p class="lx-send"><a class="btn" id="lxMail" href="' + escHtml(mailFor(lastResult)) + '">Send me this result</a><button type="button" class="btn btn-alt" id="lxPrint">Print this check</button><span>The email carries the scores, not your draft.</span></p>';
   $("lxChecks").innerHTML = chk(!m.figs.length, m.figs.length + (m.figs.length === 1 ? " figure" : " figures") + " to source") + chk(!m.absol.length, m.absol.length + " absolute " + (m.absol.length === 1 ? "claim" : "claims")) + chk(!tells, tells + " house-list " + (tells === 1 ? "phrase" : "phrases")) + chk(true, rows.filter(function(r){ return r[1]; }).length + " of 5 layers in line");
   lastMeasure = m;
 }
-var lastMeasure = null, ct = 0;
+var lastMeasure = null, lastResult = null, ct = 0;
+function plain(h){ var t = document.createElement("div"); t.innerHTML = h; return t.textContent; }
+/* the result as an email to me: scores and the report, never the visitor's text */
+function mailFor(R){
+  var head = ["Hello Nathaniel,", "", "I ran a draft through Lexiphon on your page. The result is below; my draft is not included.", "",
+    "Draft: " + R.words + " words, " + R.sentences + (R.sentences === 1 ? " sentence." : " sentences."),
+    "Profile: " + R.who + " (" + R.dials + ").",
+    "Layers in line: " + R.inLine + " of 5.",
+    "Figures to source: " + R.figs + ". Absolute claims: " + R.abs + ". House-list phrases: " + R.tells + "."];
+  var detail = R.rows.map(function(r){ return r[0] + (r[1] ? " (in line): " : " (off the profile): ") + r[2]; });
+  var tail = ["", "What I would like to discuss:", ""];
+  var subject = "Lexiphon check: " + R.inLine + " of 5 layers in line";
+  function url(lines){ return "mailto:nathan667@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\r\n")); }
+  var brief = R.rows.map(function(r){ return r[0] + ": " + (r[1] ? "in line." : "off the profile."); });
+  var tries = [url(head.concat([""], detail, tail)), url(head.concat([""], brief, tail)), url(head.concat(tail))];
+  for(var i = 0; i < tries.length; i++){ if(tries[i].length <= 1900) return tries[i]; }
+  return tries[2];
+}
+/* the result as one printed page, with the draft marked */
+function printCheck(){
+  var R = lastResult; if(!R) return;
+  var old = document.getElementById("lxSheet"); if(old) old.remove();
+  var sh = document.createElement("div"); sh.id = "lxSheet";
+  var day = new Date().toLocaleDateString("en-GB", {day:"numeric", month:"long", year:"numeric"});
+  sh.innerHTML = '<div class="ls-head"><b>Draft check</b><span>Lexiphon, nrr-hash.github.io/Lexiphon, ' + escHtml(day) + '</span></div>' +
+    '<p class="ls-meta">' + R.words + ' words, ' + R.sentences + (R.sentences === 1 ? ' sentence' : ' sentences') + ', checked against ' + escHtml(R.who) + ' (' + escHtml(R.dials) + '). ' + R.inLine + ' of 5 layers in line.</p>' +
+    '<h2>The draft, marked</h2><div class="ls-draft">' + R.marked + '</div>' +
+    '<p class="ls-key"><span><mark class="m-tell">Red</mark> a phrase on the house list of machine-written tells.</span> <span><mark class="m-fig">Amber</mark> a figure that needs a source.</span> <span><mark class="m-abs">Dark amber</mark> an absolute claim.</span></p>' +
+    '<h2>Against the profile</h2><ul>' + R.rows.map(function(r){ return '<li><b>' + escHtml(r[0]) + (r[1] ? ', in line.' : ', off the profile.') + '</b> ' + escHtml(r[2].replace(" (see Rewritten)", "")) + '</li>'; }).join("") + '</ul>' +
+    '<p class="ls-limit">Lexiphon runs on rules in the browser. It cannot tell whether a claim is true, and it cannot hear humour or respect.</p>' +
+    '<p class="ls-foot">Nathaniel Robertson, content specialist. A content audit checks a whole library this way, by rule and then by hand. nathan667@gmail.com. I reply within one working day.</p>';
+  document.body.appendChild(sh);
+  document.documentElement.classList.add("lx-printing");
+  window.print();
+}
+window.addEventListener("afterprint", function(){ document.documentElement.classList.remove("lx-printing"); var sh = document.getElementById("lxSheet"); if(sh) sh.remove(); });
 ta.addEventListener("input", function(){ clearTimeout(ct); ct = setTimeout(run, 160); });
-$("lxReport").addEventListener("click", function(e){ if(!(e.target.closest && e.target.closest("#lxLearn")) || !lastMeasure) return;
+$("lxReport").addEventListener("click", function(e){ if(e.target.closest && e.target.closest("#lxPrint")){ printCheck(); return; } if(!(e.target.closest && e.target.closest("#lxLearn")) || !lastMeasure) return;
   var m = lastMeasure; prof.tone.casual = m.tone.casual; prof.tone.enthusiastic = m.tone.enthusiastic; prof.person = m.person; prof.rhythm = m.rhythm; preset = null;
   drawStart(); drawStartSoft(); $("lxNow").textContent = "Learnt from your draft: formality, enthusiasm, point of view, and rhythm. Humour and respect stay where you set them."; drawProfile(); run(); });
 
