@@ -91,7 +91,7 @@ At micro1 I review robotic-arm video against customer grading guidelines. My ann
 
 ## Try it on your own words
 Lexiphon is a worked example of a brand voice written down as a profile. Paste a draft of yours and see what it makes of it.
-Found something worth fixing? A content audit does the same across a whole library, and prices the rebuild in writing.
+Lexiphon checks one draft against one voice. A content audit scores a whole library for machine-generated tells and search exposure, and prices the rebuild in writing.
 
 ## How I work
 Every piece of work was put through three tests: how it sounds, whether it is true, and who it is for. Five live demonstrations on the page show the tests, and Lexiphon shows all three.

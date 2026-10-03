@@ -229,7 +229,7 @@ function closeEv(silent){ if(!card || card.hidden) return; card.hidden = true; d
 document.getElementById("ze-x").addEventListener("click", function(){ closeEv(); });
 document.getElementById("ze-prev").addEventListener("click", function(){ showEv(evAt - 1); });
 document.getElementById("ze-next").addEventListener("click", function(){ showEv(evAt + 1); });
-var tour = document.getElementById("evTour"); if(tour) tour.addEventListener("click", function(){ showEv(0); });
+document.querySelectorAll("#evTour, [data-evtour]").forEach(function(tour){ tour.addEventListener("click", function(){ showEv(0); }); });
 
 /* links: #page-rega and the like open that page */
 function setHash(id){ try{ var u = location.pathname + location.search + (id ? "#" + id : ""); if(u !== location.pathname + location.search + location.hash) history.replaceState(null, "", u); }catch(e){} }
