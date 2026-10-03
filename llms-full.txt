@@ -2,7 +2,7 @@
 
 > Content specialist for source-checked B2B, B2C, and B2G writing, AI editing and governance, and content audits. Every claim goes back to its source.
 
-Source: https://nrr-hash.github.io/Lexiphon/ (version 1.3, 1 October 2026). Generated from the page by tools/build_seo.py on 2026-10-01. The page is written in the first person by Nathaniel Robertson.
+Source: https://nrr-hash.github.io/Lexiphon/ (version 1.3, 1 October 2026). Generated from the page by tools/build_seo.py on 2026-10-03. The page is written in the first person by Nathaniel Robertson.
 
 Not included: the interface, the demonstration texts, and three exhibits that are not his writing (an AI-written bio, a quotation from Cambridge Audio's own product page, and the sample passages in Telltale and Lexiphon).
 
